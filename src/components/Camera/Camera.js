@@ -1,13 +1,11 @@
 import * as THREE from '../../../vendor/three.module.js'
 
-import { controls } from '../../controls.js'
+import { camera as camControls } from '../../controls.js'
 
 class Camera extends THREE.PerspectiveCamera {
 
     constructor ( aspect ) {
 
-        const camControls = controls.camera
-        
         super(
             camControls.fov,
             aspect,

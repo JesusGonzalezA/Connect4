@@ -56,13 +56,13 @@ class Scene extends THREE.Scene {
     return this.camera;
   }
   
-  setCameraAspect (ratio) {
-    this.camera.setCameraAspect(ratio)
+  setCameraAspect ( ratio ) {
+    this.camera.setCameraAspect( ratio )
   }
     
   onWindowResize () {
-    this.setCameraAspect (window.innerWidth / window.innerHeight);
-    this.renderer.setSize (window.innerWidth, window.innerHeight);
+    this.setCameraAspect ( window.innerWidth / window.innerHeight );
+    this.renderer.setSize ( window.innerWidth, window.innerHeight );
   }
 
   update () {

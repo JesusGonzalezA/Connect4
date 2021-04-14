@@ -1,12 +1,12 @@
 import { TrackballControls } from '../../../vendor/TrackballControls.js'
 
-import { controls } from '../../controls.js'
+import { camera as camValues } from '../../controls.js'
 
 class CameraControls extends TrackballControls {
 
     constructor ( camera, rendererDom ) {
 
-        const camControls = controls.camera.cameraControls
+        const camControls = camValues.controls
         
         super( camera, rendererDom )
 
