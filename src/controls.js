@@ -16,7 +16,7 @@ export const camera = {
 }
 
 export const renderer = {
-
+    color: 0xAAAAAA
 }
 
 export const lights = {

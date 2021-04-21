@@ -2,6 +2,7 @@ import * as THREE from '../vendor/three.module.js'
 
 import { Camera } from './components/Camera/Camera.js'  
 import { CameraControls } from './components/Camera/CameraControls.js'  
+import { Renderer } from './components/Renderer.js'
 
  
 class Scene extends THREE.Scene {
@@ -10,11 +11,11 @@ class Scene extends THREE.Scene {
     
     super()  
     
-    this.renderer = this.createRenderer(myCanvas)  
+    this.renderer = this.createRenderer( myCanvas )  
 
     this.createLights()  
     this.createCamera()  
-    this.createAxes(1)  
+    this.createAxes( 1 )  
   }
   
   createAxes ( size ) {
@@ -43,10 +44,11 @@ class Scene extends THREE.Scene {
   }
   
   createRenderer ( myCanvas ) {
-    const renderer = new THREE.WebGLRenderer()  
-    renderer.setClearColor(new THREE.Color(0xAAAAAAA), 1.0)  
-    renderer.setSize(window.innerWidth, window.innerHeight)  
-    $(myCanvas).append(renderer.domElement)  
+    const renderer = new Renderer( 
+      myCanvas, 
+      window.innerWidth, 
+      window.innerHeight 
+    )
     
     return renderer    
   }
@@ -60,8 +62,11 @@ class Scene extends THREE.Scene {
   }
     
   onWindowResize () {
-    this.setCameraAspect ( window.innerWidth / window.innerHeight )  
-    this.renderer.setSize ( window.innerWidth, window.innerHeight )  
+    const width = window.innerWidth
+    const height = window.innerHeight
+
+    this.setCameraAspect( width / height )  
+    this.renderer.setSize( width, height )  
   }
 
   update () {
