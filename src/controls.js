@@ -20,5 +20,25 @@ export const renderer = {
 }
 
 export const lights = {
+    spotLight: {
+        color: 0xffffff,
+        intensity: 0.5,
+        position: {
+            x: 60,
+            y: 60,
+            z: 40
+        }
+    },
+    ambientLight: {
+        color: 0xccddee,
+        intensity: 0.35,
+    }
+}
 
+export const scene = {
+    cameraControls: true,
+    axesHelper: {
+        size: 1,
+        visible: true
+    }
 }

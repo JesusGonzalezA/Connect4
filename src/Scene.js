@@ -2,6 +2,7 @@ import * as THREE from '../vendor/three.module.js'
 
 import { Camera } from './components/Camera/Camera.js'  
 import { CameraControls } from './components/Camera/CameraControls.js'  
+import { LightController } from './components/Lights/LigthController.js'
 import { Renderer } from './components/Renderer.js'
 
  
@@ -11,11 +12,10 @@ class Scene extends THREE.Scene {
     
     super()  
     
-    this.renderer = this.createRenderer( myCanvas )  
-
+    this.createRenderer( myCanvas )  
     this.createLights()  
     this.createCamera()  
-    this.createAxes( 1 )  
+    this.createAxes( 1 )
   }
   
   createAxes ( size ) {
@@ -32,25 +32,18 @@ class Scene extends THREE.Scene {
   }
   
   createLights () {
-    const ambientLight = new THREE.AmbientLight(0xccddee, 0.35)  
-    this.spotLight = new THREE.SpotLight( 
-      0xffffff, 
-      0.5
-    )  
+    const lightsController = new LightController()
+    const lights = lightsController.getLights()
     
-    this.spotLight.position.set( 60, 60, 40 )  
-    this.add (ambientLight)  
-    this.add (this.spotLight)  
+    this.add ( ...lights )
   }
   
   createRenderer ( myCanvas ) {
-    const renderer = new Renderer( 
+    this.renderer = new Renderer( 
       myCanvas, 
       window.innerWidth, 
       window.innerHeight 
     )
-    
-    return renderer    
   }
   
   getCamera () {
