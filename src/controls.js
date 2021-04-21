@@ -24,10 +24,11 @@ export const lights = {
         color: 0xffffff,
         intensity: 0.5,
         position: {
-            x: 60,
-            y: 60,
-            z: 40
-        }
+            x: 6,
+            y: 6,
+            z: 4
+        },
+        isHelperVisible: false
     },
     ambientLight: {
         color: 0xccddee,

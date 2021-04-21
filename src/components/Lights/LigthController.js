@@ -6,10 +6,21 @@ class LightController {
 
     constructor () {
 
-        const ambientLight = this.createAmbientLight()
-        const spotLight    = this.createSpotLight()
+        this.createLights()
+        this.createHelpers()
+    }
 
-        this.lights = [ ambientLight, spotLight ]
+    createLights () {
+        this.ambientLight = this.createAmbientLight()
+        this.spotLight    = this.createSpotLight()
+        this.lights  = [ this.ambientLight, this.spotLight ]
+    }
+
+    createHelpers () {
+        this.spotLightHelper = new THREE.SpotLightHelper( this.spotLight )
+        this.spotLightHelper.visible = lightsControls.spotLight.isHelperVisible
+
+        this.helpers = [ this.spotLightHelper ]
     }
 
     createAmbientLight () {
@@ -27,8 +38,25 @@ class LightController {
         return spotLight
     }
 
+    getSpotLight () {
+        return this.spotLight
+    }
+
+    getSpotLightHelper () {
+        return this.spotLightHelper
+    }
+    
     getLights () {
         return this.lights
+    }
+
+    getHelpers () {
+        return this.helpers
+    }
+
+    update () {
+        if ( lightsControls.spotLight.isHelperVisible )
+            this.spotLightHelper.update()
     }
 }
 

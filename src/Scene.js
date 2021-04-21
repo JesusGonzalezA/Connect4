@@ -33,10 +33,11 @@ class Scene extends THREE.Scene {
   }
   
   createLights () {
-    const lightsController = new LightController()
-    const lights = lightsController.getLights()
+    this.lightsController = new LightController()
+    const lights  = this.lightsController.getLights()
+    const helpers = this.lightsController.getHelpers()
     
-    this.add ( ...lights )
+    this.add ( ...lights, ...helpers )
   }
   
   createRenderer () {
@@ -64,7 +65,8 @@ class Scene extends THREE.Scene {
 
   update () {
     this.renderer.render ( this, this.getCamera() )  
-    this.cameraControl.update()     
+    this.cameraControl.update()
+    this.lightsController.update()  
 
     requestAnimationFrame( () => this.update() )  
   }
