@@ -20,7 +20,8 @@ class GUI extends DATGUI {
         const controls = this.controls 
 
         const debug = {
-            scene, controls, 
+            scene, controls,
+            axesScale: 1, 
             setDebug: () => this.setDebug( true ),
             deactivateDebug: () => this.setDebug( false ),
             toggleAxes: () => this.setAxesVisibility(),
@@ -32,6 +33,16 @@ class GUI extends DATGUI {
 
         debugFolder.add( debug, 'setDebug' ).name('Activar')
         debugFolder.add( debug, 'deactivateDebug' ).name('Desactivar')
+
+        debugFolder
+            .add( debug, 'axesScale' )
+            .min(1)
+            .max(20)
+            .step(0.5)
+            .name('Tam de los ejes')
+            .onFinishChange( () => {
+                this.scene.getAxes().setScale(debug.axesScale)
+            })
 
         debugFolder.add( debug, 'toggleAxes').name('Ejes')
         debugFolder.add( debug, 'toggleLightsHelper').name('Luces')

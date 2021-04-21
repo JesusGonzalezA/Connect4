@@ -11,6 +11,10 @@ class AxesHelper extends THREE.AxesHelper {
     setVisible ( isVisible ) {
         this.visible = isVisible
     }
+
+    setScale ( value ) {
+        this.scale.set( value, value, value )
+    }
 }
 
 export { AxesHelper }
