@@ -1,18 +1,22 @@
 import { TrackballControls } from '../../../vendor/TrackballControls.js'
 
-import { camera as camValues } from '../../controls.js'
-
 class CameraControls extends TrackballControls {
 
-    constructor ( camera, rendererDom ) {
+    constructor ( controls, camera, rendererDom ) {
 
-        const camControls = camValues.controls
+        const {
+            rotateSpeed,
+            zoomSpeed, 
+            panSpeed,
+            enabled
+        } = controls
         
         super( camera, rendererDom )
 
-        this.rotateSpeed = camControls.rotateSpeed
-        this.zoomSpeed   = camControls.zoomSpeed
-        this.panSpeed    = camControls.panSpeed
+        this.enabled = enabled
+        this.rotateSpeed = rotateSpeed
+        this.zoomSpeed   = zoomSpeed
+        this.panSpeed    = panSpeed
         this.target      = camera.getLook()
     }
 }

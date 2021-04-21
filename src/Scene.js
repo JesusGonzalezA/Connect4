@@ -1,6 +1,6 @@
 import * as THREE from '../vendor/three.module.js'
-import { AxesHelper } from './components/AxesHelper.js'
 
+import { AxesHelper } from './components/AxesHelper.js'
 import { Camera } from './components/Camera/Camera.js'  
 import { CameraControls } from './components/Camera/CameraControls.js'  
 import { LightController } from './components/Lights/LigthController.js'
@@ -9,39 +9,44 @@ import { Renderer } from './components/Renderer.js'
  
 class Scene extends THREE.Scene {
 
-  constructor () { 
+  constructor ( controls ) { 
     
     super()  
     
-    this.createRenderer()  
-    this.createLights()  
-    this.createCamera()  
-    this.createAxes()
+    this.createRenderer( controls.scene.canvasName, controls.renderer )  
+    this.createLights( controls.lights )  
+    this.createCamera( controls.camera )  
+    this.createAxes( controls.scene.axesHelper )
   }
   
-  createAxes () {
-    const axes = new AxesHelper()
+  createAxes ( controls ) {
+    const axes = new AxesHelper( controls )
     this.add(axes)  
   }
 
-  createCamera () {
-    this.camera = new Camera( window.innerWidth / window.innerHeight )
+  createCamera ( controls ) {
+    const aspect = window.innerWidth / window.innerHeight 
+
+    this.camera = new Camera( controls, aspect )
     this.cameraControl = new CameraControls(
+        controls.controller,
         this.camera,
         this.renderer.domElement
     )
   }
   
-  createLights () {
-    this.lightsController = new LightController()
+  createLights ( controls ) {
+    this.lightsController = new LightController( controls )
     const lights  = this.lightsController.getLights()
     const helpers = this.lightsController.getHelpers()
     
     this.add ( ...lights, ...helpers )
   }
   
-  createRenderer () {
+  createRenderer ( canvasName, controls ) {
     this.renderer = new Renderer(
+      controls, 
+      canvasName,
       window.innerWidth, 
       window.innerHeight 
     )

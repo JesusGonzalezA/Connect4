@@ -1,13 +1,11 @@
 import * as THREE from '../../vendor/three.module.js'
 
-import { scene as sceneControls } from '../controls.js'
-
 class AxesHelper extends THREE.AxesHelper {
 
-    constructor ( ) {
-        super( sceneControls.axesHelper.size )
+    constructor ( controls ) {
+        super( controls.size )
 
-        this.setVisible( sceneControls.axesHelper.visible )
+        this.setVisible( controls.visible )
     }
 
     setVisible ( isVisible ) {

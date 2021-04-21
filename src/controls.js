@@ -8,10 +8,11 @@ export const camera = {
     look: {
         x: 0, y: 0, z: 0
     },
-    controls: {
+    controller: {
         rotateSpeed: 5,
         zoomSpeed: -2,
-        panSpeed: 0.5
+        panSpeed: 0.5,
+        enabled: true
     }
 }
 
@@ -38,7 +39,6 @@ export const lights = {
 
 export const scene = {
     canvasName: '#WebGL-output',
-    cameraControls: true,
     axesHelper: {
         size: 1,
         visible: true

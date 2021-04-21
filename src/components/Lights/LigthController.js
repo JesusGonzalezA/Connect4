@@ -1,10 +1,10 @@
 import * as THREE from '../../../vendor/three.module.js'
 
-import { lights as lightsControls } from '../../controls.js'
-
 class LightController {
 
-    constructor () {
+    constructor ( controls ) {
+        
+        this.controls = controls
 
         this.createLights()
         this.createHelpers()
@@ -18,19 +18,19 @@ class LightController {
 
     createHelpers () {
         this.spotLightHelper = new THREE.SpotLightHelper( this.spotLight )
-        this.spotLightHelper.visible = lightsControls.spotLight.isHelperVisible
+        this.spotLightHelper.visible = this.controls.spotLight.isHelperVisible
 
         this.helpers = [ this.spotLightHelper ]
     }
 
     createAmbientLight () {
-        const { color, intensity } = lightsControls.ambientLight
+        const { color, intensity } = this.controls.ambientLight
 
         return new THREE.AmbientLight( color, intensity )  
     }
 
     createSpotLight () {
-        const { color, intensity, position } = lightsControls.spotLight
+        const { color, intensity, position } = this.controls.spotLight
 
         const spotLight = new THREE.SpotLight( color, intensity )  
         spotLight.position.copy( position )
@@ -55,7 +55,7 @@ class LightController {
     }
 
     update () {
-        if ( lightsControls.spotLight.isHelperVisible )
+        if ( this.controls.spotLight.isHelperVisible )
             this.spotLightHelper.update()
     }
 }

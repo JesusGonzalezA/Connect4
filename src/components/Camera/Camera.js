@@ -1,29 +1,22 @@
 import * as THREE from '../../../vendor/three.module.js'
 
-import { camera as camControls } from '../../controls.js'
-
 class Camera extends THREE.PerspectiveCamera {
 
-    constructor ( aspect ) {
+    constructor ( controls,  aspect ) {
 
-        super(
-            camControls.fov,
-            aspect,
-            camControls.near,
-            camControls.far
-        )
+        const { 
+            fov, 
+            near, 
+            far, 
+            position, 
+            look
+        } = controls
 
-        this.position.set(
-            camControls.position.x, 
-            camControls.position.y, 
-            camControls.position.z
-        )
+        super( fov, aspect, near, far )
 
-        this.setLookAt(  
-            camControls.look.x, 
-            camControls.look.y, 
-            camControls.look.z 
-        )
+        this.position.copy(position)
+
+        this.setLookAt( look.x, look.y, look.z )
 
     }
 
