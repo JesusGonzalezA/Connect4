@@ -44,3 +44,7 @@ export const scene = {
         visible: true
     }
 }
+
+export const game = {
+
+}

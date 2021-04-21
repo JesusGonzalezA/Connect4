@@ -1,4 +1,4 @@
-import { TrackballControls } from '../../../vendor/TrackballControls.js'
+import { TrackballControls } from '/vendor/TrackballControls.js'
 
 class CameraControls extends TrackballControls {
 

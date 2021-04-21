@@ -1,8 +1,9 @@
-import * as THREE from '../vendor/three.module.js'
+import * as THREE from '/vendor/three.module.js'
 
 import { AxesHelper } from './components/AxesHelper.js'
 import { Camera } from './components/Camera/Camera.js'  
 import { CameraControls } from './components/Camera/CameraControls.js'
+import { Game } from './components/Game/Game.js'
 import { LightController } from './components/Lights/LigthController.js'
 import { Renderer } from './components/Renderer.js'
 
@@ -17,6 +18,12 @@ class Scene extends THREE.Scene {
     this.createLights( controls.lights )  
     this.createCamera( controls.camera )  
     this.createAxes( controls.scene.axesHelper )
+
+    this.createGame( controls.game )
+  }
+
+  createGame ( controls ) {
+    this.game = new Game( controls )
   }
 
   createAxes ( controls ) {
@@ -71,7 +78,8 @@ class Scene extends THREE.Scene {
   update () {
     this.renderer.render ( this, this.getCamera() )  
     this.cameraControl.update()
-    this.lightsController.update()  
+    this.lightsController.update() 
+    this.game.update() 
 
     requestAnimationFrame( () => this.update() )  
   }
