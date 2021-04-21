@@ -24,6 +24,7 @@ class Scene extends THREE.Scene {
 
   createGame ( controls ) {
     this.game = new Game( controls )
+    this.add( this.game )
   }
 
   createAxes ( controls ) {

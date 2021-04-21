@@ -1,10 +1,15 @@
+import * as THREE from '/vendor/three.module.js'
+
 import { Piece } from "./Piece.js"
 
 
-class Game {
+class Game extends THREE.Object3D {
     
     constructor () {
-        new Piece()
+        super()
+        
+        const piece = new Piece()
+        this.add(piece)
     }
 
     update () {
