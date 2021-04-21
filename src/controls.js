@@ -36,6 +36,7 @@ export const lights = {
 }
 
 export const scene = {
+    canvasName: '#WebGL-output',
     cameraControls: true,
     axesHelper: {
         size: 1,

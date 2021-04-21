@@ -1,4 +1,5 @@
 import * as THREE from '../vendor/three.module.js'
+import { AxesHelper } from './components/AxesHelper.js'
 
 import { Camera } from './components/Camera/Camera.js'  
 import { CameraControls } from './components/Camera/CameraControls.js'  
@@ -8,18 +9,18 @@ import { Renderer } from './components/Renderer.js'
  
 class Scene extends THREE.Scene {
 
-  constructor ( myCanvas ) { 
+  constructor () { 
     
     super()  
     
-    this.createRenderer( myCanvas )  
+    this.createRenderer()  
     this.createLights()  
     this.createCamera()  
-    this.createAxes( 1 )
+    this.createAxes()
   }
   
-  createAxes ( size ) {
-    const axes = new THREE.AxesHelper( size )  
+  createAxes () {
+    const axes = new AxesHelper()
     this.add(axes)  
   }
 
@@ -38,9 +39,8 @@ class Scene extends THREE.Scene {
     this.add ( ...lights )
   }
   
-  createRenderer ( myCanvas ) {
-    this.renderer = new Renderer( 
-      myCanvas, 
+  createRenderer () {
+    this.renderer = new Renderer(
       window.innerWidth, 
       window.innerHeight 
     )
