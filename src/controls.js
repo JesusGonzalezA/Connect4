@@ -13,7 +13,8 @@ export const camera = {
         zoomSpeed: -2,
         panSpeed: 0.5,
         enabled: true
-    }
+    },
+    isHelperVisible: false
 }
 
 export const renderer = {

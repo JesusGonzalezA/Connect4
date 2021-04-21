@@ -9,15 +9,28 @@ class Camera extends THREE.PerspectiveCamera {
             near, 
             far, 
             position, 
-            look
+            look,
+            isHelperVisible
         } = controls
 
         super( fov, aspect, near, far )
 
         this.position.copy(position)
-
         this.setLookAt( look.x, look.y, look.z )
+        this.createHelper( isHelperVisible )
+    }
 
+    createHelper ( isHelperVisible ) {
+        this.helper = new THREE.CameraHelper( this )
+        this.setHelperVisibility( isHelperVisible )
+    }
+
+    getHelper () {
+        return this.helper
+    }
+
+    setHelperVisibility ( isHelperVisible ) {
+        this.helper.visible = isHelperVisible
     }
 
     setCameraAspect ( ratio ) {
@@ -32,6 +45,9 @@ class Camera extends THREE.PerspectiveCamera {
 
     getLook () {
         return this.look
+    }
+
+    update () {
     }
 }
 

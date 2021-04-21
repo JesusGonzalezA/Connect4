@@ -55,6 +55,8 @@ class LightController {
     }
 
     update () {
+        this.spotLightHelper.visible = this.controls.spotLight.isHelperVisible
+        
         if ( this.controls.spotLight.isHelperVisible )
             this.spotLightHelper.update()
     }

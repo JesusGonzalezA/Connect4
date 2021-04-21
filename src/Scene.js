@@ -41,6 +41,8 @@ class Scene extends THREE.Scene {
         this.camera,
         this.renderer.domElement
     )
+
+    this.add( this.camera.getHelper() )
   }
   
   createLights ( controls ) {
