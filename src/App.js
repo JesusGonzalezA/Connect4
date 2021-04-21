@@ -1,9 +1,9 @@
 import { Scene } from './Scene.js'
 
 $(function () {
-  const scene = new Scene("#WebGL-output");
+  const scene = new Scene("#WebGL-output")  
 
-  window.addEventListener ( "resize", () => scene.onWindowResize() );
+  window.addEventListener ( "resize", () => scene.onWindowResize() )  
   
-  scene.update();
-});
+  scene.update()  
+})  

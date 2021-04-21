@@ -28,8 +28,8 @@ class Camera extends THREE.PerspectiveCamera {
     }
 
     setCameraAspect ( ratio ) {
-        this.aspect = ratio;
-        this.updateProjectionMatrix();
+        this.aspect = ratio 
+        this.updateProjectionMatrix() 
     }
 
     setLookAt ( x, y, z ) {
