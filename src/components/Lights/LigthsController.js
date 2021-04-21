@@ -1,6 +1,6 @@
 import * as THREE from '/vendor/three.module.js'
 
-class LightController {
+class LightsController {
 
     constructor ( controls ) {
         
@@ -54,12 +54,16 @@ class LightController {
         return this.helpers
     }
 
+    setHelpersVisibility ( value ) {
+        this.spotLightHelper.visible = value
+    }
+
     update () {
-        this.spotLightHelper.visible = this.controls.spotLight.isHelperVisible
-        
-        if ( this.controls.spotLight.isHelperVisible )
+
+        if ( this.spotLightHelper.visible )
             this.spotLightHelper.update()
+            
     }
 }
 
-export { LightController }
+export { LightsController }

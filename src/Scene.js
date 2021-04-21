@@ -4,7 +4,7 @@ import { AxesHelper } from './components/AxesHelper.js'
 import { Camera } from './components/Camera/Camera.js'  
 import { CameraControls } from './components/Camera/CameraControls.js'
 import { Game } from './components/Game/Game.js'
-import { LightController } from './components/Lights/LigthController.js'
+import { LightsController } from './components/Lights/LigthsController.js'
 import { Renderer } from './components/Renderer.js'
 
  
@@ -20,6 +20,12 @@ class Scene extends THREE.Scene {
     this.createAxes( controls.scene.axesHelper )
 
     this.createGame( controls.game )
+
+    this.objectsToUpdate = [
+      this.getLightsController(),
+      this.getGame(),
+      this.getCameraControls()
+    ]
   }
 
   createGame ( controls ) {
@@ -28,8 +34,8 @@ class Scene extends THREE.Scene {
   }
 
   createAxes ( controls ) {
-    const axes = new AxesHelper( controls )
-    this.add(axes)  
+    this.axes = new AxesHelper( controls )
+    this.add( this.axes )  
   }
 
   createCamera ( controls ) {
@@ -46,7 +52,7 @@ class Scene extends THREE.Scene {
   }
   
   createLights ( controls ) {
-    this.lightsController = new LightController( controls )
+    this.lightsController = new LightsController( controls )
     const lights  = this.lightsController.getLights()
     const helpers = this.lightsController.getHelpers()
     
@@ -65,6 +71,22 @@ class Scene extends THREE.Scene {
   getCamera () {
     return this.camera  
   }
+
+  getCameraControls () {
+    return this.cameraControl
+  }
+
+  getAxes () {
+    return this.axes;
+  }
+
+  getLightsController () {
+    return this.lightsController
+  }
+
+  getGame () {
+    return this.game
+  }
   
   setCameraAspect ( ratio ) {
     this.camera.setCameraAspect( ratio )
@@ -80,9 +102,9 @@ class Scene extends THREE.Scene {
 
   update () {
     this.renderer.render ( this, this.getCamera() )  
-    this.cameraControl.update()
-    this.lightsController.update() 
-    this.game.update() 
+    
+    for ( const object of this.objectsToUpdate )
+      object.update()
 
     requestAnimationFrame( () => this.update() )  
   }

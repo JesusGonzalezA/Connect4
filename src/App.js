@@ -6,7 +6,7 @@ import { Scene } from './Scene.js'
 
 $(function () {
   const scene = new Scene( controls ) 
-  const gui   = new GUI( controls ) 
+  const gui   = new GUI( scene, controls ) 
 
   window.addEventListener ( "resize", () => scene.onWindowResize() )  
   

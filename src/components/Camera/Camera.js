@@ -46,9 +46,7 @@ class Camera extends THREE.PerspectiveCamera {
     getLook () {
         return this.look
     }
-
-    update () {
-    }
+    
 }
 
 export { Camera }
