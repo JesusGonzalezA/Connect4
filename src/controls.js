@@ -47,5 +47,9 @@ export const scene = {
 }
 
 export const game = {
-
+    piece: {
+        width: 2,
+        height: 1,
+        holeRadius: 1.5
+    }
 }

@@ -5,10 +5,10 @@ import { Piece } from "./Piece.js"
 
 class Game extends THREE.Object3D {
     
-    constructor () {
+    constructor ( controls ) {
         super()
         
-        const piece = new Piece()
+        const piece = new Piece( controls.piece )
         this.add(piece)
     }
 
