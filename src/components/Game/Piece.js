@@ -24,25 +24,25 @@ class Piece extends THREE.Object3D {
 
     createGeometry ( controls ) {
 
-        const { width, height, holeRadius, holeHeight } = controls 
-
+        const { width, height, holeRadius, holeHeight, segments } = controls 
+        
         const geometryIn  = new THREE.CylinderGeometry( 
             holeRadius, 
             holeRadius, 
             holeHeight,
-            32,1 
+            segments,1 
         )
         const geometryOut = new THREE.CylinderGeometry( 
             width,
             width,
             height,
-            32, 1 
+            segments, 1 
         )
         const geometryHole = new THREE.CylinderGeometry( 
             holeRadius,
             holeRadius,
             height,
-            32, 1 
+            segments, 1 
         )
         
         const geometryBSP      = new ThreeBSP( geometryOut )

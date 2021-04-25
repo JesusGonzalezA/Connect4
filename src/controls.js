@@ -51,6 +51,7 @@ export const game = {
         width: 2,
         height: 1,
         holeRadius: 1.5,
-        holeHeight: 0.5
+        holeHeight: 0.6,
+        segments: 32
     }
 }
