@@ -16,9 +16,9 @@ class Piece extends THREE.Object3D {
         )
     }
 
-    createMaterial ( color ) {
-        return new THREE.MeshLambertMaterial({
-            color
+    createMaterial ( texture ) {
+        return new THREE.MeshMatcapMaterial({
+            matcap: texture
         })
     }
 

@@ -1,6 +1,6 @@
 import * as THREE from '/vendor/three.module.js'
 
-import { Piece } from "./Piece.js"
+import { PiecesController } from './PiecesController.js'
 
 
 class Game extends THREE.Object3D {
@@ -8,8 +8,8 @@ class Game extends THREE.Object3D {
     constructor ( controls ) {
         super()
         
-        const piece = new Piece( controls.piece , 0xff0000 )
-        this.add(piece)
+        const piecesController = new PiecesController( controls.piece )
+        this.add(piecesController.createPiece())
     }
 
     update () {
