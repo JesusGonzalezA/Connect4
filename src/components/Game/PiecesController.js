@@ -1,5 +1,7 @@
-import { Piece } from "./Piece.js";
-import { TextureLoader } from "../../TextureLoader.js";
+import * as THREE from '../../../vendor/three.module.js'
+
+import { Piece } from "./Piece.js"
+import { TextureLoader } from "../../TextureLoader.js"
 
 class PiecesController {
 
@@ -8,9 +10,10 @@ class PiecesController {
     }
 
     createPiece () {
-        const textureLoader = new TextureLoader()
-        const texture = textureLoader.load('/assets/textures/pieces/matcap_yellow.png')   
-        return new Piece(this.controls, texture)
+        const textureLoader = TextureLoader.getInstance()
+        const textures = textureLoader.load('/assets/textures/pieces/matcap_metal.png')
+        
+        return new Piece(this.controls, textures)
     }
 }
 
