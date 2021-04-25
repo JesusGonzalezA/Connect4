@@ -3,44 +3,45 @@ import { ThreeBSP } from '../../../vendor/ThreeBSP.js'
 
 class Piece extends THREE.Object3D {
  
-    constructor ( controls ) {
+    constructor ( controls, color ) {
         super()
 
-        this.controls = controls
-        this.add( this.createMesh() )
+        this.add( this.createMesh( controls, color ) )
     }
 
-    createMesh () {
+    createMesh ( controls, color ) {
         return new THREE.Mesh(
-            this.createGeometry(),
-            this.createMaterial()
+            this.createGeometry( controls ),
+            this.createMaterial( color )
         )
     }
 
-    createMaterial () {
+    createMaterial ( color ) {
         return new THREE.MeshLambertMaterial({
-            color: 0xff0000, 
-            wireframe: false
+            color
         })
     }
 
-    createGeometry () {
+    createGeometry ( controls ) {
+
+        const { width, height, holeRadius, holeHeight } = controls 
+
         const geometryIn  = new THREE.CylinderGeometry( 
-            this.controls.holeRadius, 
-            this.controls.holeRadius, 
-            this.controls.height / 2,
+            holeRadius, 
+            holeRadius, 
+            holeHeight,
             32,1 
         )
         const geometryOut = new THREE.CylinderGeometry( 
-            this.controls.width,
-            this.controls.width,
-            this.controls.height,
+            width,
+            width,
+            height,
             32, 1 
         )
         const geometryHole = new THREE.CylinderGeometry( 
-            this.controls.holeRadius,
-            this.controls.holeRadius,
-            this.controls.height,
+            holeRadius,
+            holeRadius,
+            height,
             32, 1 
         )
         

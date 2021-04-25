@@ -50,6 +50,7 @@ export const game = {
     piece: {
         width: 2,
         height: 1,
-        holeRadius: 1.5
+        holeRadius: 1.5,
+        holeHeight: 0.5
     }
 }
