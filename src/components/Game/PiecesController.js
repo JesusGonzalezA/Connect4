@@ -1,5 +1,3 @@
-import * as THREE from '../../../vendor/three.module.js'
-
 import { Piece } from "./Piece.js"
 import { TextureLoader } from "../../TextureLoader.js"
 
