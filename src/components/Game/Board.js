@@ -66,8 +66,7 @@ class Board extends THREE.Object3D {
         const geometry = new THREE.ExtrudeBufferGeometry(board, {
             depth: boardDepth,
             bevelEnabled: false
-        })     
-        geometry.center()   
+        })   
         return geometry
     }
 

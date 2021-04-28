@@ -11,12 +11,20 @@ class Game extends THREE.Object3D {
         
         this.createBoard( controls )
         this.piecesController = new PiecesController( controls.piece )
-        // this.add( this.piecesController.createPiece() )
+
+        this.addPiece()
     }
 
     createBoard ( controls ) {
         this.board = new Board( controls )
         this.add( this.board )
+    }
+
+    addPiece () {
+        const pieza = this.piecesController.createPiece()
+        pieza.rotation.x = Math.PI / 2
+        pieza.position.set (0.5 + 2,2+0.5,0)
+        this.add(pieza)
     }
 
     update () {
