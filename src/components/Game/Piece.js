@@ -24,7 +24,8 @@ class Piece extends THREE.Object3D {
 
     createGeometry ( controls ) {
 
-        const { width, height, holeRadius, holeHeight, segments } = controls 
+        const { width, height, holeRadius, holeHeight, segments } = controls
+        const radius = width / 2  
         
         const geometryIn  = new THREE.CylinderGeometry( 
             holeRadius, 
@@ -33,8 +34,8 @@ class Piece extends THREE.Object3D {
             segments,1 
         )
         const geometryOut = new THREE.CylinderGeometry( 
-            width,
-            width,
+            radius,
+            radius,
             height,
             segments, 1 
         )

@@ -3,7 +3,7 @@ export const camera = {
     near: 0.1,
     far: 100,
     position: {
-        x: 6, y: 3, z: 6
+        x: 0, y: 0, z: 40
     },
     look: {
         x: 0, y: 0, z: 0
@@ -42,16 +42,23 @@ export const scene = {
     canvasName: '#WebGL-output',
     axesHelper: {
         size: 1,
-        visible: false
+        visible: true
     }
 }
 
 export const game = {
     piece: {
-        width: 2,
+        width: 4,
         height: 1,
         holeRadius: 1.5,
-        holeHeight: 0.6,
+        holeHeight: 0.5,
         segments: 32
+    },
+    board: {
+        piecesX: 7,
+        piecesY: 6,
+        separationX: 0.5,
+        separationY: 0.5,
+        separationZ: 0.1
     }
 }
