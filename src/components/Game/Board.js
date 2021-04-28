@@ -29,7 +29,7 @@ class Board extends THREE.Object3D {
             piecesX, piecesY, 
             separationX, separationZ, separationY 
         } = controls.board 
-        const { width, height, segments } = controls.piece    
+        const { width, height } = controls.piece    
 
         const boardWidth  = ( piecesX * ( width + separationX ) ) + separationX
         const boardHeight = ( piecesY * ( width + separationY ) ) + separationY 
