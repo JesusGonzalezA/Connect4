@@ -1,5 +1,4 @@
 import * as THREE from '../../../vendor/three.module.js'
-import { ThreeBSP } from '../../../vendor/ThreeBSP.js'
 
 class Board extends THREE.Object3D {
     
@@ -18,7 +17,7 @@ class Board extends THREE.Object3D {
 
     createMaterial () {
         return new THREE.MeshBasicMaterial({
-            wireframe: true,
+            wireframe: false,
             color: 0xff0000
         })
     }
@@ -36,45 +35,40 @@ class Board extends THREE.Object3D {
         const boardHeight = ( piecesY * ( width + separationY ) ) + separationY 
         const boardDepth  = height + ( 2 * separationZ )
 
-        // Create geometries
-        const geometryBoard = new THREE.BoxGeometry(
-            boardWidth, boardHeight, boardDepth
-        )
+        // Board
+        const board = 
+            new THREE.Shape()
+                .lineTo(boardWidth, 0)
+                .lineTo(boardWidth, boardHeight)
+                .lineTo(0, boardHeight)
+                .lineTo(0,0)
 
-        const geometryHole  = new THREE.CylinderGeometry( 
-            width / 2,
-            width / 2,
-            boardDepth,
-            segments, 1
-        )
-        geometryHole.rotateX( Math.PI / 2 )
-            
-        // Remove holes
-        const geometryBoardBSP = new ThreeBSP( geometryBoard )
-        let geometryBSP = geometryBoardBSP
-
+        // Holes
+        const radius = width / 2
         const advanceX = width + separationX
         const advanceY = width + separationY
-        const initialX = - boardWidth  / 2 + width / 2 + separationX
-        const initialY = - boardHeight / 2 + width / 2 + separationY
-        
-        geometryHole.translate(initialX, initialY, 0)
-        for ( let row = 0; row < piecesY; ++row ) {
+        const initialX = radius + separationX
+        const initialY = radius + separationY
+        for ( let row = 0, y = initialY; row < piecesY; ++row ) {
+            let x = initialX
+            y = initialY + row * advanceY
+
             for ( let column = 0; column < piecesX; ++column ){
-                const geometryHoleBSP = new ThreeBSP( geometryHole )
-                geometryBSP = geometryBSP.subtract(geometryHoleBSP)
-                geometryHole.translate(advanceX, 0, 0)
+                const hole = new THREE.Shape().absarc(
+                    x,y, 
+                    radius, 0, 2 * Math.PI
+                )
+                board.holes.push( hole )
+                x += advanceX
             }
-            geometryHole.translate( -advanceX * piecesX, advanceY, 0)
         }     
         
-        // Create buffer geometry
-        const geometry       = geometryBSP.toGeometry()
-        const bufferGeometry = new THREE
-                                    .BufferGeometry()
-                                    .fromGeometry( geometry )
-        
-        return bufferGeometry
+        const geometry = new THREE.ExtrudeBufferGeometry(board, {
+            depth: boardDepth,
+            bevelEnabled: false
+        })     
+        geometry.center()   
+        return geometry
     }
 
 }
