@@ -17,7 +17,7 @@ class Board extends THREE.Object3D {
 
     createMaterial () {
         return new THREE.MeshBasicMaterial({
-            wireframe: false,
+            wireframe: true,
             color: 0xff0000
         })
     }
@@ -67,6 +67,7 @@ class Board extends THREE.Object3D {
             depth: boardDepth,
             bevelEnabled: false
         })   
+        geometry.translate( 0, 0, -boardDepth / 2 )
         return geometry
     }
 
