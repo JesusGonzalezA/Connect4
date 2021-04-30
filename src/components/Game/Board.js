@@ -17,7 +17,7 @@ class Board extends THREE.Object3D {
 
     createMaterial () {
         return new THREE.MeshBasicMaterial({
-            wireframe: true,
+            wireframe: false,
             color: 0xff0000
         })
     }

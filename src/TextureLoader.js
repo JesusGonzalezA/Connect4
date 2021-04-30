@@ -8,10 +8,6 @@ class TextureLoader extends THREE.TextureLoader {
         this.instance = this
     }
 
-    #hi () {
-
-    }
-
     static getInstance () {
         if (!this.instance) this.instance = new TextureLoader()
         return this.instance

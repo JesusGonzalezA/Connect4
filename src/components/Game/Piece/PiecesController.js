@@ -1,28 +1,20 @@
-import * as THREE from '../../../vendor/three.module.js'
-import { ThreeBSP } from '../../../vendor/ThreeBSP.js'
+import * as THREE from '../../../../vendor/three.module.js'
+import { ThreeBSP } from '../../../../vendor/ThreeBSP.js'
+import { gameStates } from '../gameStates.js'
 
-class Piece extends THREE.Object3D {
- 
-    constructor ( controls, color ) {
-        super()
+import { FactoryPlayer1 } from "./FactoryPlayer1.js"
+import { FactoryPlayer2 } from "./FactoryPlayer2.js"
 
-        this.add( this.createMesh( controls, color ) )
+class PiecesController {
+
+    constructor ( controls ) {
+
+        const pieceGeometry = this.createPieceGeometry( controls )
+        this.factoryPlayer1 = new FactoryPlayer1( pieceGeometry )
+        this.factoryPlayer2 = new FactoryPlayer2( pieceGeometry )
     }
-
-    createMesh ( controls, color ) {
-        return new THREE.Mesh(
-            this.createGeometry( controls ),
-            this.createMaterial( color )
-        )
-    }
-
-    createMaterial ( texture ) {
-        return new THREE.MeshMatcapMaterial({
-            matcap: texture
-        })
-    }
-
-    createGeometry ( controls ) {
+    
+    createPieceGeometry ( controls ) {
 
         const { width, height, holeRadius, holeHeight, segments } = controls
         const radius = width / 2  
@@ -58,6 +50,16 @@ class Piece extends THREE.Object3D {
         
         return bufferGeometry
     }
+
+    createPiece ( state ) {
+        const factory = ( state === gameStates.PLAYER_1 )
+            ? this.factoryPlayer1 
+            : this.factoryPlayer2
+
+        return factory.createPiece()
+    }
+
+
 }
 
-export { Piece }
+export { PiecesController }
