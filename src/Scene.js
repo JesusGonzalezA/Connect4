@@ -6,6 +6,7 @@ import { CameraControls } from './components/Camera/CameraControls.js'
 import { Game } from './components/Game/Game.js'
 import { LightsController } from './components/Lights/LigthsController.js'
 import { Renderer } from './components/Renderer.js'
+import { GameController } from './components/Game/GameController.js'
 
  
 class Scene extends THREE.Scene {
@@ -30,7 +31,12 @@ class Scene extends THREE.Scene {
 
   createGame ( controls ) {
     this.game = new Game( controls )
+    this.createGameController( this.game )
     this.add( this.game )
+  }
+
+  createGameController( game ){
+    this.gameController = new GameController( this.game )
   }
 
   createAxes ( controls ) {
@@ -86,6 +92,10 @@ class Scene extends THREE.Scene {
 
   getGame () {
     return this.game
+  }
+
+  getGameController() {
+    return this.gameController
   }
   
   setCameraAspect ( ratio ) {

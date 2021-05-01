@@ -2,18 +2,22 @@ import * as THREE from '/vendor/three.module.js'
 
 import { Board } from './Board.js'
 import { PiecesController } from './Piece/PiecesController.js'
-import { gameStates } from './gameStates.js'
+import { Vector3 } from '../../../vendor/three.module.js'
 
 
 class Game extends THREE.Object3D {
     
     constructor ( controls ) {
         super()
-        
-        this.createBoard( controls )
-        this.piecesController = new PiecesController( controls.piece )
 
-        this.addPiece()
+        this.controls = controls 
+        
+        this.createBoard( this.controls )
+        this.piecesController = new PiecesController( this.controls.piece )
+    }
+
+    getControls () {
+        return this.controls
     }
 
     createBoard ( controls ) {
@@ -21,12 +25,28 @@ class Game extends THREE.Object3D {
         this.add( this.board )
     }
 
-    addPiece () {
-        const pieza = this.piecesController.createPiece( gameStates.PLAYER_2 )
+    addPiece ( pieceType, row, column ) {
+        if ( row === null ) return;
         
-        pieza.rotation.x = Math.PI / 2
-        pieza.position.set (0.5 + 2,2+0.5,0)
+        const position = this.getPosition( row, column )
+        const pieza = this.piecesController.createPiece( pieceType, position )
+
         this.add(pieza)
+    }
+
+    getPosition ( row, column ) {
+        const { separationX, separationY } = this.controls.board 
+        const { width } = this.controls.piece
+        
+        const radius = width / 2
+        const advanceX = width + separationX
+        const advanceY = width + separationY
+        const initialX = radius + separationX
+        const initialY = radius + separationY
+        const y = initialY + row * advanceY
+        const x = initialX + column * advanceX
+        
+        return new Vector3( x, y, 0)
     }
 
     update () {

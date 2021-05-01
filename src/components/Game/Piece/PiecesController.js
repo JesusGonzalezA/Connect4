@@ -1,9 +1,9 @@
 import * as THREE from '../../../../vendor/three.module.js'
 import { ThreeBSP } from '../../../../vendor/ThreeBSP.js'
-import { gameStates } from '../gameStates.js'
 
 import { FactoryPlayer1 } from "./FactoryPlayer1.js"
 import { FactoryPlayer2 } from "./FactoryPlayer2.js"
+import { pieceTypes } from './pieceTypes.js'
 
 class PiecesController {
 
@@ -51,12 +51,12 @@ class PiecesController {
         return bufferGeometry
     }
 
-    createPiece ( state ) {
-        const factory = ( state === gameStates.PLAYER_1 )
+    createPiece ( state, position ) {
+        const factory = ( state === pieceTypes.PLAYER_1 )
             ? this.factoryPlayer1 
             : this.factoryPlayer2
 
-        return factory.createPiece()
+        return factory.createPiece( position )
     }
 
 

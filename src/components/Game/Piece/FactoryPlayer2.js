@@ -14,8 +14,12 @@ class FactoryPlayer2 {
         return new THREE.MeshMatcapMaterial({ matcap: texture})
     }
     
-    createPiece () {
-        return new THREE.Mesh( this.geometry, this.material )
+    createPiece ( position ) {
+        const mesh = new THREE.Mesh( this.geometry, this.material )
+        mesh.rotation.x = Math.PI / 2
+        mesh.position.copy( position )
+        
+        return mesh;
     }
     
 }
