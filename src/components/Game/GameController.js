@@ -42,9 +42,10 @@ class GameController {
     }
 
     addPiece ( column ) {
-        if ( column >= this.boardState[0].length) console.log("te has pasado maquina")
-        const row    = this.getRow( column )
+        if ( column >= this.boardState[0].length) return;
 
+        const row    = this.getRow( column )
+        
         if ( row === null ) return; 
 
         this.game.addPiece( this.getPieceType(), row, column )
