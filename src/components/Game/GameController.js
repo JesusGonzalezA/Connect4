@@ -5,12 +5,27 @@ import { pieceTypes } from './Piece/pieceTypes.js'
 class GameController {
 
     constructor ( game ) {
-        this.game = game
-        this.state = gameStates.PLAYER_1
-        this.lastRow = this.lastColumn = -1        
+        this.game    = game
+        this.initializeGame()
         
         const { piecesX, piecesY } = this.game.getControls().board
         this.createBoardState( piecesX, piecesY )
+    }
+
+    initializeGame () {
+        this.state = gameStates.PLAYER_1
+        this.lastRow = this.lastColumn = -1   
+        this.winner  = null
+    }
+
+    initializeBoardState () {
+        for ( let i = 0; i < this.boardState.length; ++i )
+            for ( let j=0; j < this.boardState[0].length; ++j)
+                this.boardState[i][j] = null
+    }
+
+    getWinner () {
+        return this.winner
     }
 
     createBoardState ( piecesX, piecesY ) {
@@ -19,11 +34,9 @@ class GameController {
 
         for ( let i = 0; i < piecesY; ++i ){
             this.boardState[i] = new Array( piecesX )
-
-            for ( let j=0; j < piecesX; ++j)
-                this.boardState[i][j] = null
         }
         
+        this.initializeBoardState()
     }
     
     getRow ( column ) {
@@ -42,7 +55,8 @@ class GameController {
     }
 
     addPiece ( column ) {
-        if ( column >= this.boardState[0].length) return;
+        if ( this.state !== gameStates.PLAYER_1 && this.state !== gameStates.PLAYER_2 ) return;
+        if ( column >= this.boardState[0].length ) return;
 
         const row    = this.getRow( column )
         
@@ -134,8 +148,10 @@ class GameController {
             if ( i===3 ) isGameOver = true
         }
 
-        if ( isGameOver )
-            this.state = gameStates.END
+        if ( isGameOver ) {
+            this.state  = gameStates.END
+            this.winner = pieceType
+        }
     }
     
     nextState () {
@@ -154,6 +170,12 @@ class GameController {
                 break;
         }
 
+    }
+
+    restart () {
+        this.initializeGame()
+        this.initializeBoardState()
+        this.game.deleteAllPieces()
     }
 }
 

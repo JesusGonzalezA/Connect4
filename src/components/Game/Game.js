@@ -20,6 +20,12 @@ class Game extends THREE.Object3D {
         return this.controls
     }
 
+    getAllPieces () {
+        return this.children.filter( (piece, index) => {
+            if ( index!==0 ) return piece
+        })
+    }
+
     createBoard ( controls ) {
         this.board = new Board( controls )
         this.add( this.board )
@@ -47,6 +53,11 @@ class Game extends THREE.Object3D {
         const x = initialX + column * advanceX
         
         return new Vector3( x, y, 0)
+    }
+
+    deleteAllPieces () {
+        const pieces = this.getAllPieces()
+        pieces.map( (piece) => this.remove(piece) )
     }
 
     update () {

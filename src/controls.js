@@ -62,3 +62,10 @@ export const game = {
         separationZ: 0.1
     }
 }
+
+export const menu = {
+    menuId: "menu",
+    buttons: {
+        restartId: "btn-restart"
+    }
+}
