@@ -11,12 +11,12 @@ $(function () {
 
   window.addEventListener ( "resize", () => scene.onWindowResize() )
 
-  window.addEventListener  ("keydown", (event) => gameController.addPiece( getKeyFromEvent(event) ) );  
+  window.addEventListener  ("keydown", (event) => gameController.addPiece( Number(getKeyFromEvent(event)) ) );  
   
   scene.update()  
 })
 
 const getKeyFromEvent = ( event ) => {
-  return event.key
+  return event.key || event.which
 } 
 
