@@ -1,7 +1,7 @@
 export const camera = {
     fov: 45,
     near: 0.1,
-    far: 100,
+    far: 200,
     position: {
         x: 10, y: 0, z: 80
     },
@@ -24,11 +24,11 @@ export const renderer = {
 export const lights = {
     spotLight: {
         color: 0xffffff,
-        intensity: 0.5,
+        intensity: 0.7,
         position: {
-            x: 6,
-            y: 6,
-            z: 4
+            x: 20,
+            y: 40,
+            z: 40
         },
         isHelperVisible: false
     },
@@ -59,7 +59,14 @@ export const game = {
         piecesY: 6,
         separationX: 0.5,
         separationY: 0.5,
-        separationZ: 0.1
+        separationZ: 0.1,
+        base: {
+            height: 0.4,
+            depth: 20
+        },
+        border: {
+            depth: 0.1
+        }
     }
 }
 

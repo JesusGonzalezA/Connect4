@@ -41,18 +41,7 @@ class Game extends THREE.Object3D {
     }
 
     getPosition ( row, column ) {
-        const { separationX, separationY } = this.controls.board 
-        const { width } = this.controls.piece
-        
-        const radius = width / 2
-        const advanceX = width + separationX
-        const advanceY = width + separationY
-        const initialX = radius + separationX
-        const initialY = radius + separationY
-        const y = initialY + row * advanceY
-        const x = initialX + column * advanceX
-        
-        return new Vector3( x, y, 0)
+        return this.board.getPosition( row, column )
     }
 
     deleteAllPieces () {
