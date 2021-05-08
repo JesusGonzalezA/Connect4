@@ -67,6 +67,12 @@ export const game = {
         border: {
             depth: 0.1
         }
+    },
+    columnMarker: {
+        fontJSON: 'assets/fonts/helvetiker_regular.typeface.json',
+        separation: 0,
+        bevelEnabled: false,
+        size: 2
     }
 }
 

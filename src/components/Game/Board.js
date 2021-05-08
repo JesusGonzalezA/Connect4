@@ -1,5 +1,6 @@
 import * as THREE from '../../../vendor/three.module.js'
 import { ThreeBSP } from '../../../vendor/ThreeBSP.js'
+import { ColumnMarker } from './ColumnMarker.js'
 
 class Board extends THREE.Object3D {
     
@@ -7,9 +8,13 @@ class Board extends THREE.Object3D {
         super()
 
         this.controls = controls
-        this.add( this.createMeshBoard( controls ) )
-        this.add( this.createMeshBase( controls ) )
+
+        this.createMeshBoard( controls )
+        this.createMeshBase( controls )
         this.createBorders( controls )
+        this.createColumnMarker( controls, this.getBoardDepth() )
+
+        this.add( this.board, this.base, this.columnMarker )
         this.borders.forEach( (border) => this.add(border) )
     }
     
@@ -21,17 +26,23 @@ class Board extends THREE.Object3D {
         return this.material
     }
     
+    createColumnMarker ( controls, depth ) {
+        this.columnMarker = new ColumnMarker( controls, depth )
+        // this.columnMarker.position.y = 
+        //   this.getBoardHeight() + this.columnMarker.getHeight() + controls.columnMarker.separation
+        // this.columnMarker.position.x = this.controls.board.separationX + this.controls.piece.width/2
+    } 
+
     createMeshBase ( controls ) {
-        this.meshBase =  new THREE.Mesh(
+        this.base =  new THREE.Mesh(
             this.createGeometryBase( controls ), 
             this.material
         )
-        this.meshBase.position.set(
+        this.base.position.set(
             this.getBoardWith() / 2,
             - controls.board.base.height / 2,
             0
         )
-        return this.meshBase
     }
 
     createBorders ( controls ) {
@@ -72,12 +83,11 @@ class Board extends THREE.Object3D {
     }
 
     createMeshBoard ( controls ) {
-        this.boardMesh = new THREE.Mesh(
+        this.board = new THREE.Mesh(
             this.createGeometryBoard( controls ), 
             this.createMaterial()
         )
-        this.boardMesh.position.set(0,0, -this.getBoardDepth()/2)
-        return this.boardMesh
+        this.board.position.set(0,0, -this.getBoardDepth()/2)
     }
 
     createGeometryBase ( controls ) {
@@ -88,13 +98,17 @@ class Board extends THREE.Object3D {
         )
     }
 
+    getColumnMarker () {
+        return this.columnMarker
+    }
+
     getBoardWith (){
         const { piecesX, separationX } = this.controls.board 
         const { width } = this.controls.piece 
         return ( piecesX * ( width + separationX ) ) + separationX
     }
 
-    getBooardHeight () {
+    getBoardHeight () {
         const { piecesY, separationY } = this.controls.board 
         const { width } = this.controls.piece 
         return ( piecesY * ( width + separationY ) ) + separationY 
@@ -116,7 +130,7 @@ class Board extends THREE.Object3D {
         const { width, height } = controls.piece    
 
         const boardWidth  = this.getBoardWith()
-        const boardHeight = this.getBooardHeight()
+        const boardHeight = this.getBoardHeight()
         const boardDepth  = this.getBoardDepth()
 
         // Board
@@ -197,6 +211,15 @@ class Board extends THREE.Object3D {
         const x = initialX + column * advanceX
         
         return new THREE.Vector3( x, y, this.position.z)
+    }
+
+    setActiveColumnMarker ( column, boolean ) {
+        const columnMarker = this.getColumnMarker()
+        columnMarker.setActive( column, boolean )
+    }
+
+    nextPlayer() {
+        this.getColumnMarker().rotate()
     }
 
 }

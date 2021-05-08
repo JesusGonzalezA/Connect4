@@ -2,8 +2,6 @@ import * as THREE from '/vendor/three.module.js'
 
 import { Board } from './Board.js'
 import { PiecesController } from './Piece/PiecesController.js'
-import { Vector3 } from '../../../vendor/three.module.js'
-
 
 class Game extends THREE.Object3D {
     
@@ -20,6 +18,13 @@ class Game extends THREE.Object3D {
         return this.controls
     }
 
+    getDimensions () {
+        return {
+            piecesX: this.controls.board.piecesX,
+            piecesY: this.controls.board.piecesY
+        }
+    }
+
     getAllPieces () {
         return this.children.filter( (piece, index) => {
             if ( index!==0 ) return piece
@@ -31,9 +36,15 @@ class Game extends THREE.Object3D {
         this.add( this.board )
     }
 
+    setActiveColumnMarker ( column, boolean ) {
+        this.board.setActiveColumnMarker( column, boolean )
+        
+    }
+
     addPiece ( pieceType, row, column ) {
         if ( row === null ) return;
-        
+
+        // Add piece
         const position = this.getPosition( row, column )
         const pieza = this.piecesController.createPiece( pieceType, position )
 
@@ -47,6 +58,10 @@ class Game extends THREE.Object3D {
     deleteAllPieces () {
         const pieces = this.getAllPieces()
         pieces.map( (piece) => this.remove(piece) )
+    }
+
+    nextPlayer () {
+        this.board.nextPlayer()
     }
 
     update () {

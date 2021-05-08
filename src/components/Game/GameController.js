@@ -8,7 +8,7 @@ class GameController {
         this.game    = game
         this.initializeGame()
         
-        const { piecesX, piecesY } = this.game.getControls().board
+        const { piecesX, piecesY } = this.game.getDimensions()
         this.createBoardState( piecesX, piecesY )
     }
 
@@ -62,6 +62,11 @@ class GameController {
         
         if ( row === null ) return; 
 
+        // Set column marker
+        if ( this.lastColumn !== -1 )
+            this.game.setActiveColumnMarker( this.lastColumn, false )
+        this.game.setActiveColumnMarker( column, true )
+        
         // Add piece to scene
         this.game.addPiece( this.getPieceType(), row, column )
 
@@ -173,20 +178,34 @@ class GameController {
             this.winner = pieceType
         }
     }
+
+    checkTie () {
+        const { piecesX, piecesY } = this.game.getDimensions()
+        const numPieces            = this.game.getAllPieces().length
+        
+        if ( ( piecesX * piecesY ) === numPieces )
+            this.state = gameStates.TIE
+    }
     
     nextState () {
 
         this.checkGameOver()
+        this.checkTie()
 
         switch ( this.state ) {
             case gameStates.PLAYER_1:
                 this.state = gameStates.PLAYER_2
+                this.game.nextPlayer()
                 break;
             case gameStates.PLAYER_2:
                 this.state = gameStates.PLAYER_1
+                this.game.nextPlayer()
                 break;
             case gameStates.END:
                 console.log("Fin")
+                break;
+            case gameStates.TIE:
+                console.log("Tie")
                 break;
         }
 
