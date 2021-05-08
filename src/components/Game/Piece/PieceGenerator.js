@@ -1,16 +1,16 @@
 import * as THREE from '../../../../vendor/three.module.js'
 import { TextureLoader } from "../../../TextureLoader.js"
 
-class FactoryPlayer1 {
+class PieceGenerator {
 
-    constructor ( geometry ) {
+    constructor ( geometry, materialURI ) {
         this.geometry = geometry
-        this.material = this.createMaterial()
+        this.material = this.createMaterial( materialURI )
     }
     
-    createMaterial () {
+    createMaterial ( materialURI ) {
         const textureLoader = TextureLoader.getInstance()
-        const texture = textureLoader.load('/assets/textures/pieces/matcap_yellow.png')
+        const texture = textureLoader.load( materialURI )
         return new THREE.MeshMatcapMaterial({ matcap: texture})
     }
 
@@ -24,4 +24,4 @@ class FactoryPlayer1 {
     
 }
 
-export { FactoryPlayer1 }
+export { PieceGenerator }

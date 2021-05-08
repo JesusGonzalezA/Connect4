@@ -1,17 +1,15 @@
 import * as THREE from '../../../../vendor/three.module.js'
 import { ThreeBSP } from '../../../../vendor/ThreeBSP.js'
 
-import { FactoryPlayer1 } from "./FactoryPlayer1.js"
-import { FactoryPlayer2 } from "./FactoryPlayer2.js"
+import { PieceGenerator } from "./PieceGenerator.js"
 import { pieceTypes } from './pieceTypes.js'
 
 class PiecesController {
 
     constructor ( controls ) {
-
         const pieceGeometry = this.createPieceGeometry( controls )
-        this.factoryPlayer1 = new FactoryPlayer1( pieceGeometry )
-        this.factoryPlayer2 = new FactoryPlayer2( pieceGeometry )
+        this.pieceGenerator1 = new PieceGenerator( pieceGeometry, controls.materials.player1 )
+        this.pieceGenerator2 = new PieceGenerator( pieceGeometry, controls.materials.player2 )
     }
     
     createPieceGeometry ( controls ) {
@@ -52,11 +50,11 @@ class PiecesController {
     }
 
     createPiece ( state, position ) {
-        const factory = ( state === pieceTypes.PLAYER_1 )
-            ? this.factoryPlayer1 
-            : this.factoryPlayer2
+        const pieceGenerator = ( state === pieceTypes.PLAYER_1 )
+            ? this.pieceGenerator1 
+            : this.pieceGenerator2
 
-        return factory.createPiece( position )
+        return pieceGenerator.createPiece( position )
     }
 
 

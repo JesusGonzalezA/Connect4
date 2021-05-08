@@ -48,6 +48,10 @@ export const scene = {
 
 export const game = {
     piece: {
+        materials: {
+            player1: './assets/textures/pieces/matcap_yellow.png',
+            player2: './assets/textures/pieces/matcap_metal.png'
+        },
         width: 4,
         height: 1,
         holeRadius: 1.5,
@@ -69,7 +73,7 @@ export const game = {
         }
     },
     columnMarker: {
-        fontJSON: 'assets/fonts/helvetiker_regular.typeface.json',
+        fontJSON: './assets/fonts/helvetiker_regular.typeface.json',
         separation: 1,
         bevelEnabled: false,
         size: 2
