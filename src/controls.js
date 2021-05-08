@@ -49,8 +49,8 @@ export const scene = {
 export const game = {
     piece: {
         materials: {
-            player1: './assets/textures/pieces/matcap_yellow.png',
-            player2: './assets/textures/pieces/matcap_metal.png'
+            player1: 'assets/textures/pieces/matcap_yellow.png',
+            player2: 'assets/textures/pieces/matcap_metal.png'
         },
         width: 4,
         height: 1,
