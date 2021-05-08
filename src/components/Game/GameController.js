@@ -108,44 +108,64 @@ class GameController {
         let isGameOver = false
 
         // Vertical
-        for ( let i=0; i<4 && !isGameOver; ++i ) {
+        let counterVertical = 1
+        for ( let i=1; i<4 && !isGameOver; ++i ) {
             if ( !this.checkPiece( pieceType, this.lastRow - i, this.lastColumn ) ) break;
-            if ( i===3 ) isGameOver = true
+
+            counterVertical++
+            if ( counterVertical===4 ) isGameOver = true
         }
         
         //Horizontal
+        let counterHorizontal = 1
             // To right
-        for ( let i=0; i<4 && !isGameOver; ++i ) {
+        for ( let i=1; i<4 && !isGameOver; ++i ) {
             if ( !this.checkPiece( pieceType, this.lastRow, this.lastColumn + i ) ) break;
-            if ( i===3 ) isGameOver = true
+            
+            counterHorizontal++
+            if ( counterHorizontal===4 ) isGameOver = true
         }
 
             // To left
-        for ( let i=0; i<4 && !isGameOver; ++i ) {
+        for ( let i=1; i<4 && !isGameOver; ++i ) {
             if ( !this.checkPiece( pieceType, this.lastRow, this.lastColumn - i ) ) break;
-            if ( i===3 ) isGameOver = true
+
+            counterHorizontal++
+            if ( counterHorizontal===4 ) isGameOver = true
         }
 
         // Diagonal
+        let counterDiagonal = 1
             // Up - Right
-        for ( let i=0; i<4 && !isGameOver; ++i ) {
+        for ( let i=1; i<4 && !isGameOver; ++i ) {
             if ( !this.checkPiece( pieceType, this.lastRow + i, this.lastColumn + i ) ) break;
-            if ( i===3 ) isGameOver = true
-        }
-            // Up - Left
-        for ( let i=0; i<4 && !isGameOver; ++i ) {
-            if ( !this.checkPiece( pieceType, this.lastRow + i, this.lastColumn - i ) ) break;
-            if ( i===3 ) isGameOver = true
-        }
-            // Down - Right
-        for ( let i=0; i<4 && !isGameOver; ++i ) {
-            if ( !this.checkPiece( pieceType, this.lastRow - i, this.lastColumn + i ) ) break;
-            if ( i===3 ) isGameOver = true
+
+            counterDiagonal++
+            if ( counterDiagonal===4 ) isGameOver = true
         }
             // Down - Left
-        for ( let i=0; i<4 && !isGameOver; ++i ) {
+        for ( let i=1; i<4 && !isGameOver; ++i ) {
             if ( !this.checkPiece( pieceType, this.lastRow - i, this.lastColumn - i ) ) break;
-            if ( i===3 ) isGameOver = true
+            
+            counterDiagonal++
+            if ( counterDiagonal===4 ) isGameOver = true
+        }
+
+
+        counterDiagonal = 1
+            // Up - Left
+        for ( let i=1; i<4 && !isGameOver; ++i ) {
+            if ( !this.checkPiece( pieceType, this.lastRow + i, this.lastColumn - i ) ) break;
+            
+            counterDiagonal++
+            if ( counterDiagonal===4 ) isGameOver = true
+        }
+            // Down - Right
+        for ( let i=1; i<4 && !isGameOver; ++i ) {
+            if ( !this.checkPiece( pieceType, this.lastRow - i, this.lastColumn + i ) ) break;
+            
+            counterDiagonal++
+            if ( counterDiagonal===4 ) isGameOver = true
         }
 
         if ( isGameOver ) {

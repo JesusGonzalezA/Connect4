@@ -16,8 +16,7 @@ class Board extends THREE.Object3D {
     createMaterial () {
         if ( !this.material )
             this.material = new THREE.MeshLambertMaterial({
-                wireframe: false,
-                color: 0xff0000
+                color: 0xff0000,
             })
         return this.material
     }
