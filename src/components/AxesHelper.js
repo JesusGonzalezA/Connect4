@@ -1,4 +1,4 @@
-import * as THREE from '/vendor/three.module.js'
+import * as THREE from '../../vendor/three.module.js'
 
 class AxesHelper extends THREE.AxesHelper {
 

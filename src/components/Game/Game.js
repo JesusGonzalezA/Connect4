@@ -1,4 +1,4 @@
-import * as THREE from '/vendor/three.module.js'
+import * as THREE from '../../../vendor/three.module.js'
 
 import { Board } from './Board.js'
 import { PiecesController } from './Piece/PiecesController.js'

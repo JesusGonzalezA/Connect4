@@ -70,7 +70,7 @@ export const game = {
     },
     columnMarker: {
         fontJSON: 'assets/fonts/helvetiker_regular.typeface.json',
-        separation: 0,
+        separation: 1,
         bevelEnabled: false,
         size: 2
     }
