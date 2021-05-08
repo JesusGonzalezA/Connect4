@@ -1,4 +1,4 @@
-import { GUI as DATGUI } from '/vendor/dat.gui.module.js'
+import { GUI as DATGUI } from '../../vendor/dat.gui.module.js'
 
 class GUI extends DATGUI {
     
