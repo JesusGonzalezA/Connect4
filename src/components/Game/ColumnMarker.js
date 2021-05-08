@@ -60,15 +60,6 @@ class ColumnMarker extends THREE.Object3D {
     setActive ( column, activating ) {
         this.columnMarkers[column].material.transparent = !activating   
     }
-
-    getWidth () {
-        const maxPosition = (this.columnMarkers[ this.columnMarkers.length - 1 ].position.x)
-        const minPosition = (this.columnMarkers[ 0 ].position.x);
-        return maxPosition - minPosition
-    }
-    rotate () {
-        
-    }
 }
 
 export { ColumnMarker }

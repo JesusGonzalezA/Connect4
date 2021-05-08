@@ -16,6 +16,8 @@ class Board extends THREE.Object3D {
 
         this.add( this.board, this.base, this.columnMarker )
         this.borders.forEach( (border) => this.add(border) )
+
+        this.position.x = -this.getBoardWith() / 2
     }
     
     createMaterial () {
@@ -28,9 +30,9 @@ class Board extends THREE.Object3D {
     
     createColumnMarker ( controls, depth ) {
         this.columnMarker = new ColumnMarker( controls, depth )
-        // this.columnMarker.position.y = 
-        //   this.getBoardHeight() + this.columnMarker.getHeight() + controls.columnMarker.separation
-        // this.columnMarker.position.x = this.controls.board.separationX + this.controls.piece.width/2
+        this.columnMarker.position.y = 
+          this.getBoardHeight() + this.columnMarker.getHeight() + controls.columnMarker.separation
+        this.columnMarker.position.x = this.controls.board.separationX + this.controls.piece.width/2
     } 
 
     createMeshBase ( controls ) {
@@ -216,10 +218,6 @@ class Board extends THREE.Object3D {
     setActiveColumnMarker ( column, boolean ) {
         const columnMarker = this.getColumnMarker()
         columnMarker.setActive( column, boolean )
-    }
-
-    nextPlayer() {
-        this.getColumnMarker().rotate()
     }
 
 }

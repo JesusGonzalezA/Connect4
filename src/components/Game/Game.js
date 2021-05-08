@@ -11,7 +11,7 @@ class Game extends THREE.Object3D {
         this.controls = controls 
         
         this.createBoard( this.controls )
-        this.piecesController = new PiecesController( this.controls.piece )
+        this.piecesController = new PiecesController( this.controls.piece )      
     }
 
     getControls () {
@@ -61,7 +61,7 @@ class Game extends THREE.Object3D {
     }
 
     nextPlayer () {
-        this.board.nextPlayer()
+        this.rotation.y += Math.PI
     }
 
     update () {

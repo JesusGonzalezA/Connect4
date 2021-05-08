@@ -4,8 +4,9 @@ import { pieceTypes } from './Piece/pieceTypes.js'
 
 class GameController {
 
-    constructor ( game ) {
+    constructor ( game, camera ) {
         this.game    = game
+        this.camera  = camera
         this.initializeGame()
         
         const { piecesX, piecesY } = this.game.getDimensions()
@@ -26,6 +27,10 @@ class GameController {
 
     getWinner () {
         return this.winner
+    }
+    
+    getState () {
+        return this.state
     }
 
     createBoardState ( piecesX, piecesY ) {
@@ -196,10 +201,12 @@ class GameController {
             case gameStates.PLAYER_1:
                 this.state = gameStates.PLAYER_2
                 this.game.nextPlayer()
+                this.camera.nextPlayer()
                 break;
             case gameStates.PLAYER_2:
                 this.state = gameStates.PLAYER_1
                 this.game.nextPlayer()
+                this.camera.nextPlayer()
                 break;
             case gameStates.END:
                 console.log("Fin")

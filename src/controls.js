@@ -3,10 +3,10 @@ export const camera = {
     near: 0.1,
     far: 200,
     position: {
-        x: 10, y: 0, z: 80
+        x: 0, y: 10, z: 80
     },
     look: {
-        x: 10, y: 0, z: 0
+        x: 0, y: 10, z: 0
     },
     controller: {
         rotateSpeed: 5,

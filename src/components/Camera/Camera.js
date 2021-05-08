@@ -46,6 +46,10 @@ class Camera extends THREE.PerspectiveCamera {
     getLook () {
         return this.look
     }
+
+    nextPlayer() {
+        this.position.z *= -1
+    }
     
 }
 
