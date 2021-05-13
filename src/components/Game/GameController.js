@@ -219,9 +219,10 @@ class GameController {
     }
 
     restart () {
-        this.initializeGame()
+        this.camera.restart()
+        this.game.restart()
         this.initializeBoardState()
-        this.game.deleteAllPieces()
+        this.initializeGame()
     }
 }
 

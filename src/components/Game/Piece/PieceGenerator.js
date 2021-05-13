@@ -11,7 +11,7 @@ class PieceGenerator {
     createMaterial ( materialURI ) {
         const textureLoader = TextureLoader.getInstance()
         const texture = textureLoader.load( materialURI )
-        return new THREE.MeshMatcapMaterial({ matcap: texture})
+        return new THREE.MeshMatcapMaterial({ matcap: texture })
     }
 
     createPiece ( position ) {

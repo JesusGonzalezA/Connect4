@@ -12,9 +12,9 @@ class Camera extends THREE.PerspectiveCamera {
             look,
             isHelperVisible
         } = controls
-
         super( fov, aspect, near, far )
-
+        
+        this.initialPosition = position
         this.position.copy(position)
         this.setLookAt( look.x, look.y, look.z )
         this.createHelper( isHelperVisible )
@@ -49,6 +49,10 @@ class Camera extends THREE.PerspectiveCamera {
 
     nextPlayer() {
         this.position.z *= -1
+    }
+
+    restart() {
+        this.position.copy( this.initialPosition )
     }
     
 }

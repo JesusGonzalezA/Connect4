@@ -60,6 +60,10 @@ class ColumnMarker extends THREE.Object3D {
     setActive ( column, activating ) {
         this.columnMarkers[column].material.transparent = !activating   
     }
+
+    restart() {
+        this.columnMarkers.forEach( (_, index) => this.setActive(index, false) )
+    }
 }
 
 export { ColumnMarker }

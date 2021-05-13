@@ -64,6 +64,14 @@ class Game extends THREE.Object3D {
         this.rotation.y += Math.PI
     }
 
+    restart () {
+        this.deleteAllPieces()
+        this.rotation.y = 0
+
+        // Restart column marker
+        this.board.restart()
+    }
+
     update () {
 
     }

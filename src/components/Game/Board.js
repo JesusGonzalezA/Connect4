@@ -195,8 +195,6 @@ class Board extends THREE.Object3D {
         const bufferGeometry = new THREE
                                     .BufferGeometry()
                                     .fromGeometry( geometry )
-
-        geometry.center()
         return bufferGeometry
     }
 
@@ -218,6 +216,10 @@ class Board extends THREE.Object3D {
     setActiveColumnMarker ( column, boolean ) {
         const columnMarker = this.getColumnMarker()
         columnMarker.setActive( column, boolean )
+    }
+
+    restart() {
+        this.getColumnMarker().restart()
     }
 
 }

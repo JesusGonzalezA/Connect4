@@ -13,7 +13,6 @@ $(function () {
   const menu  = new Menu( controls.menu, gameController )
 
   window.addEventListener ( "resize", () => scene.onWindowResize() )
-
   window.addEventListener  ("keydown", (event) => gameController.addPiece( Number(getKeyFromEvent(event)) ) );  
   
   scene.update()  

@@ -7,7 +7,7 @@ import { pieceTypes } from './pieceTypes.js'
 class PiecesController {
 
     constructor ( controls ) {
-        const pieceGeometry = this.createPieceGeometry( controls )
+        const pieceGeometry = this.createPieceGeometry( controls )        
         this.pieceGenerator1 = new PieceGenerator( pieceGeometry, controls.materials.player1 )
         this.pieceGenerator2 = new PieceGenerator( pieceGeometry, controls.materials.player2 )
     }
@@ -45,7 +45,6 @@ class PiecesController {
         const bufferGeometry = new THREE
                                     .BufferGeometry()
                                     .fromGeometry( geometry )
-        
         return bufferGeometry
     }
 
