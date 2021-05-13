@@ -5,6 +5,9 @@ class ColumnMarker extends THREE.Object3D {
     constructor ( controls, depth, positionY ) {
         super()
         
+        this.loader = new THREE.FontLoader();
+
+        // Variables
         this.controls = controls
         const { piecesX, separationX } = controls.board
         const { 
@@ -14,14 +17,16 @@ class ColumnMarker extends THREE.Object3D {
         }  = controls.columnMarker
         const { width }  = controls.piece
         const separation = separationX + width
-
-        this.loader = new THREE.FontLoader();
         const options = {
             bevelEnabled,
             size,
             height: depth
         }
+
+        // Create
         this.createColumnMarkers( fontJSON, piecesX, separation, options )
+
+        // Set position
         this.position.y = positionY
         this.position.x = ( separationX + width/2 ) + (width+separationX) * (piecesX-1)/2
     }
