@@ -18,7 +18,7 @@ class Scene extends THREE.Scene {
     this.createCamera( controls.camera )  
     this.createAxes( controls.scene.axesHelper )
 
-    this.createGame( controls.game )
+    this.createGame( controls.game, this.camera )
 
     this.objectsToUpdate = [
       this.getLightsController(),
@@ -27,8 +27,8 @@ class Scene extends THREE.Scene {
     ]
   }
 
-  createGame ( controls ) {
-    this.game = new Game( controls )
+  createGame ( controls, camera ) {
+    this.game = new Game( controls, camera )
     this.add( this.game )
   }
 
@@ -89,6 +89,10 @@ class Scene extends THREE.Scene {
 
   getGameController() {
     return this.gameController
+  }
+
+  getDom () {
+    return this.renderer.getDom()
   }
   
   setCameraAspect ( ratio ) {

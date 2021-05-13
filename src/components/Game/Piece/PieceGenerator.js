@@ -1,5 +1,6 @@
 import * as THREE from '../../../../vendor/three.module.js'
 import { TextureLoader } from "../../../TextureLoader.js"
+import { Piece } from './Piece.js'
 
 class PieceGenerator {
 
@@ -15,11 +16,7 @@ class PieceGenerator {
     }
 
     createPiece ( position ) {
-        const mesh = new THREE.Mesh( this.geometry, this.material )
-        mesh.rotation.x = Math.PI / 2
-        mesh.position.copy( position )
-        
-        return mesh;
+        return new Piece( this.geometry, this.material, position );
     }
     
 }

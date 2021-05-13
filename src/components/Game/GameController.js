@@ -1,12 +1,13 @@
 
-import { gameStates } from './gameStates.js'
+import { gameStates } from './states/gameStates.js'
 import { pieceTypes } from './Piece/pieceTypes.js'
 
 class GameController {
 
     constructor ( game, camera ) {
-        this.game    = game
-        this.camera  = camera
+        this.game      = game
+        this.camera    = camera
+        
         this.initializeGame()
         
         const { piecesX, piecesY } = this.game.getDimensions()
@@ -31,6 +32,14 @@ class GameController {
     
     getState () {
         return this.state
+    }
+
+    getCamera () {
+        return this.camera
+    }
+
+    getGame () {
+        return this.game
     }
 
     createBoardState ( piecesX, piecesY ) {
@@ -216,6 +225,21 @@ class GameController {
                 break;
         }
 
+    }
+
+    selectPiece ( x, y ) {
+        let pieceType
+        if ( this.state === gameStates.PLAYER_1 ) pieceType = pieceTypes.PLAYER_1 
+        if ( this.state === gameStates.PLAYER_2 ) pieceType = pieceTypes.PLAYER_2
+        this.getGame().selectPiece( x, y, pieceType )  
+    }
+
+    movePiece ( x, y ) {
+        this.getGame().movePiece(x, y)
+    }
+
+    endMove () {
+        this.getGame().endMove()
     }
 
     restart () {

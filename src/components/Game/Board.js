@@ -29,10 +29,9 @@ class Board extends THREE.Object3D {
     }
     
     createColumnMarker ( controls, depth ) {
-        this.columnMarker = new ColumnMarker( controls, depth )
-        this.columnMarker.position.y = 
-          this.getBoardHeight() + this.columnMarker.getHeight() + controls.columnMarker.separation
-        this.columnMarker.position.x = this.controls.board.separationX + this.controls.piece.width/2
+        const positionY = this.getBoardHeight() + controls.columnMarker.separation
+        this.columnMarker = new ColumnMarker( controls, depth, positionY )
+        this.columnMarker.position.y += this.columnMarker.getHeight()
     } 
 
     createMeshBase ( controls ) {

@@ -1,21 +1,48 @@
 import * as THREE from '../../../vendor/three.module.js'
 
 import { Board } from './Board.js'
+import { playerStates } from './states/playerStates.js'
 import { PiecesController } from './Piece/PiecesController.js'
+import { pieceTypes } from './Piece/pieceTypes.js'
 
 class Game extends THREE.Object3D {
     
-    constructor ( controls ) {
+    constructor ( controls, camera ) {
         super()
 
-        this.controls = controls 
+        this.camera      = camera
+        this.controls    = controls 
+        this.pieces      = []
+        this.activePiece = null
+        this.state       = playerStates.IDLE
         
         this.createBoard( this.controls )
-        this.piecesController = new PiecesController( this.controls.piece )      
+        this.piecesController = new PiecesController( this.controls.piece )
+
+        this.raycaster = new THREE.Raycaster()
+        
+        this.createReferencePieces()
+    }
+
+    createReferencePieces () {
+        this.piecePlayer1     = this.piecesController.createPiecePlayer1( new THREE.Vector3(0,0,15) )
+        this.piecePlayer2     = this.piecesController.createPiecePlayer2( new THREE.Vector3(0,0,-15) )
+        this.add( this.piecePlayer1, this.piecePlayer2 )
+    }
+
+    getReferencePiece ( piece ) {
+        if ( piece === pieceTypes.PLAYER_1) 
+            return [ this.piecePlayer1.getMesh() ]
+        if ( piece === pieceTypes.PLAYER_2) 
+            return [ this.piecePlayer2.getMesh() ]
     }
 
     getControls () {
         return this.controls
+    }
+
+    getCamera() {
+        return this.camera
     }
 
     getDimensions () {
@@ -26,9 +53,7 @@ class Game extends THREE.Object3D {
     }
 
     getAllPieces () {
-        return this.children.filter( (piece, index) => {
-            if ( index!==0 ) return piece
-        })
+        return this.pieces
     }
 
     createBoard ( controls ) {
@@ -46,9 +71,10 @@ class Game extends THREE.Object3D {
 
         // Add piece
         const position = this.getPosition( row, column )
-        const pieza = this.piecesController.createPiece( pieceType, position )
+        const piece = this.piecesController.createPiece( pieceType, position )
 
-        this.add(pieza)
+        this.add( piece )
+        this.pieces.push( piece )
     }
 
     getPosition ( row, column ) {
@@ -60,8 +86,35 @@ class Game extends THREE.Object3D {
         pieces.map( (piece) => this.remove(piece) )
     }
 
+    selectPiece( x, y, pieceType ){
+        this.raycaster.setFromCamera(
+            new THREE.Vector2(x, y), 
+            this.getCamera()
+        )   
+
+        const objectsToSelect = this.getReferencePiece( pieceType )
+        const intersects      = this.raycaster.intersectObjects( objectsToSelect )
+        
+        if ( intersects.length ) {
+            this.activePiece = intersects[0].object.parent
+            this.activePiece.setSelected( true )
+            this.state = playerStates.MOVE
+        }
+    }
+
+    movePiece ( x, y ) {
+        if ( this.state === playerStates.MOVE ){
+            this.activePiece.position.z = 0
+        }
+        
+    }
+
+    endMove () {
+        this.state = playerStates.IDLE  
+    }
+
     nextPlayer () {
-        this.rotation.y += Math.PI
+        this.board.columnMarker.rotation.y += Math.PI
     }
 
     restart () {

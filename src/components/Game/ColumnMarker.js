@@ -2,7 +2,7 @@ import * as THREE from '../../../vendor/three.module.js'
 
 class ColumnMarker extends THREE.Object3D {
 
-    constructor ( controls, depth ) {
+    constructor ( controls, depth, positionY ) {
         super()
         
         this.controls = controls
@@ -22,6 +22,8 @@ class ColumnMarker extends THREE.Object3D {
             height: depth
         }
         this.createColumnMarkers( fontJSON, piecesX, separation, options )
+        this.position.y = positionY
+        this.position.x = ( separationX + width/2 ) + (width+separationX) * (piecesX-1)/2
     }
 
     createMaterial () {
@@ -34,23 +36,23 @@ class ColumnMarker extends THREE.Object3D {
 
     createColumnMarkers ( fontJSON, piecesX, separation, options ) {
         this.columnMarkers = []
-
+        this.finalX = piecesX * separation - separation
+        const initialX = - this.finalX / 2 
+        
         this.loader.load( fontJSON, ( font ) => {
             options.font = font
             
             for ( let i=0 ; i < piecesX; ++i ) {
-                const geometry = new THREE.TextGeometry( i.toString(), options );
+                const geometry = new THREE.TextGeometry( i.toString(), options )
                 geometry.center()
+                geometry.translate( initialX + i*separation, 0, 0 )
 
                 const mesh     = new THREE.Mesh(geometry, this.createMaterial())
-                mesh.position.x = i * separation
-
                 this.add( mesh )
                 this.columnMarkers.push( mesh )
             }
 
-        } );
-        
+        } )
     }
 
     getHeight () {

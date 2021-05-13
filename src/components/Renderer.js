@@ -10,6 +10,9 @@ class Renderer extends THREE.WebGLRenderer {
         $(canvasName).append( this.domElement )
     }
     
+    getDom () {
+        return this.domElement
+    }
 }
 
 export { Renderer }

@@ -12,6 +12,14 @@ class PiecesController {
         this.pieceGenerator2 = new PieceGenerator( pieceGeometry, controls.materials.player2 )
     }
     
+    createPiecePlayer1 ( position ) {
+        return this.pieceGenerator1.createPiece( position )
+    }
+
+    createPiecePlayer2 ( position ) {
+        return this.pieceGenerator2.createPiece( position )
+    }
+
     createPieceGeometry ( controls ) {
 
         const { width, height, holeRadius, holeHeight, segments } = controls
