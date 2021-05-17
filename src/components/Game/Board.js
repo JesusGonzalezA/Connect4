@@ -20,32 +20,6 @@ class Board extends THREE.Object3D {
         this.position.x = -this.getBoardWith() / 2
     }
     
-    createMaterial () {
-        if ( !this.material )
-            this.material = new THREE.MeshLambertMaterial({
-                color: 0xff0000,
-            })
-        return this.material
-    }
-    
-    createColumnMarker ( controls, depth ) {
-        const positionY = this.getBoardHeight() + controls.columnMarker.separation
-        this.columnMarker = new ColumnMarker( controls, depth, positionY )
-        this.columnMarker.position.y += this.columnMarker.getHeight()
-    } 
-
-    createMeshBase ( controls ) {
-        this.base =  new THREE.Mesh(
-            this.createGeometryBase( controls ), 
-            this.material
-        )
-        this.base.position.set(
-            this.getBoardWith() / 2,
-            - controls.board.base.height / 2,
-            0
-        )
-    }
-
     createBorders ( controls ) {
         this.borders = []
         const height = controls.board.separationY
@@ -83,13 +57,11 @@ class Board extends THREE.Object3D {
         this.borders.push(borderFront, borderBack)
     }
 
-    createMeshBoard ( controls ) {
-        this.board = new THREE.Mesh(
-            this.createGeometryBoard( controls ), 
-            this.createMaterial()
-        )
-        this.board.position.set(0,0, -this.getBoardDepth()/2)
-    }
+    createColumnMarker ( controls, depth ) {
+        const positionY = this.getBoardHeight() + controls.columnMarker.separation
+        this.columnMarker = new ColumnMarker( controls, depth, positionY )
+        this.columnMarker.position.y += this.columnMarker.getHeight()
+    } 
 
     createGeometryBase ( controls ) {
         return new THREE.BoxBufferGeometry(
@@ -97,28 +69,6 @@ class Board extends THREE.Object3D {
             controls.board.base.height,
             controls.board.base.depth
         )
-    }
-
-    getColumnMarker () {
-        return this.columnMarker
-    }
-
-    getBoardWith (){
-        const { piecesX, separationX } = this.controls.board 
-        const { width } = this.controls.piece 
-        return ( piecesX * ( width + separationX ) ) + separationX
-    }
-
-    getBoardHeight () {
-        const { piecesY, separationY } = this.controls.board 
-        const { width } = this.controls.piece 
-        return ( piecesY * ( width + separationY ) ) + separationY 
-    }
-
-    getBoardDepth() {
-        const { separationZ } = this.controls.board 
-        const { height } = this.controls.piece 
-        return height + ( 2 * separationZ )
     }
 
     createGeometryBoard ( controls ) {
@@ -197,6 +147,56 @@ class Board extends THREE.Object3D {
         return bufferGeometry
     }
 
+    createMaterial () {
+        if ( !this.material )
+            this.material = new THREE.MeshLambertMaterial({
+                color: 0xff0000,
+            })
+        return this.material
+    }
+    
+    createMeshBase ( controls ) {
+        this.base =  new THREE.Mesh(
+            this.createGeometryBase( controls ), 
+            this.material
+        )
+        this.base.position.set(
+            this.getBoardWith() / 2,
+            - controls.board.base.height / 2,
+            0
+        )
+    }
+
+    createMeshBoard ( controls ) {
+        this.board = new THREE.Mesh(
+            this.createGeometryBoard( controls ), 
+            this.createMaterial()
+        )
+        this.board.position.set(0,0, -this.getBoardDepth()/2)
+    }
+
+    getBoardDepth() {
+        const { separationZ } = this.controls.board 
+        const { height } = this.controls.piece 
+        return height + ( 2 * separationZ )
+    }
+
+    getBoardHeight () {
+        const { piecesY, separationY } = this.controls.board 
+        const { width } = this.controls.piece 
+        return ( piecesY * ( width + separationY ) ) + separationY 
+    }
+
+    getBoardWith (){
+        const { piecesX, separationX } = this.controls.board 
+        const { width } = this.controls.piece 
+        return ( piecesX * ( width + separationX ) ) + separationX
+    }
+
+    getColumnMarker () {
+        return this.columnMarker
+    }
+
     getPosition ( row, column ) {
         const { separationX, separationY } = this.controls.board 
         const { width } = this.controls.piece
@@ -212,13 +212,13 @@ class Board extends THREE.Object3D {
         return new THREE.Vector3( x, y, this.position.z)
     }
 
-    setActiveColumnMarker ( column, boolean ) {
-        const columnMarker = this.getColumnMarker()
-        columnMarker.setActive( column, boolean )
-    }
-
     restart() {
         this.getColumnMarker().restart()
+    }
+
+    setActiveColumnMarker ( column ) {
+        const columnMarker = this.getColumnMarker()
+        columnMarker.setActive( column )
     }
 
 }

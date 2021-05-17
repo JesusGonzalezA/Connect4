@@ -24,41 +24,8 @@ class Game extends THREE.Object3D {
         this.createReferencePieces()
     }
 
-    createReferencePieces () {
-        this.piecePlayer1     = this.piecesController.createPiecePlayer1( new THREE.Vector3(0,0,15) )
-        this.piecePlayer2     = this.piecesController.createPiecePlayer2( new THREE.Vector3(0,0,-15) )
-        this.add( this.piecePlayer1, this.piecePlayer2 )
-    }
-
-    getReferencePiece ( piece ) {
-        if ( piece === pieceTypes.PLAYER_1) 
-            return [ this.piecePlayer1.getMesh() ]
-        if ( piece === pieceTypes.PLAYER_2) 
-            return [ this.piecePlayer2.getMesh() ]
-    }
-
-    getControls () {
-        return this.controls
-    }
-
-    getCamera() {
-        return this.camera
-    }
-
-    getDimensions () {
-        return {
-            piecesX: this.controls.board.piecesX,
-            piecesY: this.controls.board.piecesY
-        }
-    }
-
-    getAllPieces () {
-        return this.pieces
-    }
-
-    createBoard ( controls ) {
-        this.board = new Board( controls )
-        this.add( this.board )
+    activeColumnMarker ( column ) {
+        this.board.setActiveColumnMarker( column, true )
     }
 
     addPiece ( pieceType, row, column ) {
@@ -72,17 +39,65 @@ class Game extends THREE.Object3D {
         this.pieces.push( piece )
     }
 
-    activeColumnMarker ( column ) {
-        this.board.setActiveColumnMarker( column, true )
+    createBoard ( controls ) {
+        this.board = new Board( controls )
+        this.add( this.board )
+    }
+
+    createReferencePieces () {
+        this.piecePlayer1     = this.piecesController.createPiecePlayer1( new THREE.Vector3(0,0,15) )
+        this.piecePlayer2     = this.piecesController.createPiecePlayer2( new THREE.Vector3(0,0,-15) )
+        this.add( this.piecePlayer1, this.piecePlayer2 )
+    }
+
+    deleteAllPieces () {
+        const pieces = this.getAllPieces()
+        pieces.map( (piece) => this.remove(piece) )
+    }
+
+    endMove () {
+        this.state = playerStates.IDLE  
+    }
+
+    getAllPieces () {
+        return this.pieces
+    }
+
+    getCamera() {
+        return this.camera
+    }
+
+    getControls () {
+        return this.controls
+    }
+
+    getDimensions () {
+        return {
+            piecesX: this.controls.board.piecesX,
+            piecesY: this.controls.board.piecesY
+        }
     }
 
     getPosition ( row, column ) {
         return this.board.getPosition( row, column )
     }
 
-    deleteAllPieces () {
-        const pieces = this.getAllPieces()
-        pieces.map( (piece) => this.remove(piece) )
+    getReferencePiece ( piece ) {
+        if ( piece === pieceTypes.PLAYER_1) 
+            return [ this.piecePlayer1.getMesh() ]
+        if ( piece === pieceTypes.PLAYER_2) 
+            return [ this.piecePlayer2.getMesh() ]
+    }
+
+    movePiece ( x, y ) {
+        if ( this.state === playerStates.MOVE ){
+            this.activePiece.position.z = 0
+        }
+        
+    }
+
+    nextPlayer ( player ) {
+        this.board.columnMarker.nextPlayer( player )
     }
 
     selectPiece( x, y, pieceType ){
@@ -99,21 +114,6 @@ class Game extends THREE.Object3D {
             this.activePiece.setSelected( true )
             this.state = playerStates.MOVE
         }
-    }
-
-    movePiece ( x, y ) {
-        if ( this.state === playerStates.MOVE ){
-            this.activePiece.position.z = 0
-        }
-        
-    }
-
-    endMove () {
-        this.state = playerStates.IDLE  
-    }
-
-    nextPlayer ( player ) {
-        this.board.columnMarker.nextPlayer( player )
     }
 
     restart () {

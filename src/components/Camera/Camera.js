@@ -29,20 +29,6 @@ class Camera extends THREE.PerspectiveCamera {
         return this.helper
     }
 
-    setHelperVisibility ( isHelperVisible ) {
-        this.helper.visible = isHelperVisible
-    }
-
-    setCameraAspect ( ratio ) {
-        this.aspect = ratio 
-        this.updateProjectionMatrix() 
-    }
-
-    setLookAt ( x, y, z ) {
-        this.look = new THREE.Vector3( x, y, z )
-        this.lookAt( x, y, z )
-    }
-
     getLook () {
         return this.look
     }
@@ -54,6 +40,20 @@ class Camera extends THREE.PerspectiveCamera {
     restart() {
         this.position.copy( this.initialPosition )
     }
+
+    setCameraAspect ( ratio ) {
+        this.aspect = ratio 
+        this.updateProjectionMatrix() 
+    }
+
+    setHelperVisibility ( isHelperVisible ) {
+        this.helper.visible = isHelperVisible
+    }
+
+    setLookAt ( x, y, z ) {
+        this.look = new THREE.Vector3( x, y, z )
+        this.lookAt( x, y, z )
+    }  
     
 }
 

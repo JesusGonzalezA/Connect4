@@ -27,11 +27,6 @@ class Scene extends THREE.Scene {
     ]
   }
 
-  createGame ( controls, camera ) {
-    this.game = new Game( controls, camera )
-    this.add( this.game )
-  }
-
   createAxes ( controls ) {
     this.axes = new AxesHelper( controls )
     this.add( this.axes )  
@@ -48,6 +43,11 @@ class Scene extends THREE.Scene {
     )
 
     this.add( this.camera.getHelper() )
+  }
+
+  createGame ( controls, camera ) {
+    this.game = new Game( controls, camera )
+    this.add( this.game )
   }
   
   createLights ( controls ) {
@@ -67,6 +67,10 @@ class Scene extends THREE.Scene {
     )
   }
   
+  getAxes () {
+    return this.axes;
+  }
+
   getCamera () {
     return this.camera  
   }
@@ -75,8 +79,8 @@ class Scene extends THREE.Scene {
     return this.cameraControl
   }
 
-  getAxes () {
-    return this.axes;
+  getDom () {
+    return this.renderer.getDom()
   }
 
   getLightsController () {
@@ -90,15 +94,7 @@ class Scene extends THREE.Scene {
   getGameController() {
     return this.gameController
   }
-
-  getDom () {
-    return this.renderer.getDom()
-  }
   
-  setCameraAspect ( ratio ) {
-    this.camera.setCameraAspect( ratio )
-  }
-    
   onWindowResize () {
     const width = window.innerWidth
     const height = window.innerHeight
@@ -107,6 +103,10 @@ class Scene extends THREE.Scene {
     this.renderer.setSize( width, height )  
   }
 
+  setCameraAspect ( ratio ) {
+    this.camera.setCameraAspect( ratio )
+  }
+    
   update () {
     this.renderer.render ( this, this.getCamera() )  
     

@@ -49,12 +49,6 @@ class GUI extends DATGUI {
         debugFolder.add( debug, 'toggleCameraHelper').name('Cámara')
     }
 
-    setDebug ( value ) {        
-        this.setAxesVisibility( value )
-        this.setLightsHelpersVisibility( value )
-        this.setCameraHelperVisibility( value )
-    }
-
     setAxesVisibility ( value ) {
         const axesControls = this.controls.scene.axesHelper
         const axes         = this.scene.getAxes()
@@ -65,16 +59,6 @@ class GUI extends DATGUI {
         axes.setVisible( value )
     }
 
-    setLightsHelpersVisibility( value ) {
-        const lightsController = this.scene.getLightsController()
-        const lightsControls   = this.controls.lights
-
-        if ( value === undefined ) value = !lightsControls.spotLight.isHelperVisible
-
-        lightsController.setHelpersVisibility( value )
-        lightsControls.spotLight.isHelperVisible = value
-    }
-    
     setCameraHelperVisibility( value ) {
         const camera         = this.scene.getCamera()
         const cameraControls = this.controls.camera
@@ -83,6 +67,22 @@ class GUI extends DATGUI {
 
         camera.setHelperVisibility( value )
         cameraControls.isHelperVisible = value
+    }
+
+    setDebug ( value ) {        
+        this.setAxesVisibility( value )
+        this.setLightsHelpersVisibility( value )
+        this.setCameraHelperVisibility( value )
+    }
+
+    setLightsHelpersVisibility( value ) {
+        const lightsController = this.scene.getLightsController()
+        const lightsControls   = this.controls.lights
+
+        if ( value === undefined ) value = !lightsControls.spotLight.isHelperVisible
+
+        lightsController.setHelpersVisibility( value )
+        lightsControls.spotLight.isHelperVisible = value
     }
 }
 

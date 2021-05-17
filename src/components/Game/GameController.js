@@ -14,60 +14,6 @@ class GameController {
         this.createBoardState( piecesX, piecesY )
     }
 
-    initializeGame () {
-        this.state = gameStates.PLAYER_1
-        this.lastRow = this.lastColumn = -1   
-        this.winner  = null
-    }
-
-    initializeBoardState () {
-        for ( let i = 0; i < this.boardState.length; ++i )
-            for ( let j=0; j < this.boardState[0].length; ++j)
-                this.boardState[i][j] = null
-    }
-
-    getWinner () {
-        return this.winner
-    }
-    
-    getState () {
-        return this.state
-    }
-
-    getCamera () {
-        return this.camera
-    }
-
-    getGame () {
-        return this.game
-    }
-
-    createBoardState ( piecesX, piecesY ) {
-        
-        this.boardState = new Array( piecesY )
-
-        for ( let i = 0; i < piecesY; ++i ){
-            this.boardState[i] = new Array( piecesX )
-        }
-        
-        this.initializeBoardState()
-    }
-    
-    getRow ( column ) {
-        let row = null
-        let index = 0
-        while( index < this.boardState.length 
-                && this.boardState[index][column] !== null)
-        {
-            index++
-        }
-        
-        if ( index < this.boardState.length )
-            row = index
-
-        return row
-    }
-
     addPiece ( column ) {
         // Check not possible
         if ( this.state !== gameStates.PLAYER_1 && this.state !== gameStates.PLAYER_2 ) return;
@@ -101,30 +47,9 @@ class GameController {
         this.nextState()
     }
 
-    getPieceType () {
-        const pieceType = ( this.state ===  gameStates.PLAYER_1 )
-            ? pieceTypes.PLAYER_1
-            : pieceTypes.PLAYER_2
-
-        return pieceType
-    }
-
     addPieceToBoardState( row, column ) {
         const pieceType = this.state
         this.boardState[row][column] = pieceType
-    }
-
-    /**
-     * Return
-     *  - 1 : if the piece in the board is typePiece
-     *  - 0 : if it does not match or it is out of bounds
-     */
-    checkPiece ( typePiece, row, column ) {
-        try {
-            return this.boardState[row][column] === typePiece
-        } catch {
-            return 0
-        }
     }
 
     checkGameOver () {
@@ -201,12 +126,95 @@ class GameController {
         }
     }
 
+     /**
+     * Return
+     *  - 1 : if the piece in the board is typePiece
+     *  - 0 : if it does not match or it is out of bounds
+     */
+    checkPiece ( typePiece, row, column ) {
+        try {
+            return this.boardState[row][column] === typePiece
+        } catch {
+            return 0
+        }
+    }
+
     checkTie () {
         const { piecesX, piecesY } = this.game.getDimensions()
         const numPieces            = this.game.getAllPieces().length
         
         if ( ( piecesX * piecesY ) === numPieces )
             this.state = gameStates.TIE
+    }
+
+    createBoardState ( piecesX, piecesY ) {
+        
+        this.boardState = new Array( piecesY )
+
+        for ( let i = 0; i < piecesY; ++i ){
+            this.boardState[i] = new Array( piecesX )
+        }
+        
+        this.initializeBoardState()
+    }
+
+    endMove () {
+        this.getGame().endMove()
+    }
+
+    getCamera () {
+        return this.camera
+    }
+
+    getGame () {
+        return this.game
+    }
+
+    getPieceType () {
+        const pieceType = ( this.state ===  gameStates.PLAYER_1 )
+            ? pieceTypes.PLAYER_1
+            : pieceTypes.PLAYER_2
+
+        return pieceType
+    }
+    
+    getRow ( column ) {
+        let row = null
+        let index = 0
+        while( index < this.boardState.length 
+                && this.boardState[index][column] !== null)
+        {
+            index++
+        }
+        
+        if ( index < this.boardState.length )
+            row = index
+
+        return row
+    }
+
+    getState () {
+        return this.state
+    }
+
+    getWinner () {
+        return this.winner
+    }
+
+    initializeGame () {
+        this.state = gameStates.PLAYER_1
+        this.lastRow = this.lastColumn = -1   
+        this.winner  = null
+    }
+
+    initializeBoardState () {
+        for ( let i = 0; i < this.boardState.length; ++i )
+            for ( let j=0; j < this.boardState[0].length; ++j)
+                this.boardState[i][j] = null
+    }
+
+    movePiece ( x, y ) {
+        this.getGame().movePiece(x, y)
     }
     
     nextState () {
@@ -234,27 +242,19 @@ class GameController {
         }
 
     }
-
-    selectPiece ( x, y ) {
-        let pieceType
-        if ( this.state === gameStates.PLAYER_1 ) pieceType = pieceTypes.PLAYER_1 
-        if ( this.state === gameStates.PLAYER_2 ) pieceType = pieceTypes.PLAYER_2
-        this.getGame().selectPiece( x, y, pieceType )  
-    }
-
-    movePiece ( x, y ) {
-        this.getGame().movePiece(x, y)
-    }
-
-    endMove () {
-        this.getGame().endMove()
-    }
-
+    
     restart () {
         this.camera.restart()
         this.game.restart()
         this.initializeBoardState()
         this.initializeGame()
+    }
+    
+    selectPiece ( x, y ) {
+        let pieceType
+        if ( this.state === gameStates.PLAYER_1 ) pieceType = pieceTypes.PLAYER_1 
+        if ( this.state === gameStates.PLAYER_2 ) pieceType = pieceTypes.PLAYER_2
+        this.getGame().selectPiece( x, y, pieceType )  
     }
 }
 

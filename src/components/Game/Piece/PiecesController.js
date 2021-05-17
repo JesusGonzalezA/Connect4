@@ -12,12 +12,12 @@ class PiecesController {
         this.pieceGenerator2 = new PieceGenerator( pieceGeometry, controls.materials.player2 )
     }
     
-    createPiecePlayer1 ( position ) {
-        return this.pieceGenerator1.createPiece( position )
-    }
+    createPiece ( state, position ) {
+        const pieceGenerator = ( state === pieceTypes.PLAYER_1 )
+            ? this.pieceGenerator1 
+            : this.pieceGenerator2
 
-    createPiecePlayer2 ( position ) {
-        return this.pieceGenerator2.createPiece( position )
+        return pieceGenerator.createPiece( position )
     }
 
     createPieceGeometry ( controls ) {
@@ -56,14 +56,13 @@ class PiecesController {
         return bufferGeometry
     }
 
-    createPiece ( state, position ) {
-        const pieceGenerator = ( state === pieceTypes.PLAYER_1 )
-            ? this.pieceGenerator1 
-            : this.pieceGenerator2
-
-        return pieceGenerator.createPiece( position )
+    createPiecePlayer1 ( position ) {
+        return this.pieceGenerator1.createPiece( position )
     }
 
+    createPiecePlayer2 ( position ) {
+        return this.pieceGenerator2.createPiece( position )
+    }
 
 }
 

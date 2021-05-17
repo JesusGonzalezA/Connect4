@@ -33,14 +33,6 @@ class ColumnMarker extends THREE.Object3D {
         this.position.x = ( separationX + width/2 ) + (width+separationX) * (piecesX-1)/2
     }
 
-    createMaterial () {
-        return  new THREE.MeshBasicMaterial( {
-            color: 0x0000ff,
-            transparent: true,
-            opacity: 0.6
-        })
-    }
-
     createColumnMarkers ( fontJSON, piecesX, separation, options ) {
         this.columnMarkers = []
         this.finalX = piecesX * separation - separation
@@ -62,20 +54,16 @@ class ColumnMarker extends THREE.Object3D {
         } )
     }
 
+    createMaterial () {
+        return  new THREE.MeshBasicMaterial( {
+            color: 0x0000ff,
+            transparent: true,
+            opacity: 0.6
+        })
+    }
+
     getHeight () {
         return this.controls.columnMarker.size / 2
-    }
-
-    setTransparent ( column, boolean ) {
-        this.columnMarkers[column].material.transparent = boolean
-    }
-
-    setActive ( column ) {        
-        if ( this.active !== -1 )
-            this.setTransparent( this.active, true )
-
-        this.setTransparent( column, false ) 
-        this.active = column
     }
 
     nextPlayer () {
@@ -92,6 +80,18 @@ class ColumnMarker extends THREE.Object3D {
 
     restart() {
         this.columnMarkers.forEach( (_, index) => this.setActive(index, false) )
+    }
+
+    setActive ( column ) {        
+        if ( this.active !== -1 )
+            this.setTransparent( this.active, true )
+
+        this.setTransparent( column, false ) 
+        this.active = column
+    }
+
+    setTransparent ( column, boolean ) {
+        this.columnMarkers[column].material.transparent = boolean
     }
 }
 

@@ -10,12 +10,12 @@ class LightsController {
         this.createHelpers()
     }
 
-    createLights () {
-        this.ambientLight = this.createAmbientLight()
-        this.spotLight    = this.createSpotLight()
-        this.lights  = [ this.ambientLight, this.spotLight ]
-    }
+    createAmbientLight () {
+        const { color, intensity } = this.controls.ambientLight
 
+        return new THREE.AmbientLight( color, intensity )  
+    }
+        
     createHelpers () {
         this.spotLightHelper = new THREE.SpotLightHelper( this.spotLight )
         this.spotLightHelper.visible = this.controls.spotLight.isHelperVisible
@@ -23,10 +23,10 @@ class LightsController {
         this.helpers = [ this.spotLightHelper ]
     }
 
-    createAmbientLight () {
-        const { color, intensity } = this.controls.ambientLight
-
-        return new THREE.AmbientLight( color, intensity )  
+    createLights () {
+        this.ambientLight = this.createAmbientLight()
+        this.spotLight    = this.createSpotLight()
+        this.lights  = [ this.ambientLight, this.spotLight ]
     }
 
     createSpotLight () {
@@ -38,6 +38,14 @@ class LightsController {
         return spotLight
     }
 
+    getHelpers () {
+        return this.helpers
+    }
+    
+    getLights () {
+        return this.lights
+    }
+
     getSpotLight () {
         return this.spotLight
     }
@@ -46,14 +54,6 @@ class LightsController {
         return this.spotLightHelper
     }
     
-    getLights () {
-        return this.lights
-    }
-
-    getHelpers () {
-        return this.helpers
-    }
-
     setHelpersVisibility ( value ) {
         this.spotLightHelper.visible = value
     }
