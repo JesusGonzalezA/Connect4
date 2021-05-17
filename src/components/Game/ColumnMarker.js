@@ -1,4 +1,5 @@
 import * as THREE from '../../../vendor/three.module.js'
+import { gameStates } from './states/gameStates.js';
 
 class ColumnMarker extends THREE.Object3D {
 
@@ -8,6 +9,7 @@ class ColumnMarker extends THREE.Object3D {
         this.loader = new THREE.FontLoader();
 
         // Variables
+        this.active   = -1
         this.controls = controls
         const { piecesX, separationX } = controls.board
         const { 
@@ -64,8 +66,28 @@ class ColumnMarker extends THREE.Object3D {
         return this.controls.columnMarker.size / 2
     }
 
-    setActive ( column, activating ) {
-        this.columnMarkers[column].material.transparent = !activating   
+    setTransparent ( column, boolean ) {
+        this.columnMarkers[column].material.transparent = boolean
+    }
+
+    setActive ( column ) {        
+        if ( this.active !== -1 )
+            this.setTransparent( this.active, true )
+
+        this.setTransparent( column, false ) 
+        this.active = column
+    }
+
+    nextPlayer () {
+        this.rotation.y += Math.PI        
+        
+        const column = ( this.controls.board.piecesX - this.active ) - 1
+        
+        if ( this.active !== column ) {   
+            this.setTransparent( column, false )
+            this.setTransparent( this.active, true )             
+            this.active = column 
+        }
     }
 
     restart() {

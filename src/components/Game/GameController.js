@@ -69,25 +69,33 @@ class GameController {
     }
 
     addPiece ( column ) {
+        // Check not possible
         if ( this.state !== gameStates.PLAYER_1 && this.state !== gameStates.PLAYER_2 ) return;
         if ( column >= this.boardState[0].length ) return;
-
-        const row    = this.getRow( column )
         
+        // Get column
+        const { piecesX } = this.getGame().getDimensions()
+        const columnPlayer1 = column 
+        const columnPlayer2 = (piecesX - column) - 1
+        let columnMarker  = column
+        let columnGame    = columnPlayer1
+        if ( this.state === gameStates.PLAYER_2 )
+        {
+            columnGame   = columnPlayer2
+        }
+        
+        // Get row
+        const row    = this.getRow( columnGame )
         if ( row === null ) return; 
-
-        // Set column marker
-        if ( this.lastColumn !== -1 )
-            this.game.setActiveColumnMarker( this.lastColumn, false )
-        this.game.setActiveColumnMarker( column, true )
         
         // Add piece to scene
-        this.game.addPiece( this.getPieceType(), row, column )
+        this.game.addPiece( this.getPieceType(), row, columnGame )
+        this.game.activeColumnMarker( columnMarker )
 
         // Add piece to board state
-        this.addPieceToBoardState( row, column )
+        this.addPieceToBoardState( row, columnGame )
         this.lastRow = row 
-        this.lastColumn  = column
+        this.lastColumn  = columnGame
 
         // Update state
         this.nextState()

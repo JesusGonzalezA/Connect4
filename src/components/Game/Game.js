@@ -61,11 +61,6 @@ class Game extends THREE.Object3D {
         this.add( this.board )
     }
 
-    setActiveColumnMarker ( column, boolean ) {
-        this.board.setActiveColumnMarker( column, boolean )
-        
-    }
-
     addPiece ( pieceType, row, column ) {
         if ( row === null ) return;
 
@@ -75,6 +70,10 @@ class Game extends THREE.Object3D {
 
         this.add( piece )
         this.pieces.push( piece )
+    }
+
+    activeColumnMarker ( column ) {
+        this.board.setActiveColumnMarker( column, true )
     }
 
     getPosition ( row, column ) {
@@ -113,8 +112,8 @@ class Game extends THREE.Object3D {
         this.state = playerStates.IDLE  
     }
 
-    nextPlayer () {
-        this.board.columnMarker.rotation.y += Math.PI
+    nextPlayer ( player ) {
+        this.board.columnMarker.nextPlayer( player )
     }
 
     restart () {
