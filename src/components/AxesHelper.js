@@ -8,13 +8,14 @@ class AxesHelper extends THREE.AxesHelper {
         this.setVisible( controls.visible )
     }
 
+    setScale ( value ) {
+        this.scale.set( value, value, value )
+    }
+    
     setVisible ( isVisible ) {
         this.visible = isVisible
     }
 
-    setScale ( value ) {
-        this.scale.set( value, value, value )
-    }
 }
 
 export { AxesHelper }

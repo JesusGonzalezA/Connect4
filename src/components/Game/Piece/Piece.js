@@ -14,12 +14,12 @@ class Piece extends THREE.Object3D {
         this.add( this.mesh )
     }
 
-    getMesh() {
-        return this.mesh
-    }
-
     createMesh( geometry, material ) {
         this.mesh = new THREE.Mesh( geometry, material )
+    }
+
+    getMesh() {
+        return this.mesh
     }
 
     setPosition ( position ) {
