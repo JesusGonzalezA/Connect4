@@ -113,12 +113,13 @@ class Game extends THREE.Object3D {
         if ( intersects.length ) {
             const { point } = intersects[0]
             let { x } = point
-            const limitR = ( 
-                  this.board.getBoardWidth()/2 
-                - this.controls.piece.width/2 
-                - this.controls.board.separationX 
-            )
-            const limitL = -limitR
+
+            const side = this.board.getBoardWidth()/2 
+                - this.controls.piece.width/2
+                - this.controls.board.separationX
+
+            const limitR = this.position.x + side
+            const limitL = this.position.x - side
             
             if ( x > limitR ) {
                 x = limitR                
@@ -126,9 +127,11 @@ class Game extends THREE.Object3D {
                 x = limitL
             } 
             
-            this.activePiece.position.x = x
-            const referenceX = this.position.x
-            const row = this.board.getRowFromX( referenceX, x )
+            this.activePiece.position.x = x - this.position.x
+            
+            const row = this.board.getRowFromX( x - this.position.x )
+            console.log(row);
+            
         }
     }
 

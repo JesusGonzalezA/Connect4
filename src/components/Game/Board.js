@@ -192,7 +192,7 @@ class Board extends THREE.Object3D {
         this.pickableBoard =  new THREE.Mesh(
             this.createGeometryPickableBoard(),
             new THREE.MeshBasicMaterial({
-                transparent: true,
+                transparent: false,
                 opacity: 0
             })
         )
@@ -235,11 +235,15 @@ class Board extends THREE.Object3D {
         return new THREE.Vector3( x, y, this.position.z)
     }
 
-    getRowFromX ( referenceX, x ) {
-        const limitL = -this.getBoardWidth()/2 + referenceX
-        const limitR = this.getBoardWidth()/2 + referenceX
+    getRowFromX ( x ) {
+        const limitL = - this.getBoardWidth() / 2 
+        const columnWidth = this.controls.board.separationX + this.controls.piece.width
         
-        return x
+        // Calculate position from limit left so x is positive
+        const diffXfromL = x - limitL
+        const row = Math.floor( (diffXfromL) / columnWidth )
+                
+        return row
     } 
 
     getPickableBoard() {
