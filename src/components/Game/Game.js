@@ -45,8 +45,14 @@ class Game extends THREE.Object3D {
     }
 
     createReferencePieces () {
-        this.piecePlayer1     = this.piecesController.createPiecePlayer1( new THREE.Vector3(0,0,15) )
-        this.piecePlayer2     = this.piecesController.createPiecePlayer2( new THREE.Vector3(0,0,-15) )
+        const separation = this.controls.board.separationPieceReference
+        const { x, y, z } = this.position
+        this.piecePlayer1     = this.piecesController.createPiecePlayer1( 
+            new THREE.Vector3( x, y, z + separation ) 
+        )
+        this.piecePlayer2     = this.piecesController.createPiecePlayer2( 
+            new THREE.Vector3( x, y, z - separation ) 
+        )
         this.add( this.piecePlayer1, this.piecePlayer2 )
     }
 
@@ -89,30 +95,63 @@ class Game extends THREE.Object3D {
             return [ this.piecePlayer2.getMesh() ]
     }
 
-    movePiece ( x, y ) {
-        if ( this.state === playerStates.MOVE ){
-            this.activePiece.position.z = 0
-        }
+    intersect ( x, y, objects ) {
+        this.raycaster.setFromCamera(
+            new THREE.Vector2(x, y), 
+            this.getCamera()
+        )
+
+        return this.raycaster.intersectObjects( objects )
+    }
+
+    movePiece ( x, y ) {        
+        if ( this.state !== playerStates.MOVE ) return 
+
+        const objectsToSelect = this.board.getPickableBoard()
+        const intersects      = this.intersect( x, y, [ objectsToSelect ] )
         
+        if ( intersects.length ) {
+            const { point } = intersects[0]
+            let { x } = point
+            const limitR = ( 
+                  this.board.getBoardWidth()/2 
+                - this.controls.piece.width/2 
+                - this.controls.board.separationX 
+            )
+            const limitL = -limitR
+            
+            if ( x > limitR ) {
+                x = limitR                
+            } else if ( x < limitL ) {
+                x = limitL
+            } 
+            
+            this.activePiece.position.x = x
+            const referenceX = this.position.x
+            const row = this.board.getRowFromX( referenceX, x )
+        }
     }
 
     nextPlayer ( player ) {
         this.board.columnMarker.nextPlayer( player )
     }
 
-    selectPiece( x, y, pieceType ){
-        this.raycaster.setFromCamera(
-            new THREE.Vector2(x, y), 
-            this.getCamera()
-        )   
-
+    selectPiece( x, y, pieceType ){  
         const objectsToSelect = this.getReferencePiece( pieceType )
-        const intersects      = this.raycaster.intersectObjects( objectsToSelect )
+        const intersects      = this.intersect( x, y, objectsToSelect )
         
         if ( intersects.length ) {
             this.activePiece = intersects[0].object.parent
             this.activePiece.setSelected( true )
             this.state = playerStates.MOVE
+
+            this.activePiece.setPosition({
+                x: 0, 
+                y: this.board.getBoardHeight() 
+                    + this.controls.piece.width/2 
+                    + this.controls.board.separationPieceMove,
+                z: 0
+            })
         }
     }
 

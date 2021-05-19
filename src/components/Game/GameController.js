@@ -1,6 +1,7 @@
 
 import { gameStates } from './states/gameStates.js'
 import { pieceTypes } from './Piece/pieceTypes.js'
+import { playerStates } from './states/playerStates.js'
 
 class GameController {
 
@@ -256,6 +257,11 @@ class GameController {
         if ( this.state === gameStates.PLAYER_2 ) pieceType = pieceTypes.PLAYER_2
         this.getGame().selectPiece( x, y, pieceType )  
     }
+
+    unSelectPiece ( x, y ) {
+        
+    }
+
 }
 
 export { GameController }

@@ -13,11 +13,12 @@ class Board extends THREE.Object3D {
         this.createMeshBase( controls )
         this.createBorders( controls )
         this.createColumnMarker( controls, this.getBoardDepth() )
+        this.createPickableBoard()
 
-        this.add( this.board, this.base, this.columnMarker )
+        this.add( this.board, this.base, this.columnMarker, this.pickableBoard )
         this.borders.forEach( (border) => this.add(border) )
 
-        this.position.x = -this.getBoardWith() / 2
+        this.position.x = -this.getBoardWidth() / 2
     }
     
     createBorders ( controls ) {
@@ -26,7 +27,7 @@ class Board extends THREE.Object3D {
         
         // Create geometry
         const borderGeometry = new THREE.BoxBufferGeometry(
-            this.getBoardWith(),
+            this.getBoardWidth(),
             height,
             controls.board.depth
         )
@@ -37,7 +38,7 @@ class Board extends THREE.Object3D {
             this.material
         )
         borderFront.position.set(
-            this.getBoardWith() / 2,
+            this.getBoardWidth() / 2,
             height / 2,
             this.getBoardDepth() / 2
         )
@@ -48,7 +49,7 @@ class Board extends THREE.Object3D {
             this.material
         )
         borderBack.position.set(
-            this.getBoardWith() / 2,
+            this.getBoardWidth() / 2,
             height / 2,
             -this.getBoardDepth() /2
         )
@@ -65,7 +66,7 @@ class Board extends THREE.Object3D {
 
     createGeometryBase ( controls ) {
         return new THREE.BoxBufferGeometry(
-            this.getBoardWith(),
+            this.getBoardWidth(),
             controls.board.base.height,
             controls.board.base.depth
         )
@@ -80,7 +81,7 @@ class Board extends THREE.Object3D {
         } = controls.board 
         const { width, height } = controls.piece    
 
-        const boardWidth  = this.getBoardWith()
+        const boardWidth  = this.getBoardWidth()
         const boardHeight = this.getBoardHeight()
         const boardDepth  = this.getBoardDepth()
 
@@ -147,6 +148,18 @@ class Board extends THREE.Object3D {
         return bufferGeometry
     }
 
+    createGeometryPickableBoard () {
+        const { separation, size } = this.controls.columnMarker
+        const { offset } = this.controls.board.pickable
+        const width  = this.getBoardWidth() 
+        const height = this.getBoardHeight() + separation + size + offset
+        const geometry = new THREE.BoxBufferGeometry(
+            width, height, 0.01
+        );
+        geometry.translate( width/2, height/2, 0 )
+        return geometry
+    }
+
     createMaterial () {
         if ( !this.material )
             this.material = new THREE.MeshLambertMaterial({
@@ -161,7 +174,7 @@ class Board extends THREE.Object3D {
             this.material
         )
         this.base.position.set(
-            this.getBoardWith() / 2,
+            this.getBoardWidth() / 2,
             - controls.board.base.height / 2,
             0
         )
@@ -173,6 +186,16 @@ class Board extends THREE.Object3D {
             this.createMaterial()
         )
         this.board.position.set(0,0, -this.getBoardDepth()/2)
+    }
+
+    createPickableBoard () {
+        this.pickableBoard =  new THREE.Mesh(
+            this.createGeometryPickableBoard(),
+            new THREE.MeshBasicMaterial({
+                transparent: true,
+                opacity: 0
+            })
+        )
     }
 
     getBoardDepth() {
@@ -187,7 +210,7 @@ class Board extends THREE.Object3D {
         return ( piecesY * ( width + separationY ) ) + separationY 
     }
 
-    getBoardWith (){
+    getBoardWidth (){
         const { piecesX, separationX } = this.controls.board 
         const { width } = this.controls.piece 
         return ( piecesX * ( width + separationX ) ) + separationX
@@ -210,6 +233,17 @@ class Board extends THREE.Object3D {
         const x = initialX + column * advanceX
         
         return new THREE.Vector3( x, y, this.position.z)
+    }
+
+    getRowFromX ( referenceX, x ) {
+        const limitL = -this.getBoardWidth()/2 + referenceX
+        const limitR = this.getBoardWidth()/2 + referenceX
+        
+        return x
+    } 
+
+    getPickableBoard() {
+        return this.pickableBoard
     }
 
     restart() {

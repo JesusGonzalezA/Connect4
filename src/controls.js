@@ -3,16 +3,16 @@ export const camera = {
     near: 0.1,
     far: 200,
     position: {
-        x: 0, y: 10, z: 80
+        x: 0, y: 20, z: 80
     },
     look: {
-        x: 0, y: 10, z: 0
+        x: 0, y: 20, z: 0
     },
     controller: {
         rotateSpeed: 5,
         zoomSpeed: -2,
         panSpeed: 0.5,
-        enabled: true
+        enabled: false
     },
     isHelperVisible: false
 }
@@ -64,17 +64,22 @@ export const game = {
         separationX: 0.5,
         separationY: 0.5,
         separationZ: 0.1,
+        separationPieceMove: 0.5,
+        separationPieceReference: 15,
         base: {
             height: 0.4,
             depth: 20
         },
         border: {
             depth: 0.1
+        },
+        pickable: {
+            offset: 1
         }
     },
     columnMarker: {
         fontJSON: './assets/fonts/helvetiker_regular.typeface.json',
-        separation: 1,
+        separation: 5.5,
         bevelEnabled: false,
         size: 2
     }

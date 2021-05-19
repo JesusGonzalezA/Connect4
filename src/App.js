@@ -31,6 +31,11 @@ $(function () {
     const normalizedCoordinates = normalizeCoordinates( event.clientX, event.clientY )
     gameController.movePiece( normalizedCoordinates.x, normalizedCoordinates.y )
   })
+    // Detect stop piece selection
+    sceneDom.addEventListener ( "pointerup", (event) => {
+      const normalizedCoordinates = normalizeCoordinates( event.clientX, event.clientY )
+      gameController.unSelectPiece( normalizedCoordinates.x, normalizedCoordinates.y )
+    });
     // Detect unselect or add
   sceneDom.addEventListener("pointerup", () => gameController.endMove() );
   
