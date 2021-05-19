@@ -215,6 +215,9 @@ class GameController {
     }
 
     movePiece ( x, y ) {
+        if ( this.state === gameStates.END || this.state === gameStates.END)
+            return 
+            
         this.getGame().movePiece(x, y)
     }
     
@@ -252,6 +255,9 @@ class GameController {
     }
     
     selectPiece ( x, y ) {
+        if ( this.state === gameStates.END || this.state === gameStates.END)
+            return 
+
         let pieceType
         if ( this.state === gameStates.PLAYER_1 ) pieceType = pieceTypes.PLAYER_1 
         if ( this.state === gameStates.PLAYER_2 ) pieceType = pieceTypes.PLAYER_2
