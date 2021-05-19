@@ -130,8 +130,9 @@ class Game extends THREE.Object3D {
             this.activePiece.position.x = x - this.position.x
             
             const row = this.board.getRowFromX( x - this.position.x )
-            console.log(row);
-            
+            // TODO si es el jugador 2, la columna se esta calculando del reves.
+            // Así que tengo que darle la vuelta
+            // Debería de hacerse aqui
         }
     }
 

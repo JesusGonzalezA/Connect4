@@ -192,7 +192,7 @@ class Board extends THREE.Object3D {
         this.pickableBoard =  new THREE.Mesh(
             this.createGeometryPickableBoard(),
             new THREE.MeshBasicMaterial({
-                transparent: false,
+                transparent: true,
                 opacity: 0
             })
         )
