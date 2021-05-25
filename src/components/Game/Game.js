@@ -64,6 +64,7 @@ class Game extends THREE.Object3D {
     deleteAllPieces () {
         const pieces = this.getAllPieces()
         pieces.map( (piece) => this.remove(piece) )
+        this.pieces = []
     }
 
     endMove () {
