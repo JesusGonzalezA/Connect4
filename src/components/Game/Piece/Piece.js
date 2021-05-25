@@ -5,9 +5,17 @@ class Piece extends THREE.Object3D {
     constructor( geometry, material, position ) {
         super()
 
+        this.args = {
+            geometry, material, position
+        }
+    }
+
+    initialize() {
+        const { geometry, material, position } = this.args 
+        
         this.material = material
 
-        this.createMesh( geometry, material )
+        this.createMesh( geometry, this.material )
         this.setPosition( position )
         this.setRotation( Math.PI/2, 0, 0)
 
@@ -31,8 +39,8 @@ class Piece extends THREE.Object3D {
     }
 
     setSelected( boolean ) {
-        this.material.opacity     = 0.8
         this.material.transparent = boolean
+        this.material.opacity     = 0.4
     }
 
 }

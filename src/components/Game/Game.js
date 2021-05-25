@@ -191,8 +191,12 @@ class Game extends THREE.Object3D {
 
     resetReferencePieces() {
         const positionArr = this.getPositionReferencePieces()
+        
         this.piecePlayer1.setPosition( positionArr[0] )
         this.piecePlayer2.setPosition( positionArr[1] )
+        
+        this.piecePlayer1.setSelected( false )
+        this.piecePlayer2.setSelected( false )
     }
 
     restart () {

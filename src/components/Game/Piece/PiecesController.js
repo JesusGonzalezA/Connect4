@@ -64,6 +64,14 @@ class PiecesController {
         return this.pieceGenerator2.createPiece( position )
     }
 
+    createRefencePiecePlayer1 ( position ) {
+        return this.pieceGenerator1.createPieceRefence( position )
+    }
+
+    createRefencePiecePlayer2 ( position ) {
+        return this.pieceGenerator2.createPieceRefence( position )
+    }
+
 }
 
 export { PiecesController }

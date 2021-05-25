@@ -1,6 +1,7 @@
 import * as THREE from '../../../../vendor/three.module.js'
 import { TextureLoader } from "../../../TextureLoader.js"
 import { Piece } from './Piece.js'
+import { ReferencePiece } from './ReferencePiece.js'
 
 class PieceGenerator {
 
@@ -16,7 +17,17 @@ class PieceGenerator {
     }
 
     createPiece ( position ) {
-        return new Piece( this.geometry, this.material, position );
+        const piece = new ReferencePiece( this.geometry, this.material, position )
+        piece.initialize() 
+
+        return piece
+    }
+
+    createPieceReference ( position ) {
+        const piece = new ReferencePiece( this.geometry, this.material, position )
+        piece.initialize() 
+        
+        return piece
     }
     
 }
