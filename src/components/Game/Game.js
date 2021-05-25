@@ -95,6 +95,10 @@ class Game extends THREE.Object3D {
             return [ this.piecePlayer2.getMesh() ]
     }
 
+    getState() {
+        return this.state
+    }
+
     intersect ( x, y, objects ) {
         this.raycaster.setFromCamera(
             new THREE.Vector2(x, y), 
@@ -105,8 +109,6 @@ class Game extends THREE.Object3D {
     }
 
     movePiece ( x, y ) {        
-        if ( this.state !== playerStates.MOVE ) return 
-
         const objectsToSelect = this.board.getPickableBoard()
         const intersects      = this.intersect( x, y, [ objectsToSelect ] )
         
@@ -128,12 +130,11 @@ class Game extends THREE.Object3D {
             } 
             
             this.activePiece.position.x = x - this.position.x
-            
-            const row = this.board.getRowFromX( x - this.position.x )
-            // TODO si es el jugador 2, la columna se esta calculando del reves.
-            // Así que tengo que darle la vuelta
-            // Debería de hacerse aqui
+            const column = this.board.getColumnFromX( x - this.position.x )
+
+            return column
         }
+        return null
     }
 
     nextPlayer ( player ) {

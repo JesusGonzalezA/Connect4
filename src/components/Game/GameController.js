@@ -21,15 +21,8 @@ class GameController {
         if ( column >= this.boardState[0].length ) return;
         
         // Get column
-        const { piecesX } = this.getGame().getDimensions()
-        const columnPlayer1 = column 
-        const columnPlayer2 = (piecesX - column) - 1
         let columnMarker  = column
-        let columnGame    = columnPlayer1
-        if ( this.state === gameStates.PLAYER_2 )
-        {
-            columnGame   = columnPlayer2
-        }
+        let columnGame    = this.getColumnFromState( column )
         
         // Get row
         const row    = this.getRow( columnGame )
@@ -167,6 +160,13 @@ class GameController {
         return this.camera
     }
 
+    getColumnFromState( column ) {
+        const { piecesX } = this.getGame().getDimensions()
+        const columnPlayer2 = (piecesX - column) - 1
+
+        return ( this.state === gameStates.PLAYER_2 ) ? columnPlayer2 : column
+    }
+
     getGame () {
         return this.game
     }
@@ -215,10 +215,14 @@ class GameController {
     }
 
     movePiece ( x, y ) {
-        if ( this.state === gameStates.END || this.state === gameStates.END)
+        if ( this.getGame().getState() !== playerStates.MOVE )
             return 
             
-        this.getGame().movePiece(x, y)
+        let column = this.getGame().movePiece(x, y)
+        if ( column !== null ) {
+            column = this.getColumnFromState( column )
+            this.game.activeColumnMarker( column )
+        }
     }
     
     nextState () {

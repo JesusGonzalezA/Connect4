@@ -216,6 +216,17 @@ class Board extends THREE.Object3D {
         return ( piecesX * ( width + separationX ) ) + separationX
     }
 
+    getColumnFromX ( x ) {
+        const limitL = - this.getBoardWidth() / 2 
+        const columnWidth = this.controls.board.separationX + this.controls.piece.width
+        
+        // Calculate position from limit left so x is positive
+        const diffXfromL = x - limitL
+        const column = Math.floor( (diffXfromL) / columnWidth )
+                
+        return column
+    } 
+
     getColumnMarker () {
         return this.columnMarker
     }
@@ -234,17 +245,6 @@ class Board extends THREE.Object3D {
         
         return new THREE.Vector3( x, y, this.position.z)
     }
-
-    getRowFromX ( x ) {
-        const limitL = - this.getBoardWidth() / 2 
-        const columnWidth = this.controls.board.separationX + this.controls.piece.width
-        
-        // Calculate position from limit left so x is positive
-        const diffXfromL = x - limitL
-        const row = Math.floor( (diffXfromL) / columnWidth )
-                
-        return row
-    } 
 
     getPickableBoard() {
         return this.pickableBoard
