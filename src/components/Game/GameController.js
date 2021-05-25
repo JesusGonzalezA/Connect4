@@ -46,6 +46,7 @@ class GameController {
         {
             const column = this.game.getActiveColumn()
             this.addPiece( column )
+            this.getGame().resetReferencePieces()
         }
     }
 
@@ -267,12 +268,13 @@ class GameController {
     }
     
     selectPiece ( x, y ) {
-        if ( this.state === gameStates.END || this.state === gameStates.END)
+        if ( this.getGame().getState() !== playerStates.SELECT )
             return 
 
-        let pieceType
-        if ( this.state === gameStates.PLAYER_1 ) pieceType = pieceTypes.PLAYER_1 
-        if ( this.state === gameStates.PLAYER_2 ) pieceType = pieceTypes.PLAYER_2
+        let pieceType = ( this.state === gameStates.PLAYER_1 )
+            ? pieceTypes.PLAYER_1 
+            : pieceTypes.PLAYER_2
+            
         this.getGame().selectPiece( x, y, pieceType )  
     }
 

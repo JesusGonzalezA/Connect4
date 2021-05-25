@@ -45,13 +45,12 @@ class Game extends THREE.Object3D {
     }
 
     createReferencePieces () {
-        const separation = this.controls.board.separationPieceReference
-        const { x, y, z } = this.position
+        const positionArr = this.getPositionReferencePieces() 
         this.piecePlayer1     = this.piecesController.createPiecePlayer1( 
-            new THREE.Vector3( x, y, z + separation ) 
+            positionArr[0]
         )
         this.piecePlayer2     = this.piecesController.createPiecePlayer2( 
-            new THREE.Vector3( x, y, z - separation ) 
+            positionArr[1]
         )
         this.add( this.piecePlayer1, this.piecePlayer2 )
     }
@@ -90,6 +89,24 @@ class Game extends THREE.Object3D {
 
     getPosition ( row, column ) {
         return this.board.getPosition( row, column )
+    }
+
+    getPositionReferencePieces() {
+        const separation = this.controls.board.separationPieceReference
+        const { x, y, z } = this.position
+
+        return [
+            {
+                x, 
+                y,
+                z: z + separation
+            },
+            {
+                x, 
+                y, 
+                z: z - separation
+            }
+        ]
     }
 
     getReferencePiece ( piece ) {
@@ -145,6 +162,14 @@ class Game extends THREE.Object3D {
         this.board.columnMarker.nextPlayer( player )
     }
 
+    nextState() {
+        switch ( this.state ) {
+            case playerStates.SELECT:
+                this.state = playerStates.MOVE
+                break;
+        }
+    }
+
     selectPiece( x, y, pieceType ){  
         const objectsToSelect = this.getReferencePiece( pieceType )
         const intersects      = this.intersect( x, y, objectsToSelect )
@@ -152,7 +177,7 @@ class Game extends THREE.Object3D {
         if ( intersects.length ) {
             this.activePiece = intersects[0].object.parent
             this.activePiece.setSelected( true )
-            this.state = playerStates.MOVE
+            this.nextState()
 
             this.activePiece.setPosition({
                 x: 0, 
@@ -162,6 +187,12 @@ class Game extends THREE.Object3D {
                 z: 0
             })
         }
+    }
+
+    resetReferencePieces() {
+        const positionArr = this.getPositionReferencePieces()
+        this.piecePlayer1.setPosition( positionArr[0] )
+        this.piecePlayer2.setPosition( positionArr[1] )
     }
 
     restart () {
