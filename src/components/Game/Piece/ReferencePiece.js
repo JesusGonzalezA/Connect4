@@ -6,9 +6,7 @@ class ReferencePiece extends Piece {
         super( geometry, material, position )        
     }
 
-    initialize() {
-        console.log('hi');
-        
+    initialize() {        
         const { geometry, material, position } = this.args 
         
         this.material = material.clone()
