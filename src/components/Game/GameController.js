@@ -55,6 +55,10 @@ class GameController {
         this.boardState[row][column] = pieceType
     }
 
+    cancelMove () {
+        this.game.cancelMove()
+    }
+
     checkGameOver () {
 
         const pieceType = ( this.state === gameStates.PLAYER_1 ) 

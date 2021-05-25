@@ -5,6 +5,7 @@ import { getKeyFromEvent, normalizeCoordinates } from './helpers/eventHelper.js'
 import * as controls from './controls.js'
 
 import { Scene } from './Scene.js'
+import { keys } from './helpers/keys.js'
 
 
 $(function () {
@@ -19,22 +20,33 @@ $(function () {
   window.addEventListener ( "resize", () => scene.onWindowResize() )
     // Add piece from keyboard
   window.addEventListener ( "keydown", (event) => {
-    gameController.addPiece( Number(getKeyFromEvent(event)) ) 
-  });  
+    const key =  getKeyFromEvent( event )
+
+    if ( isNaN( key ) ) 
+    {
+      switch( key ) {
+        case keys.ESC:
+          gameController.cancelMove()
+        break;
+      }
+    }
+    else 
+      gameController.addPiece( Number(getKeyFromEvent(event)) ) 
+  })  
     // Detect piece selection
   sceneDom.addEventListener ( "pointerdown", (event) => {
     const normalizedCoordinates = normalizeCoordinates( event.clientX, event.clientY )
     gameController.selectPiece( normalizedCoordinates.x, normalizedCoordinates.y )
-  });
+  })
     // Detect piece move
   sceneDom.addEventListener( "pointermove", (event) => {
     const normalizedCoordinates = normalizeCoordinates( event.clientX, event.clientY )
     gameController.movePiece( normalizedCoordinates.x, normalizedCoordinates.y )
   })
     // Detect stop piece selection
-    sceneDom.addEventListener ( "pointerup", () => {
-      gameController.addPieceAfterMove()
-    });
+  sceneDom.addEventListener ( "pointerup", () => {
+    gameController.addPieceAfterMove()
+  })
     // Detect unselect or add
   sceneDom.addEventListener("pointerup", () => gameController.endMove() );
   

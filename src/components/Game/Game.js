@@ -39,6 +39,12 @@ class Game extends THREE.Object3D {
         this.pieces.push( piece )
     }
 
+    cancelMove () {
+        this.resetReferencePieces()
+        this.board.resetColumnMarker()
+        this.state = playerStates.SELECT
+    }
+
     createBoard ( controls ) {
         this.board = new Board( controls )
         this.add( this.board )
