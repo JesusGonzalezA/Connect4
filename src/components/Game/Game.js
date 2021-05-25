@@ -65,6 +65,10 @@ class Game extends THREE.Object3D {
         this.state = playerStates.IDLE  
     }
 
+    getActiveColumn () {
+        return this.board.getActiveColumn()
+    }
+
     getAllPieces () {
         return this.pieces
     }

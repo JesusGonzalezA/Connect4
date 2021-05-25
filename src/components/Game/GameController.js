@@ -41,6 +41,14 @@ class GameController {
         this.nextState()
     }
 
+    addPieceAfterMove () {
+        if ( this.getGame().getState() === playerStates.MOVE )
+        {
+            const column = this.game.getActiveColumn()
+            this.addPiece( column )
+        }
+    }
+
     addPieceToBoardState( row, column ) {
         const pieceType = this.state
         this.boardState[row][column] = pieceType

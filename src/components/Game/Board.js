@@ -198,6 +198,10 @@ class Board extends THREE.Object3D {
         )
     }
 
+    getActiveColumn () {
+        return this.columnMarker.active
+    }
+
     getBoardDepth() {
         const { separationZ } = this.controls.board 
         const { height } = this.controls.piece 
