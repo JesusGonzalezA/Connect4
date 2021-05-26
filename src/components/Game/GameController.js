@@ -232,7 +232,7 @@ class GameController {
         if ( this.state === gameStates.END || this.state === gameStates.TIE )
             return
 
-        if ( this.getGame().getState() === playerStates.SELECT ) {
+        if ( this.getGame().getState() === playerStates.IDLE ) {
             this.startMoveFromArrow()            
         } else {
             const column = callback.apply( this.getGame() )
@@ -305,7 +305,7 @@ class GameController {
     }
     
     selectPiece ( x, y ) {
-        if ( this.getGame().getState() !== playerStates.SELECT )
+        if ( this.getGame().getState() !== playerStates.IDLE )
             return 
 
         let pieceType = ( this.state === gameStates.PLAYER_1 )
@@ -328,7 +328,7 @@ class GameController {
         this.getGame().activeColumnMarker( 
             Math.floor(this.getGame().getDimensions().piecesX / 2)
         )
-        this.getGame().nextState()
+        this.getGame().startMove()
         
     }
 

@@ -38,13 +38,13 @@ class Game extends THREE.Object3D {
         this.add( piece )
         this.pieces.push( piece )
 
-        this.nextState()
+        this.state = playerStates.IDLE
     }
 
     cancelMove () {
         this.resetReferencePieces()
         this.board.resetColumnMarker()
-        this.state = playerStates.SELECT
+        this.state = playerStates.IDLE
     }
 
     createBoard ( controls ) {
@@ -197,15 +197,8 @@ class Game extends THREE.Object3D {
         this.board.columnMarker.nextPlayer( player )
     }
 
-    nextState() {
-        switch ( this.state ) {
-            case playerStates.SELECT:
-                this.state = playerStates.MOVE
-                break;
-            case playerStates.MOVE:
-                this.state = playerStates.SELECT
-                break;
-        }
+    startMove () {
+        this.state = playerStates.MOVE
     }
 
     selectPiece( x, y, pieceType ){  
@@ -214,7 +207,7 @@ class Game extends THREE.Object3D {
         
         if ( intersects.length ) {
             this.setActivePiece( intersects[0].object.parent )
-            this.nextState()
+            this.state = playerStates.MOVE
         
             return Math.floor(this.controls.board.piecesX / 2)
         }
