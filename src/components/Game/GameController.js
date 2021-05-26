@@ -2,6 +2,7 @@
 import { gameStates } from './states/gameStates.js'
 import { pieceTypes } from './Piece/pieceTypes.js'
 import { playerStates } from './states/playerStates.js'
+import { game } from '../../controls.js'
 
 class GameController {
 
@@ -227,6 +228,29 @@ class GameController {
                 this.boardState[i][j] = null
     }
 
+    moveArrow ( callback ) {
+        if ( this.state === gameStates.END || this.state === gameStates.TIE )
+            return
+
+        if ( this.getGame().getState() === playerStates.SELECT ) {
+            this.startMoveFromArrow()            
+        } else {
+            const column = callback.apply( this.getGame() )
+            this.getGame()
+                .activeColumnMarker( this.getColumnFromState( column ) )
+        }
+    }
+
+    moveLeft () {
+        
+        const callback = ( this.state === gameStates.PLAYER_2 )
+            ? this.getGame().moveRight
+            : this.getGame().moveLeft
+        
+        this.moveArrow( callback )
+    }
+
+
     movePiece ( x, y ) {
         if ( this.getGame().getState() !== playerStates.MOVE )
             return 
@@ -238,6 +262,15 @@ class GameController {
         }
     }
     
+    moveRight () {
+        
+        const callback = ( this.state === gameStates.PLAYER_2 )
+            ? this.getGame().moveLeft
+            : this.getGame().moveRight
+        
+        this.moveArrow( callback )
+    }
+
     nextState () {
 
         this.checkGameOver()
@@ -278,8 +311,25 @@ class GameController {
         let pieceType = ( this.state === gameStates.PLAYER_1 )
             ? pieceTypes.PLAYER_1 
             : pieceTypes.PLAYER_2
-            
-        this.getGame().selectPiece( x, y, pieceType )  
+        
+        const selected = this.getGame().selectPiece( x, y, pieceType )
+        
+        if ( selected !== false )
+            this.game.activeColumnMarker( selected )
+    }
+
+    startMoveFromArrow(){
+        let pieceType = ( this.state === gameStates.PLAYER_1 )
+            ? pieceTypes.PLAYER_1 
+            : pieceTypes.PLAYER_2
+
+        const referencePiece = this.getGame().getReferencePiece( pieceType )
+        this.getGame().setActivePiece( referencePiece )
+        this.getGame().activeColumnMarker( 
+            Math.floor(this.getGame().getDimensions().piecesX / 2)
+        )
+        this.getGame().nextState()
+        
     }
 
     unSelectPiece ( x, y ) {

@@ -20,7 +20,7 @@ $(function () {
   window.addEventListener ( "resize", () => scene.onWindowResize() )
     // Add piece from keyboard
   window.addEventListener ( "keydown", (event) => {
-    const key =  getKeyFromEvent( event )
+    const key =  getKeyFromEvent( event )    
 
     if ( isNaN( key ) ) 
     {
@@ -28,6 +28,15 @@ $(function () {
         case keys.ESC:
           gameController.cancelMove()
         break;
+        case keys.ARROW_RIGHT:
+          gameController.moveRight()
+          break;
+        case keys.ARROW_LEFT:
+          gameController.moveLeft()
+          break;
+        case keys.ENTER:
+          gameController.addPieceAfterMove()
+          break;
       }
     }
     else 

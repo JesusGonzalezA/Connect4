@@ -37,6 +37,8 @@ class Game extends THREE.Object3D {
 
         this.add( piece )
         this.pieces.push( piece )
+
+        this.nextState()
     }
 
     cancelMove () {
@@ -118,9 +120,9 @@ class Game extends THREE.Object3D {
 
     getReferencePiece ( piece ) {
         if ( piece === pieceTypes.PLAYER_1) 
-            return [ this.piecePlayer1.getMesh() ]
+            return this.piecePlayer1
         if ( piece === pieceTypes.PLAYER_2) 
-            return [ this.piecePlayer2.getMesh() ]
+            return this.piecePlayer2
     }
 
     getState() {
@@ -134,6 +136,19 @@ class Game extends THREE.Object3D {
         )
 
         return this.raycaster.intersectObjects( objects )
+    }
+
+    moveLeft () {
+        const x = this.activePiece.position.x
+        const actualColumn = this.board.getColumnFromX( x )
+        let column = actualColumn
+        
+        if ( actualColumn > 0 ) {
+            this.activePiece.position.x -= this.board.getColumnWidth()
+            column--
+        }
+
+        return column 
     }
 
     movePiece ( x, y ) {        
@@ -165,6 +180,19 @@ class Game extends THREE.Object3D {
         return null
     }
 
+    moveRight () {
+        const x = this.activePiece.position.x
+        const actualColumn = this.board.getColumnFromX( x )
+        let column = actualColumn
+
+        if ( actualColumn < (this.controls.board.piecesX - 1) ) {
+            this.activePiece.position.x += this.board.getColumnWidth()
+            column++
+        }
+
+        return column 
+    }
+
     nextPlayer ( player ) {
         this.board.columnMarker.nextPlayer( player )
     }
@@ -174,26 +202,35 @@ class Game extends THREE.Object3D {
             case playerStates.SELECT:
                 this.state = playerStates.MOVE
                 break;
+            case playerStates.MOVE:
+                this.state = playerStates.SELECT
+                break;
         }
     }
 
     selectPiece( x, y, pieceType ){  
-        const objectsToSelect = this.getReferencePiece( pieceType )
+        const objectsToSelect = [ this.getReferencePiece( pieceType ).getMesh() ]
         const intersects      = this.intersect( x, y, objectsToSelect )
         
         if ( intersects.length ) {
-            this.activePiece = intersects[0].object.parent
-            this.activePiece.setSelected( true )
+            this.setActivePiece( intersects[0].object.parent )
             this.nextState()
-
-            this.activePiece.setPosition({
-                x: 0, 
-                y: this.board.getBoardHeight() 
-                    + this.controls.piece.width/2 
-                    + this.controls.board.separationPieceMove,
-                z: 0
-            })
+        
+            return Math.floor(this.controls.board.piecesX / 2)
         }
+        return false
+    }
+
+    setActivePiece( piece ) {
+        this.activePiece = piece
+        this.activePiece.setSelected( true )
+        this.activePiece.setPosition({
+            x: 0, 
+            y: this.board.getBoardHeight() 
+                + this.controls.piece.width/2 
+                + this.controls.board.separationPieceMove,
+            z: 0
+        })
     }
 
     resetReferencePieces() {

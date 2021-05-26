@@ -222,7 +222,7 @@ class Board extends THREE.Object3D {
 
     getColumnFromX ( x ) {
         const limitL = - this.getBoardWidth() / 2 
-        const columnWidth = this.controls.board.separationX + this.controls.piece.width
+        const columnWidth = this.getColumnWidth()
         
         // Calculate position from limit left so x is positive
         const diffXfromL = x - limitL
@@ -233,6 +233,10 @@ class Board extends THREE.Object3D {
 
     getColumnMarker () {
         return this.columnMarker
+    }
+
+    getColumnWidth () {
+        return this.controls.board.separationX + this.controls.piece.width
     }
 
     getPosition ( row, column ) {
