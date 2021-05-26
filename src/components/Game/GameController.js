@@ -332,10 +332,6 @@ class GameController {
         
     }
 
-    unSelectPiece ( x, y ) {
-        
-    }
-
 }
 
 export { GameController }
