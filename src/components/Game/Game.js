@@ -298,7 +298,7 @@ class Game extends THREE.Object3D {
         // Sound
         this.animatedPieces.forEach( (object) => {
             const piece = this.pieces[ object.indexPiece ]
-            if ( Math.abs( piece.position.y - object.finalPosition ) < this.controls.piece.width/2 ) {
+            if ( piece !== undefined  && Math.abs( piece.position.y - object.finalPosition ) < this.controls.piece.width/2 ) {
                 this.hitSound.currentTime = 0
                 this.hitSound.play()
                 
