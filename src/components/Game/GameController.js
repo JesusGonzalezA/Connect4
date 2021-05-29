@@ -19,8 +19,10 @@ class GameController {
 
     addPiece ( column ) {
         // Check not possible
-        if ( this.state !== gameStates.PLAYER_1 && this.state !== gameStates.PLAYER_2 ) return;
-        if ( column >= this.boardState[0].length ) return;
+        if ( this.state !== gameStates.PLAYER_1 && this.state !== gameStates.PLAYER_2 ) 
+            return false
+        if ( column >= this.boardState[0].length ) 
+            return false
         
         // Get column
         let columnMarker  = column
@@ -41,14 +43,16 @@ class GameController {
 
         // Update state
         this.nextState()
+
+        return true
     }
 
     addPieceAfterMove () {
         if ( this.getGame().getState() === playerStates.MOVE )
         {
             const column = this.game.getActiveColumn()
-            this.addPiece( column )
-            this.getGame().resetReferencePieces()
+            if ( this.addPiece( column ) )
+                this.getGame().resetReferencePieces()
         }
     }
 
@@ -250,7 +254,6 @@ class GameController {
         
         this.moveArrow( callback )
     }
-
 
     movePiece ( x, y ) {
         if ( this.getGame().getState() !== playerStates.MOVE )
