@@ -17,7 +17,7 @@ class Piece extends THREE.Object3D {
 
         this.createMesh( geometry, this.material )
         this.setPosition( position )
-        this.setRotation( Math.PI/2, 0, 0)
+        this.setRotation( Math.PI/2, 0, 0)    
 
         this.add( this.mesh )
     }

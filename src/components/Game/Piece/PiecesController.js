@@ -65,11 +65,11 @@ class PiecesController {
     }
 
     createRefencePiecePlayer1 ( position ) {
-        return this.pieceGenerator1.createPieceRefence( position )
+        return this.pieceGenerator1.createPieceReference( position )
     }
 
     createRefencePiecePlayer2 ( position ) {
-        return this.pieceGenerator2.createPieceRefence( position )
+        return this.pieceGenerator2.createPieceReference( position )
     }
 
 }

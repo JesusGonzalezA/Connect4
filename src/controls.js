@@ -12,7 +12,7 @@ export const camera = {
         rotateSpeed: 5,
         zoomSpeed: -2,
         panSpeed: 0.5,
-        enabled: false
+        enabled: true
     },
     isHelperVisible: false
 }
@@ -90,4 +90,10 @@ export const menu = {
     buttons: {
         restartId: "btn-restart"
     }
+}
+
+export const table = {
+    width: 60,
+    height: 1,
+    depth: 60
 }

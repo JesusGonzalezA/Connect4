@@ -13,7 +13,6 @@ class ReferencePiece extends Piece {
 
         this.createMesh( geometry, this.material )
         this.setPosition( position )
-        this.setRotation( Math.PI/2, 0, 0)
 
         this.add( this.mesh )
     }

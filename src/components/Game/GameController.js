@@ -32,7 +32,7 @@ class GameController {
         const row    = this.getRow( columnGame )
         if ( row === null ) return
         
-        // Add piece to scene
+        // Add piece to scene        
         this.game.addPiece( this.getPieceType(), row, columnGame )
         this.game.activeColumnMarker( columnMarker )
 

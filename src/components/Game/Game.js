@@ -11,6 +11,7 @@ class Game extends THREE.Object3D {
     constructor ( controls, camera ) {
         super()
 
+        this.raycaster   = new THREE.Raycaster()
         this.camera      = camera
         this.controls    = controls 
         this.pieces      = []
@@ -19,10 +20,9 @@ class Game extends THREE.Object3D {
         
         this.createBoard( this.controls )
         this.piecesController = new PiecesController( this.controls.piece )
-
-        this.raycaster = new THREE.Raycaster()
-        
         this.createReferencePieces()
+
+        this.position.y = controls.board.base.height / 2
     }
 
     activeColumnMarker ( column ) {
@@ -76,10 +76,10 @@ class Game extends THREE.Object3D {
 
     createReferencePieces () {
         const positionArr = this.getPositionReferencePieces() 
-        this.piecePlayer1     = this.piecesController.createPiecePlayer1( 
+        this.piecePlayer1     = this.piecesController.createRefencePiecePlayer1( 
             positionArr[0]
         )
-        this.piecePlayer2     = this.piecesController.createPiecePlayer2( 
+        this.piecePlayer2     = this.piecesController.createRefencePiecePlayer2( 
             positionArr[1]
         )
         this.add( this.piecePlayer1, this.piecePlayer2 )
@@ -250,6 +250,7 @@ class Game extends THREE.Object3D {
             y: this.getPositionYReferencePiece(),
             z: 0
         })
+        this.activePiece.setRotation( Math.PI / 2, 0, 0)
     }
 
     resetReferencePieces() {
@@ -260,6 +261,9 @@ class Game extends THREE.Object3D {
         
         this.piecePlayer1.setSelected( false )
         this.piecePlayer2.setSelected( false )
+
+        this.piecePlayer1.setRotation( 0, 0, 0 )
+        this.piecePlayer2.setRotation( 0, 0, 0 )
     }
 
     restart () {        

@@ -17,7 +17,7 @@ class PieceGenerator {
     }
 
     createPiece ( position ) {
-        const piece = new ReferencePiece( this.geometry, this.material, position )
+        const piece = new Piece( this.geometry, this.material, position )
         piece.initialize() 
 
         return piece
@@ -25,7 +25,7 @@ class PieceGenerator {
 
     createPieceReference ( position ) {
         const piece = new ReferencePiece( this.geometry, this.material, position )
-        piece.initialize() 
+        piece.initialize()
         
         return piece
     }

@@ -3,6 +3,7 @@ import * as THREE from '../vendor/three.module.js'
 import { AxesHelper } from './components/AxesHelper.js'
 import { Camera } from './components/Camera/Camera.js'  
 import { CameraControls } from './components/Camera/CameraControls.js'
+import { Table } from './components/Environment/Table.js'
 import { Game } from './components/Game/Game.js'
 import { LightsController } from './components/Lights/LigthsController.js'
 import { Renderer } from './components/Renderer.js'
@@ -17,6 +18,7 @@ class Scene extends THREE.Scene {
     this.createLights( controls.lights )  
     this.createCamera( controls.camera )  
     this.createAxes( controls.scene.axesHelper )
+    this.createTable( controls.table )
 
     this.createGame( controls.game, this.camera )
 
@@ -65,6 +67,11 @@ class Scene extends THREE.Scene {
       window.innerWidth, 
       window.innerHeight 
     )
+  }
+
+  createTable ( controls ) {
+    this.table = new Table( controls )
+    this.add( this.table )
   }
   
   getAxes () {
