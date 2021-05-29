@@ -1,5 +1,6 @@
 import * as THREE from '../../../vendor/three.module.js'
 import { ThreeBSP } from '../../../vendor/ThreeBSP.js'
+import { textureLoader } from '../../TextureLoader.js'
 import { ColumnMarker } from './ColumnMarker.js'
 
 class Board extends THREE.Object3D {
@@ -161,10 +162,13 @@ class Board extends THREE.Object3D {
     }
 
     createMaterial () {
-        if ( !this.material )
-            this.material = new THREE.MeshLambertMaterial({
-                color: 0xff0000,
-            })
+        
+        this.material = new THREE.MeshMatcapMaterial({
+            matcap: textureLoader.load(
+                this.controls.board.material
+            ),
+            color: 0xff0000
+        })
         return this.material
     }
     

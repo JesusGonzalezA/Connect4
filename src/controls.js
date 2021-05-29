@@ -3,7 +3,7 @@ export const camera = {
     near: 0.1,
     far: 200,
     position: {
-        x: 0, y: 20, z: 80
+        x: 0, y: 40, z: 100
     },
     look: {
         x: 0, y: 20, z: 0
@@ -49,7 +49,7 @@ export const scene = {
 export const game = {
     piece: {
         materials: {
-            player1: 'assets/textures/pieces/matcap_yellow.png',
+            player1: 'assets/textures/pieces/matcap_plastic_yellow.jpg',
             player2: 'assets/textures/pieces/matcap_metal.png'
         },
         width: 4,
@@ -75,7 +75,8 @@ export const game = {
         },
         pickable: {
             offset: 1
-        }
+        },
+        material: 'assets/textures/board/matcap_metal.png'
     },
     columnMarker: {
         fontJSON: './assets/fonts/helvetiker_regular.typeface.json',
@@ -95,5 +96,13 @@ export const menu = {
 export const table = {
     width: 60,
     height: 1,
-    depth: 60
+    depth: 60,
+    materials: {
+        map:          'assets/textures/table/WoodFloor043_1K_Color.jpg',
+        occlusion:    'assets/textures/table/WoodFloor043_1K_AmbientOcclusion.jpg',
+        displacement: 'assets/textures/table/WoodFloor043_1K_Displacement.jpg',
+        metalness:    'assets/textures/table/WoodFloor043_1K_Metalness.jpg',
+        normal:       'assets/textures/table/WoodFloor043_1K_Normal.jpg',
+        roughness:    'assets/textures/table/WoodFloor043_1K_Roughness.jpg',    
+    }
 }

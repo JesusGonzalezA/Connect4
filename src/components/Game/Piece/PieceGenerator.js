@@ -1,5 +1,5 @@
 import * as THREE from '../../../../vendor/three.module.js'
-import { TextureLoader } from "../../../TextureLoader.js"
+import { textureLoader } from "../../../TextureLoader.js"
 import { Piece } from './Piece.js'
 import { ReferencePiece } from './ReferencePiece.js'
 
@@ -11,7 +11,6 @@ class PieceGenerator {
     }
     
     createMaterial ( materialURI ) {
-        const textureLoader = TextureLoader.getInstance()
         const texture = textureLoader.load( materialURI )
         return new THREE.MeshMatcapMaterial({ matcap: texture })
     }
