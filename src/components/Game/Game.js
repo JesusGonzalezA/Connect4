@@ -115,6 +115,10 @@ class Game extends THREE.Object3D {
         return this.pieces
     }
 
+    getBoard () {
+        return this.board
+    }
+
     getCamera() {
         return this.camera
     }
@@ -257,8 +261,11 @@ class Game extends THREE.Object3D {
     setActivePiece( piece ) {
         this.activePiece = piece
         this.activePiece.setSelected( true )
+        const midPiece = Math.floor(this.controls.board.piecesX/2)
+        const x = this.board.getPosition(0, midPiece).x
+        
         this.activePiece.setPosition({
-            x: 0, 
+            x, 
             y: this.getPositionYReferencePiece(),
             z: 0
         })
