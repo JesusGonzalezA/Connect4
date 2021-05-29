@@ -51,7 +51,7 @@ class Game extends THREE.Object3D {
 
     cancelMove () {
         this.resetReferencePieces()
-        this.board.resetColumnMarker()
+        this.board.resetActiveColumnMarker()
         this.state = playerStates.IDLE
     }
 

@@ -1,5 +1,4 @@
 import * as THREE from '../../../vendor/three.module.js'
-import { gameStates } from './states/gameStates.js';
 
 class ColumnMarker extends THREE.Object3D {
 
@@ -75,6 +74,13 @@ class ColumnMarker extends THREE.Object3D {
             this.setTransparent( column, false )
             this.setTransparent( this.active, true )             
             this.active = column 
+        }
+    }
+
+    resetActive() {
+        if ( this.active !== -1 ) {
+            this.setTransparent( this.active, true )
+            this.active = -1   
         }
     }
 

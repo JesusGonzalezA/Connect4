@@ -12,7 +12,7 @@ export const camera = {
         rotateSpeed: 5,
         zoomSpeed: -2,
         panSpeed: 0.5,
-        enabled: true
+        enabled: false
     },
     isHelperVisible: false
 }

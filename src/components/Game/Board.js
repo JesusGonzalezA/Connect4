@@ -262,6 +262,10 @@ class Board extends THREE.Object3D {
         return this.pickableBoard
     }
 
+    resetActiveColumnMarker () {
+        this.getColumnMarker().resetActive()
+    }
+
     resetColumnMarker() {
         this.getColumnMarker().restart()
     }
