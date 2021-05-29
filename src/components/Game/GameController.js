@@ -30,7 +30,7 @@ class GameController {
         
         // Get row
         const row    = this.getRow( columnGame )
-        if ( row === null ) return; 
+        if ( row === null ) return
         
         // Add piece to scene
         this.game.addPiece( this.getPieceType(), row, columnGame )
@@ -38,6 +38,7 @@ class GameController {
 
         // Add piece to board state
         this.addPieceToBoardState( row, columnGame )
+        
         this.lastRow = row 
         this.lastColumn  = columnGame
 
@@ -51,6 +52,7 @@ class GameController {
         if ( this.getGame().getState() === playerStates.MOVE )
         {
             const column = this.game.getActiveColumn()
+            
             if ( this.addPiece( column ) )
                 this.getGame().resetReferencePieces()
         }

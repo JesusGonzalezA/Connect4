@@ -67,7 +67,7 @@ class ColumnMarker extends THREE.Object3D {
     }
 
     nextPlayer () {
-        this.rotation.y += Math.PI        
+        this.rotation.y += Math.PI         
         
         const column = ( this.controls.board.piecesX - this.active ) - 1
         
@@ -81,6 +81,7 @@ class ColumnMarker extends THREE.Object3D {
     restart() {
         this.active = -1
         this.columnMarkers.forEach( (_, index) => this.setTransparent(index, true) )
+        this.rotation.y = 0
     }
 
     setActive ( column ) {        

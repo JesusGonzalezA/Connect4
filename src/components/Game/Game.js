@@ -42,9 +42,9 @@ class Game extends THREE.Object3D {
         
         const piece = this.piecesController.createPiece( pieceType, initialPosition )
         this.createAnimationAddPiece( piece, initialPosition, finalPosition )
+        
         this.add( piece )
-        this.pieces.push( piece )
-
+        this.pieces.push( piece )        
 
         this.state = playerStates.IDLE
     }
@@ -262,12 +262,11 @@ class Game extends THREE.Object3D {
         this.piecePlayer2.setSelected( false )
     }
 
-    restart () {
+    restart () {        
         this.deleteAllPieces()
-        this.rotation.y = 0
 
         // Restart column marker
-        this.board.restart()
+        this.board.restart()        
     }
 
     update () {
