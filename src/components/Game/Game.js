@@ -23,6 +23,10 @@ class Game extends THREE.Object3D {
         this.createReferencePieces()
 
         this.position.y = controls.board.base.height / 2
+
+        // Sound
+        this.animatedPieces = []
+        this.hitSound = new Audio( controls.piece.sound )
     }
 
     activeColumnMarker ( column ) {
@@ -41,10 +45,9 @@ class Game extends THREE.Object3D {
         )
         
         const piece = this.piecesController.createPiece( pieceType, initialPosition )
-        this.createAnimationAddPiece( piece, initialPosition, finalPosition )
-        
-        this.add( piece )
         this.pieces.push( piece )        
+        this.add( piece )
+        this.createAnimationAddPiece( piece, initialPosition, finalPosition )
 
         this.state = playerStates.IDLE
     }
@@ -56,9 +59,17 @@ class Game extends THREE.Object3D {
     }
 
     createAnimationAddPiece( piece, initialPosition, finalPosition ) {
-        const start  = { t: 0 };
+        
+        const object = { 
+            indexPiece: this.pieces.indexOf(piece), 
+            finalPosition: finalPosition.y 
+        }
+        this.animatedPieces.push( object )
+
+        const start  = { t: 0};
         const end    = { t: 1 };
         const length = Math.abs(initialPosition.y - finalPosition.y)
+
         const animation = new TWEEN.Tween(start)
             .to(end, 750)
             .onUpdate( () => {
@@ -67,6 +78,7 @@ class Game extends THREE.Object3D {
             })
             .easing(TWEEN.Easing.Bounce.Out)
             .start()
+            
     }
 
     createBoard ( controls ) {
@@ -275,6 +287,18 @@ class Game extends THREE.Object3D {
 
     update () {
         TWEEN.update()
+
+        // Sound
+        this.animatedPieces.forEach( (object) => {
+            const piece = this.pieces[ object.indexPiece ]
+            if ( Math.abs( piece.position.y - object.finalPosition ) < 1 ) {
+                this.hitSound.currentTime = 0
+                this.hitSound.play()
+                
+                this.animatedPieces.splice(this.animatedPieces.indexOf(object),1)
+            }
+        })
+
         requestAnimationFrame( () => this.update() )
     }
 

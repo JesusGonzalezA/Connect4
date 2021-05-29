@@ -56,7 +56,8 @@ export const game = {
         height: 1,
         holeRadius: 1.5,
         holeHeight: 0.5,
-        segments: 32
+        segments: 32,
+        sound: 'assets/sounds/202546__deraj__drops-and-bounces.wav'
     },
     board: {
         piecesX: 7,
