@@ -14,14 +14,18 @@ class ColumnMarker extends THREE.Object3D {
         const { 
             fontJSON, 
             bevelEnabled, 
-            size 
+            size,
+            opacity,
+            color
         }  = controls.columnMarker
         const { width }  = controls.piece
         const separation = separationX + width
         const options = {
             bevelEnabled,
             size,
-            height: depth
+            height: depth,
+            opacity,
+            color
         }
 
         // Create
@@ -45,7 +49,10 @@ class ColumnMarker extends THREE.Object3D {
                 geometry.center()
                 geometry.translate( initialX + i*separation, 0, 0 )
 
-                const mesh     = new THREE.Mesh(geometry, this.createMaterial())
+                const mesh     = new THREE.Mesh(
+                    geometry, 
+                    this.createMaterial( options.color, options.opacity )
+                )
                 this.add( mesh )
                 this.columnMarkers.push( mesh )
             }
@@ -53,11 +60,11 @@ class ColumnMarker extends THREE.Object3D {
         } )
     }
 
-    createMaterial () {
+    createMaterial ( color, opacity ) {
         return  new THREE.MeshBasicMaterial( {
-            color: 0x0000ff,
+            color,
+            opacity,
             transparent: true,
-            opacity: 0.6
         })
     }
 
@@ -86,7 +93,9 @@ class ColumnMarker extends THREE.Object3D {
 
     restart() {
         this.active = -1
-        this.columnMarkers.forEach( (_, index) => this.setTransparent(index, true) )
+        this.columnMarkers.forEach( (_, index) => {
+            this.setTransparent(index, true) 
+        })
         this.rotation.y = 0
     }
 

@@ -83,7 +83,9 @@ export const game = {
         fontJSON: './assets/fonts/helvetiker_regular.typeface.json',
         separation: 5.5,
         bevelEnabled: false,
-        size: 2
+        size: 2,
+        opacity: 0.3,
+        color: 0x0000ff
     }
 }
 
