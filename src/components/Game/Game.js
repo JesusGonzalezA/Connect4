@@ -1,4 +1,5 @@
 import * as THREE from '../../../vendor/three.module.js'
+import * as TWEEN from '../../../vendor/tween.esm.js'
 
 import { Board } from './Board.js'
 import { playerStates } from './states/playerStates.js'
@@ -28,15 +29,22 @@ class Game extends THREE.Object3D {
         this.board.setActiveColumnMarker( column, true )
     }
 
-    addPiece ( pieceType, row, column ) {
+    addPiece ( pieceType, row, column ) { 
         if ( row === null ) return;
 
         // Add piece
-        const position = this.getPosition( row, column )
-        const piece = this.piecesController.createPiece( pieceType, position )
-
+        const finalPosition   = this.getPosition( row, column )
+        const initialPosition = new THREE.Vector3(
+            finalPosition.x,
+            this.getPositionYReferencePiece(),
+            finalPosition.z
+        )
+        
+        const piece = this.piecesController.createPiece( pieceType, initialPosition )
+        this.createAnimationAddPiece( piece, initialPosition, finalPosition )
         this.add( piece )
         this.pieces.push( piece )
+
 
         this.state = playerStates.IDLE
     }
@@ -45,6 +53,20 @@ class Game extends THREE.Object3D {
         this.resetReferencePieces()
         this.board.resetColumnMarker()
         this.state = playerStates.IDLE
+    }
+
+    createAnimationAddPiece( piece, initialPosition, finalPosition ) {
+        const start  = { t: 0 };
+        const end    = { t: 1 };
+        const length = Math.abs(initialPosition.y - finalPosition.y)
+        const animation = new TWEEN.Tween(start)
+            .to(end, 750)
+            .onUpdate( () => {
+                const y = initialPosition.y - start.t * length
+                piece.position.y = y
+            })
+            .easing(TWEEN.Easing.Bounce.Out)
+            .start()
     }
 
     createBoard ( controls ) {
@@ -116,6 +138,12 @@ class Game extends THREE.Object3D {
                 z: z - separation
             }
         ]
+    }
+
+    getPositionYReferencePiece () {
+        return this.board.getBoardHeight() 
+            + this.controls.piece.width/2 
+            + this.controls.board.separationPieceMove
     }
 
     getReferencePiece ( piece ) {
@@ -219,9 +247,7 @@ class Game extends THREE.Object3D {
         this.activePiece.setSelected( true )
         this.activePiece.setPosition({
             x: 0, 
-            y: this.board.getBoardHeight() 
-                + this.controls.piece.width/2 
-                + this.controls.board.separationPieceMove,
+            y: this.getPositionYReferencePiece(),
             z: 0
         })
     }
@@ -245,7 +271,8 @@ class Game extends THREE.Object3D {
     }
 
     update () {
-
+        TWEEN.update()
+        requestAnimationFrame( () => this.update() )
     }
 
 }

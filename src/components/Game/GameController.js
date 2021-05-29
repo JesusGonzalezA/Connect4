@@ -2,7 +2,6 @@
 import { gameStates } from './states/gameStates.js'
 import { pieceTypes } from './Piece/pieceTypes.js'
 import { playerStates } from './states/playerStates.js'
-import { game } from '../../controls.js'
 
 class GameController {
 
@@ -14,6 +13,8 @@ class GameController {
         
         const { piecesX, piecesY } = this.game.getDimensions()
         this.createBoardState( piecesX, piecesY )
+
+        this.update()
     }
 
     addPiece ( column ) {
@@ -330,6 +331,10 @@ class GameController {
         )
         this.getGame().startMove()
         
+    }
+
+    update() {
+        this.getGame().update()
     }
 
 }
