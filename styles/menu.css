@@ -9,12 +9,13 @@ button {
     margin: 5px;
     background-color: inherit;
     color: white;
+    transition: all .3s ease-out;
 }
 
 button:hover{
     background-color: white;
     color: #011f6ac9;
-    border-color: #011f6ac9;
+    border-color: white;
 }
 
 .flex {
