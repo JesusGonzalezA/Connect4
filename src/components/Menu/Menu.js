@@ -1,18 +1,21 @@
 
 class Menu {
 
-    constructor ( controls, gameController ) {
+    constructor ( sceneDOM, controls, gameController ) {
         
         const { menuId, buttons } = controls
         this.gameController = gameController
-        this.menuDOM = document.getElementById( menuId )
+        
+        this.menuDOM  = document.getElementById( menuId )
+        this.sceneDOM = sceneDOM 
         this.initializeButtons( buttons )
-        this.hide()
+        this.hidden = true
     }
 
     hide () {
         this.hidden = true
-        this.setDisplay("none")
+        this.menuDOM.classList.add("hidden")
+        this.sceneDOM.classList.remove("blurred")
     }
 
     initializeButtons ( buttons ) {
@@ -30,7 +33,8 @@ class Menu {
 
     show () {
         this.hidden = false
-        this.setDisplay("block")
+        this.menuDOM.classList.remove("hidden")
+        this.sceneDOM.classList.add("blurred")
     }
 
     toggleVisibility () {

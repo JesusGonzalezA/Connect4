@@ -1,4 +1,18 @@
 body{
     margin: 0;
     overflow: hidden; 
+    box-sizing: border-box;
+}
+
+.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.blurred {
+    opacity: 0.6;
+}
+
+#WebGL-output {
+    transition:  opacity 0.6s linear;
 }

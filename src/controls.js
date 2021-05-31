@@ -50,6 +50,7 @@ export const lights = {
 
 export const scene = {
     canvasName: '#WebGL-output',
+    id: 'WebGL-output',
     axesHelper: {
         size: 1,
         visible: false

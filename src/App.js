@@ -13,14 +13,17 @@ $(function () {
   const spinner  = new Spinner ( controls.spinner )
   const scene    = new Scene( controls ) 
   const gui      = new GUI( scene, controls ) 
-  const sceneDom = scene.getDom()
+  const canvas   = scene.getDom()
   const gameController = new GameController( scene.getGame(), scene.getCamera() )
-  const menu     = new Menu( controls.menu, gameController )
+  const sceneDOM = document.getElementById( controls.scene.id )
+  const menu     = new Menu( sceneDOM, controls.menu, gameController )
 
   // Listeners
     // Loaded
   document.addEventListener( "rendered", ( event ) => {
     spinner.stop()
+    menu.show()
+    sceneDOM.classList.remove("hidden")    
   }, false )
 
     // Resize
@@ -56,21 +59,21 @@ $(function () {
   })    
 
     // Detect piece selection
-  sceneDom.addEventListener ( "pointerdown", (event) => {
+  canvas.addEventListener ( "pointerdown", (event) => {
     const normalizedCoordinates = normalizeCoordinates( event.clientX, event.clientY )
     gameController.selectPiece( normalizedCoordinates.x, normalizedCoordinates.y )
   })
     // Detect piece move
-  sceneDom.addEventListener( "pointermove", (event) => {
+  canvas.addEventListener( "pointermove", (event) => {
     const normalizedCoordinates = normalizeCoordinates( event.clientX, event.clientY )
     gameController.movePiece( normalizedCoordinates.x, normalizedCoordinates.y )
   })
     // Detect stop piece selection
-  sceneDom.addEventListener ( "pointerup", () => {
+  canvas.addEventListener ( "pointerup", () => {
     gameController.addPieceAfterMove()
   })
     // Detect unselect or add
-  sceneDom.addEventListener("pointerup", () => gameController.endMove() );
+  canvas.addEventListener("pointerup", () => gameController.endMove() );
   
   scene.update()  
 })

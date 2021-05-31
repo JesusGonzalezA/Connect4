@@ -12,15 +12,34 @@
 <body>
 
 <!-- Div which will hold the Output -->
-<div id="WebGL-output">
+<div id="WebGL-output" class="hidden blurred">
 </div>
 
-<div id="menu">
-    <h1>Menu</h1>
-    <button id="btn-restart">Reiniciar</button>
+<div id="menu" class="hidden">
+    <div class="menu-content">
+        <h1>Connect 4</h1>
+        <hr />
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur consequatur quia nam perspiciatis aut excepturi in est. Fugiat necessitatibus accusamus, quod veritatis minima, laudantium sequi ipsam mollitia, reiciendis hic perspiciatis?</p>
+        <button id="btn-restart">Reiniciar</button>
+
+        <!-- <div style="overflow:auto;">
+            <div style="float:right;">
+              <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+              <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+            </div>
+          </div> -->
+          
+        <!-- Circles which indicates the steps of the form: -->
+        <div id="steps">
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+        </div>
+    </div>
 </div>
 
-<div id="spinner">
+<div id="spinner" class="opened">
     <div id="spinner-ball"></div>
     <p>LOADING</p>
 </div>
