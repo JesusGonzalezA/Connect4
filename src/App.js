@@ -23,9 +23,7 @@ $(function () {
     const key =  getKeyFromEvent( event )    
 
     if ( isNaN( key ) ) 
-    {
-      console.log(key );
-      
+    {  
       switch( key ) {
         case 'I':
         case 'i':
