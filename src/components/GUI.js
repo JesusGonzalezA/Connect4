@@ -8,6 +8,7 @@ class GUI extends DATGUI {
         this.controls = controls
         this.scene    = scene
         this.fill()
+        this.hide()
     }
 
     fill() {
