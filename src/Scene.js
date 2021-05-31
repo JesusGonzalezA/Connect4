@@ -41,7 +41,14 @@ class Scene extends THREE.Scene {
   }
 
   createBackground( { urlTextures, extension }) {
-    this.background = new THREE.CubeTextureLoader()
+    const manager = new THREE.LoadingManager()
+    manager.onLoad = () => {
+      if ( this.loaded )
+        document.dispatchEvent( this.onLoadedEvent )
+      this.imagesLoaded = true
+    }
+
+    this.background = new THREE.CubeTextureLoader( manager )
       .setPath( urlTextures )
       .load( [
         'px.' + extension,
@@ -50,7 +57,8 @@ class Scene extends THREE.Scene {
         'ny.' + extension,
         'pz.' + extension,
         'nz.' + extension
-      ] );
+      ] )
+      
   }
   
   createCamera ( controls ) {
@@ -135,10 +143,9 @@ class Scene extends THREE.Scene {
   
   update () {
     this.renderer.render ( this, this.getCamera() )  
-    if ( this.loaded === undefined ){
-      this.loaded = true 
+    if ( this.loaded === undefined && this.imagesLoaded )
       document.dispatchEvent( this.onLoadedEvent )
-    }
+    this.loaded = true
    
     TWEEN.update()
 

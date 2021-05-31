@@ -42,10 +42,10 @@ class GameController {
         
         this.lastRow = row 
         this.lastColumn  = columnGame
+        this.getGame().resetReferencePieces()
 
         // Update state
         this.nextState()
-
         return true
     }
 
@@ -53,9 +53,7 @@ class GameController {
         if ( this.getGame().getState() === playerStates.MOVE )
         {
             const column = this.game.getActiveColumn()
-            
-            if ( this.addPiece( column ) )
-                this.getGame().resetReferencePieces()
+            this.addPiece( column )
         }
     }
 
