@@ -1,29 +1,72 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 
+button {
+    padding: 10px;
+    font-size: inherit;
+    font-family: inherit;
+    border: solid 1px white;
+    border-radius: 10px;
+    margin: 5px;
+    background-color: inherit;
+    color: white;
+}
+
+button:hover{
+    background-color: white;
+    color: #011f6ac9;
+    border-color: #011f6ac9;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1 {
+    display: inline;
+}
+
+h1::after {
+    content: "";
+}
+
+#btn-restart {
+}
+
 #menu {
     position: absolute;
-    display: flex;
     top: 0;
     bottom: 0;
     right: 0;
     left: 0;
-    width: 50%;
-    height: 80%;
+    width: 500px;
+    height: 575px;
     margin: auto;
-    background-color: #011f6ac9;
+    background-color: #011f6a;
     border: solid transparent 1px;
     border-radius: 40px;
     color: white;
     font-family: 'Lato', sans-serif;
     font-size: 20px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
 
     transition:  opacity 0.4s linear;
 }
 
-.menu-content {
-    padding: 40px;
+#menu h2 {
+    margin: 10px;
 }
 
+#menu  li {
+    margin-bottom: 10px;
+}
+
+hr {
+    width: 100%;
+}
 
 /* Hide all steps by default: */
 .tab {
@@ -32,7 +75,7 @@
   
 #steps {
     text-align: center;
-    align-self: end;
+     margin-top: auto;
 }
 
 /* Make circles that indicate the steps of the form: */

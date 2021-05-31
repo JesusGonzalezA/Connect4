@@ -16,18 +16,39 @@
 </div>
 
 <div id="menu" class="hidden">
-    <div class="menu-content">
-        <h1>Connect 4</h1>
+        <div class="flex">
+            <h1>Connect 4</h1> <button id="btn-restart">Reiniciar</button>
+        </div>
         <hr />
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur consequatur quia nam perspiciatis aut excepturi in est. Fugiat necessitatibus accusamus, quod veritatis minima, laudantium sequi ipsam mollitia, reiciendis hic perspiciatis?</p>
-        <button id="btn-restart">Reiniciar</button>
 
-        <!-- <div style="overflow:auto;">
+        <p>
+            🏆 Gana a tu rival uniendo 4 fichas en una misma línea. <br>
+            💻 Optimizado para PC
+        </p>
+
+        <h2>🕹️ Controles</h2>
+        <ul>
+            <li>
+                Mantén pulsada la ficha y muévela por el tablero.<br>
+                Suelta para poner.
+            </li>
+            
+            <li>
+                ⬅️➡️ Flechas de dirección para mover <br> 
+                ▶️  ENTER para poner
+            </li>
+            
+            <li>
+                🔢 Utiliza los números para poner
+            </li>
+        </ul>
+
+        <div style="overflow:none;">
             <div style="float:right;">
-              <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-              <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+              <button type="button" class="hidden" id="prevBtn" onclick="nextPrev(-1)">Anterior</button>
+              <button type="button" id="nextBtn" onclick="nextPrev(1)">Siguiente</button>
             </div>
-          </div> -->
+          </div>
           
         <!-- Circles which indicates the steps of the form: -->
         <div id="steps">
