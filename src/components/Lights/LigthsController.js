@@ -36,8 +36,16 @@ class LightsController {
         const { color, intensity, position } = this.controls.spotLight
 
         const spotLight = new THREE.SpotLight( color, intensity )  
-        spotLight.castShadow = true
         spotLight.position.copy( position )
+
+        //Shadows
+        const { mapSize, near, far } = this.controls.spotLight.shadow
+        
+        spotLight.castShadow = true
+        spotLight.shadow.mapSize.width  = mapSize.width
+        spotLight.shadow.mapSize.height = mapSize.height
+        spotLight.shadow.camera.near = near
+        spotLight.shadow.camera.far  = far
 
         return spotLight
     }

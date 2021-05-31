@@ -1,7 +1,7 @@
 export const camera = {
     fov: 45,
     near: 0.1,
-    far: 200,
+    far: 300,
     position: {
         x: 0, y: 40, z: 100
     },
@@ -31,7 +31,15 @@ export const lights = {
             z: 40
         },
         isHelperVisible: false,
-        isShadowHelperVisible: true
+        isShadowHelperVisible: false,
+        shadow: {
+            mapSize: {
+                width: 1024,
+                height: 1024
+            },
+            near: 1,
+            far: 100
+        }
     },
     ambientLight: {
         color: 0xccddee,

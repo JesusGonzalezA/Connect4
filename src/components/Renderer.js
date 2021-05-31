@@ -10,6 +10,7 @@ class Renderer extends THREE.WebGLRenderer {
 
         // Shadows
         this.shadowMap.enabled = true 
+        this.shadowMap.type    = THREE.PCFSoftShadowMap 
 
         $(canvasName).append( this.domElement )
     }
