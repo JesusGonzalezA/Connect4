@@ -22,7 +22,7 @@ $(function () {
     // Loaded
   document.addEventListener( "rendered", ( event ) => {
     spinner.stop()
-    // menu.show()
+    menu.show()
     sceneDOM.classList.remove("hidden")    
   }, false )
 

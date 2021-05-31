@@ -63,7 +63,7 @@ export const game = {
     piece: {
         materials: {
             player1: 'assets/textures/pieces/matcap_plastic_yellow.jpg',
-            player2: 'assets/textures/pieces/matcap_metal.png'
+            player2: 'assets/textures/pieces/matcap_purple.png'
         },
         width: 4,
         height: 1,
