@@ -16,6 +16,7 @@ class Menu {
         this.hidden = true
         this.menuDOM.classList.add("hidden")
         this.sceneDOM.classList.remove("blurred")
+        $('html,body').css('cursor', 'grab');
     }
 
     initializeButtons ( buttons ) {
@@ -35,6 +36,7 @@ class Menu {
         this.hidden = false
         this.menuDOM.classList.remove("hidden")
         this.sceneDOM.classList.add("blurred")
+        $('html,body').css('cursor', 'auto');
     }
 
     toggleVisibility () {

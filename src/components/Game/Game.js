@@ -48,6 +48,7 @@ class Game extends THREE.Object3D {
         this.pieces.push( piece )        
         this.add( piece )
         this.createAnimationAddPiece( piece, initialPosition, finalPosition )
+        $('html,body').css('cursor', 'grab');
 
         this.state = playerStates.IDLE
     }
@@ -243,6 +244,7 @@ class Game extends THREE.Object3D {
 
     startMove () {
         this.state = playerStates.MOVE
+        $('html,body').css('cursor', 'grabbing');
     }
 
     selectPiece( x, y, pieceType ){  
@@ -251,7 +253,7 @@ class Game extends THREE.Object3D {
         
         if ( intersects.length ) {
             this.setActivePiece( intersects[0].object.parent )
-            this.state = playerStates.MOVE
+            this.startMove()
         
             return Math.floor(this.controls.board.piecesX / 2)
         }
