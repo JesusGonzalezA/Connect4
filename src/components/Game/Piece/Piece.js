@@ -41,7 +41,7 @@ class Piece extends THREE.Object3D {
 
     setSelected( boolean ) {
         this.material.transparent = boolean
-        this.material.opacity     = 0.4
+        this.material.opacity     = 0.8
     }
 
 }

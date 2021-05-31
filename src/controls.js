@@ -29,7 +29,7 @@ export const lights = {
         color: 0xffffff,
         intensity: 0.7,
         position: {
-            x: 20,
+            x: 0,
             y: 40,
             z: 40
         },
@@ -57,7 +57,8 @@ export const scene = {
         size: 1,
         visible: false
     },
-    urlTextures: 'assets/textures/scene/'
+    urlTextures: 'assets/textures/scene/veranda/',
+    extension: 'png'
 }
 
 export const game = {
@@ -98,7 +99,7 @@ export const game = {
         separation: 5.5,
         bevelEnabled: false,
         size: 2,
-        opacity: 0.3,
+        opacity: 0.5,
         color: 0xffffff
     }
 }

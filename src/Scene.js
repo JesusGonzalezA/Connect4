@@ -40,16 +40,16 @@ class Scene extends THREE.Scene {
     this.add( this.axes )  
   }
 
-  createBackground( { urlTextures }) {
+  createBackground( { urlTextures, extension }) {
     this.background = new THREE.CubeTextureLoader()
       .setPath( urlTextures )
       .load( [
-        'px.jpg',
-        'nx.jpg',
-        'py.jpg',
-        'ny.jpg',
-        'pz.jpg',
-        'nz.jpg'
+        'px.' + extension,
+        'nx.' + extension,
+        'py.' + extension,
+        'ny.' + extension,
+        'pz.' + extension,
+        'nz.' + extension
       ] );
   }
   
