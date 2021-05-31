@@ -40,7 +40,7 @@ body, #spinner {
     margin-top: 5px;
     font-family: sans-serif;
     letter-spacing: 3px;
-    font-size: 10px;
+    font-size: 1.1rem;
 }
 
 @keyframes motion {
