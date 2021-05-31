@@ -6,7 +6,9 @@ class Spinner {
     }
 
     stop () {
-        this.element.style.display = "none"
+        document.body.style.backgroundColor = "white"
+        this.element.classList.add("hidden")
+        this.element.classList.remove("opened")
     }
 
 }
