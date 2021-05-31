@@ -1,4 +1,5 @@
 import * as THREE from '../vendor/three.module.js'
+import * as TWEEN from '../vendor/tween.esm.js'
 
 import { AxesHelper } from './components/AxesHelper.js'
 import { Camera } from './components/Camera/Camera.js'  
@@ -124,6 +125,9 @@ class Scene extends THREE.Scene {
       this.loaded = true 
       document.dispatchEvent( this.onLoadedEvent )
     }
+   
+    TWEEN.update()
+
     for ( const object of this.objectsToUpdate )
       object.update()
 

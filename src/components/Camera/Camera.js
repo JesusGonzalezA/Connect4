@@ -1,4 +1,5 @@
 import * as THREE from '../../../vendor/three.module.js'
+import * as TWEEN from '../../../vendor/tween.esm.js'
 
 class Camera extends THREE.PerspectiveCamera {
 
@@ -9,6 +10,7 @@ class Camera extends THREE.PerspectiveCamera {
             near, 
             far, 
             position, 
+            radius,
             look,
             isHelperVisible
         } = controls
@@ -18,11 +20,26 @@ class Camera extends THREE.PerspectiveCamera {
         this.position.copy(position)
         this.setLookAt( look.x, look.y, look.z )
         this.createHelper( isHelperVisible )
+        this.createSpline( position, radius )
     }
 
     createHelper ( isHelperVisible ) {
         this.helper = new THREE.CameraHelper( this )
         this.setHelperVisibility( isHelperVisible )
+    }
+
+    createSpline ( position, radius ) {
+        this.spline12 = new THREE.CatmullRomCurve3([
+            new THREE.Vector3(position.x, position.y, position.z),
+            new THREE.Vector3(radius, position.y, 0),
+            new THREE.Vector3(position.x, position.y, -position.z),
+        ])
+
+        this.spline21 = new THREE.CatmullRomCurve3([
+            new THREE.Vector3(position.x, position.y, -position.z),
+            new THREE.Vector3(-radius, position.y, 0),
+            new THREE.Vector3(position.x, position.y, position.z),
+        ])
     }
 
     getHelper () {
@@ -34,7 +51,21 @@ class Camera extends THREE.PerspectiveCamera {
     }
 
     nextPlayer() {
-        this.position.z *= -1
+        const start  = { t: 0 };
+        const end = { t: 1 };
+
+        const spline = ( this.position.z >= 0 ) 
+            ? this.spline12     // Player 1
+            : this.spline21     // Player 2
+
+        new TWEEN.Tween(start)
+                .to(end, 2250)
+                .onUpdate( () => {
+                    const position = spline.getPointAt( start.t );
+                    this.position.copy( position );
+                })
+                .easing(TWEEN.Easing.Linear.None)
+                .start()
     }
 
     restart() {

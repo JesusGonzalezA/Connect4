@@ -293,8 +293,6 @@ class Game extends THREE.Object3D {
     }
 
     update () {
-        TWEEN.update()
-
         // Sound
         this.animatedPieces.forEach( (object) => {
             const piece = this.pieces[ object.indexPiece ]

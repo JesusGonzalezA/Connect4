@@ -5,6 +5,7 @@ export const camera = {
     position: {
         x: 0, y: 40, z: 100
     },
+    radius: 60,
     look: {
         x: 0, y: 20, z: 0
     },
