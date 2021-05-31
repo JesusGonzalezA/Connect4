@@ -76,6 +76,10 @@ class LightsController {
         })
     }
 
+    setSpotLightPosition ( value ) {
+        this.spotLight.position.copy( value )
+    }
+
     update () {
         if ( this.spotLightHelper.visible )
             this.spotLightHelper.update()        

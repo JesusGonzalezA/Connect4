@@ -18,9 +18,11 @@ class GUI extends DATGUI {
         
         const scene = this.scene 
         const controls = this.controls 
+        const { position : spotPosition } = controls.lights.spotLight
+        const { enabled : controlCamera } = controls.camera.controller
 
         const debug = {
-            scene, controls,
+            scene, spotPosition, controlCamera,
             axesScale: 1, 
             setDebug: () => this.setDebug( true ),
             deactivateDebug: () => this.setDebug( false ),
@@ -31,6 +33,9 @@ class GUI extends DATGUI {
 
         const debugFolder = this.addFolder('Debug')
 
+        debugFolder.add( debug, 'controlCamera' )
+            .name('Control de la cámara')
+            .onChange( () => this.setCameraControls( debug.controlCamera ) )
         debugFolder.add( debug, 'setDebug' ).name('Activar')
         debugFolder.add( debug, 'deactivateDebug' ).name('Desactivar')
 
@@ -47,6 +52,23 @@ class GUI extends DATGUI {
         debugFolder.add( debug, 'toggleAxes').name('Ejes')
         debugFolder.add( debug, 'toggleLightsHelper').name('Luces')
         debugFolder.add( debug, 'toggleCameraHelper').name('Cámara')
+        
+        const spotLightFolder = debugFolder.addFolder('SpotLight')
+        spotLightFolder.add( debug.spotPosition, 'x')
+            .step(1)
+            .onChange( () => {
+                this.setSpotLightPosition( debug.spotPosition )
+            })
+        spotLightFolder.add( debug.spotPosition, 'y')
+            .step(1)
+            .onChange( () => {
+                this.setSpotLightPosition( debug.spotPosition )
+            })
+        spotLightFolder.add( debug.spotPosition, 'z')
+            .step(1)
+            .onChange( () => {
+                this.setSpotLightPosition( debug.spotPosition )
+            })
     }
 
     setAxesVisibility ( value ) {
@@ -58,6 +80,11 @@ class GUI extends DATGUI {
         axesControls.visible = value
         axes.setVisible( value )
     }
+
+    setCameraControls ( value ) {
+        const cameraController = this.scene.getCameraControls()
+        cameraController.enabled = value
+    } 
 
     setCameraHelperVisibility( value ) {
         const camera         = this.scene.getCamera()
@@ -84,6 +111,11 @@ class GUI extends DATGUI {
         lightsController.setHelpersVisibility( value )
         lightsControls.spotLight.isHelperVisible = value
         lightsControls.spotLight.isShadowHelperVisible = value
+    }
+
+    setSpotLightPosition ( value ) {
+        const lightsController = this.scene.getLightsController()
+        lightsController.setSpotLightPosition( value )
     }
 }
 
