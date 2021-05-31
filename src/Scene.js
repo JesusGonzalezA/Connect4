@@ -17,6 +17,7 @@ class Scene extends THREE.Scene {
 
     this.controls = controls
 
+    this.createBackground( controls.scene )
     this.createRenderer( controls.scene.canvasName, controls.renderer )  
     this.createLights( controls.lights )  
     this.createCamera( controls.camera )  
@@ -39,6 +40,19 @@ class Scene extends THREE.Scene {
     this.add( this.axes )  
   }
 
+  createBackground( { urlTextures }) {
+    this.background = new THREE.CubeTextureLoader()
+      .setPath( urlTextures )
+      .load( [
+        'px.jpg',
+        'nx.jpg',
+        'py.jpg',
+        'ny.jpg',
+        'pz.jpg',
+        'nz.jpg'
+      ] );
+  }
+  
   createCamera ( controls ) {
     const aspect = window.innerWidth / window.innerHeight 
 

@@ -13,7 +13,7 @@ $(function () {
   const spinner  = new Spinner ( controls.spinner )
   const scene    = new Scene( controls ) 
   const gui      = new GUI( scene, controls ) 
-  const canvas   = scene.getDom()
+  const canvasDOM   = scene.getDom()
   const gameController = new GameController( scene.getGame(), scene.getCamera() )
   const sceneDOM = document.getElementById( controls.scene.id )
   const menu     = new Menu( sceneDOM, controls.menu, gameController )
@@ -59,24 +59,46 @@ $(function () {
   })    
 
     // Detect piece selection
-  canvas.addEventListener ( "pointerdown", (event) => {
+  canvasDOM.addEventListener ( "pointerdown", (event) => {
     const normalizedCoordinates = normalizeCoordinates( event.clientX, event.clientY )
     gameController.selectPiece( normalizedCoordinates.x, normalizedCoordinates.y )
   })
     // Detect piece move
-  canvas.addEventListener( "pointermove", (event) => {
+  canvasDOM.addEventListener( "pointermove", (event) => {
     const normalizedCoordinates = normalizeCoordinates( event.clientX, event.clientY )
     gameController.movePiece( normalizedCoordinates.x, normalizedCoordinates.y )
   })
     // Detect stop piece selection
-  canvas.addEventListener ( "pointerup", () => {
+  canvasDOM.addEventListener ( "pointerup", () => {
     gameController.addPieceAfterMove()
   })
     // Detect unselect or add
-  canvas.addEventListener("pointerup", () => gameController.endMove() );
+  canvasDOM.addEventListener("pointerup", () => gameController.endMove() );
   
   scene.update()  
-})
+  
+  // Full screen
+  window.addEventListener('dblclick', () =>
+  {
+    const fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement
 
-
-
+    if(!fullscreenElement)
+    {
+      if(document.body.requestFullscreen)
+        document.body.requestFullscreen()
+      else if(document.webkitRequestFullscreen)
+        document.body.webkitRequestFullscreen()
+    } 
+    else
+    {
+        if(document.exitFullscreen)
+        document.exitFullscreen()
+        else if(document.webkitExitFullscreen)
+        document.webkitExitFullscreen()
+      }
+    })
+    
+  })
+    
+    
+    

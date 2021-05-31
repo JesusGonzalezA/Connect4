@@ -56,7 +56,8 @@ export const scene = {
     axesHelper: {
         size: 1,
         visible: false
-    }
+    },
+    urlTextures: 'assets/textures/scene/'
 }
 
 export const game = {
@@ -98,7 +99,7 @@ export const game = {
         bevelEnabled: false,
         size: 2,
         opacity: 0.3,
-        color: 0x0000ff
+        color: 0xffffff
     }
 }
 
