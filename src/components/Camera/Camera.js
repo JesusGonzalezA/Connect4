@@ -21,6 +21,8 @@ class Camera extends THREE.PerspectiveCamera {
         this.setLookAt( look.x, look.y, look.z )
         this.createHelper( isHelperVisible )
         this.createSpline( position, radius )
+
+        this.animating = false
     }
 
     createHelper ( isHelperVisible ) {
@@ -42,6 +44,10 @@ class Camera extends THREE.PerspectiveCamera {
         ])
     }
 
+    getAnimating () {
+        return this.animating
+    }
+
     getHelper () {
         return this.helper
     }
@@ -51,8 +57,9 @@ class Camera extends THREE.PerspectiveCamera {
     }
 
     nextPlayer() {
-        const start  = { t: 0 };
-        const end = { t: 1 };
+        this.animating = true
+        const start    = { t: 0 };
+        const end      = { t: 1 };
 
         const spline = ( this.position.z >= 0 ) 
             ? this.spline12     // Player 1
@@ -65,6 +72,7 @@ class Camera extends THREE.PerspectiveCamera {
                     this.position.copy( position );
                 })
                 .easing(TWEEN.Easing.Linear.None)
+                .onComplete( () => this.animating = false )
                 .start()
     }
 

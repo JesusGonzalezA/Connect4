@@ -19,6 +19,7 @@ class GameController {
 
     addPiece ( column ) {
         // Check not possible
+        if ( this.camera.getAnimating() ) return false
         if ( this.state !== gameStates.PLAYER_1 && this.state !== gameStates.PLAYER_2 ) 
             return false
         if ( column >= this.boardState[0].length ) 
