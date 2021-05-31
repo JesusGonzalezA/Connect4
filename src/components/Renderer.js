@@ -7,6 +7,10 @@ class Renderer extends THREE.WebGLRenderer {
 
         this.setClearColor( new THREE.Color( rendererControls.color ) , 1.0 )
         this.setSize( width, height )
+
+        // Shadows
+        this.shadowMap.enabled = true 
+
         $(canvasName).append( this.domElement )
     }
     

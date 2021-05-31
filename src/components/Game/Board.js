@@ -182,6 +182,7 @@ class Board extends THREE.Object3D {
             - controls.board.base.height / 2,
             0
         )
+        this.base.castShadow = true
     }
 
     createMeshBoard ( controls ) {
@@ -190,6 +191,7 @@ class Board extends THREE.Object3D {
             this.createMaterial()
         )
         this.board.position.set(0,0, -this.getBoardDepth()/2)
+        this.board.castShadow = true
     }
 
     createPickableBoard () {

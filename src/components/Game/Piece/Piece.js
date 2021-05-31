@@ -24,6 +24,7 @@ class Piece extends THREE.Object3D {
 
     createMesh( geometry, material ) {
         this.mesh = new THREE.Mesh( geometry, material )
+        this.mesh.castShadow = true
     }
 
     getMesh() {

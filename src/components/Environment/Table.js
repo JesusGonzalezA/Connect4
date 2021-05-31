@@ -29,7 +29,9 @@ class Table extends THREE.Object3D {
             this.createGeometry( controls ), 
             this.createMaterial( controls )
         )
-        mesh.position.y = -controls.height / 2
+        mesh.position.y    = -controls.height / 2
+        mesh.receiveShadow = true
+
         this.add( mesh )
     }
 

@@ -33,6 +33,7 @@ class LightsController {
         const { color, intensity, position } = this.controls.spotLight
 
         const spotLight = new THREE.SpotLight( color, intensity )  
+        spotLight.castShadow = true
         spotLight.position.copy( position )
 
         return spotLight
