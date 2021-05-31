@@ -27,10 +27,10 @@ export const renderer = {
 export const lights = {
     spotLight: {
         color: 0xffffff,
-        intensity: 0.7,
+        intensity: 0.5,
         position: {
-            x: 0,
-            y: 40,
+            x: -40,
+            y: 50,
             z: 40
         },
         isHelperVisible: false,
@@ -46,7 +46,7 @@ export const lights = {
     },
     ambientLight: {
         color: 0xccddee,
-        intensity: 0.35,
+        intensity: 0.5,
     }
 }
 
