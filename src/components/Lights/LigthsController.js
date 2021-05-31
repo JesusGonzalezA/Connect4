@@ -20,7 +20,10 @@ class LightsController {
         this.spotLightHelper = new THREE.SpotLightHelper( this.spotLight )
         this.spotLightHelper.visible = this.controls.spotLight.isHelperVisible
 
-        this.helpers = [ this.spotLightHelper ]
+        this.spotLightShadowHelper = new THREE.CameraHelper( this.spotLight.shadow.camera )
+        this.spotLightShadowHelper.visible = this.controls.spotLight.isShadowHelperVisible
+
+        this.helpers = [ this.spotLightHelper, this.spotLightShadowHelper ]
     }
 
     createLights () {
@@ -54,16 +57,22 @@ class LightsController {
     getSpotLightHelper () {
         return this.spotLightHelper
     }
+
+    getSpotLightShadowHelper () {
+        return this.spotLightShadowHelper
+    }
     
     setHelpersVisibility ( value ) {
-        this.spotLightHelper.visible = value
+        this.getHelpers().forEach( (helper) => {
+            helper.visible = value
+        })
     }
 
     update () {
-
         if ( this.spotLightHelper.visible )
-            this.spotLightHelper.update()
-            
+            this.spotLightHelper.update()        
+        if ( this.spotLightShadowHelper.visible )
+            this.spotLightShadowHelper.update()
     }
 }
 

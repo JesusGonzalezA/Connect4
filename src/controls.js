@@ -30,7 +30,8 @@ export const lights = {
             y: 40,
             z: 40
         },
-        isHelperVisible: false
+        isHelperVisible: false,
+        isShadowHelperVisible: true
     },
     ambientLight: {
         color: 0xccddee,

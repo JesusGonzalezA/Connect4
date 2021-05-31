@@ -83,6 +83,7 @@ class GUI extends DATGUI {
 
         lightsController.setHelpersVisibility( value )
         lightsControls.spotLight.isHelperVisible = value
+        lightsControls.spotLight.isShadowHelperVisible = value
     }
 }
 
