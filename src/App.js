@@ -6,16 +6,23 @@ import * as controls from './controls.js'
 
 import { Scene } from './Scene.js'
 import { keys } from './helpers/keys.js'
+import { Spinner } from './components/Spinner/Spinner.js'
 
 
 $(function () {
-  const scene = new Scene( controls ) 
+  const spinner  = new Spinner ( controls.spinner )
+  const scene    = new Scene( controls ) 
+  const gui      = new GUI( scene, controls ) 
   const sceneDom = scene.getDom()
   const gameController = new GameController( scene.getGame(), scene.getCamera() )
-  const gui   = new GUI( scene, controls ) 
-  const menu  = new Menu( controls.menu, gameController )
+  const menu     = new Menu( controls.menu, gameController )
 
   // Listeners
+    // Loaded
+  document.addEventListener( "rendered", ( event ) => {
+    spinner.stop()
+  }, false )
+
     // Resize
   window.addEventListener ( "resize", () => scene.onWindowResize() )
     // Add piece from keyboard
@@ -46,7 +53,8 @@ $(function () {
     }
     else 
       gameController.addPiece( Number(getKeyFromEvent(event)) ) 
-  })  
+  })    
+
     // Detect piece selection
   sceneDom.addEventListener ( "pointerdown", (event) => {
     const normalizedCoordinates = normalizeCoordinates( event.clientX, event.clientY )

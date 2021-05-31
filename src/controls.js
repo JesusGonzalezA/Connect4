@@ -18,7 +18,8 @@ export const camera = {
 }
 
 export const renderer = {
-    color: 0xAAAAAA
+    color: 0xAAAAAA,
+    eventOnLoaded: 'rendered'
 }
 
 export const lights = {
@@ -103,6 +104,10 @@ export const menu = {
     buttons: {
         restartId: "btn-restart"
     }
+}
+
+export const spinner = {
+    id: 'spinner'
 }
 
 export const table = {

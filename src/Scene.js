@@ -14,6 +14,8 @@ class Scene extends THREE.Scene {
     
     super()  
 
+    this.controls = controls
+
     this.createRenderer( controls.scene.canvasName, controls.renderer )  
     this.createLights( controls.lights )  
     this.createCamera( controls.camera )  
@@ -27,6 +29,8 @@ class Scene extends THREE.Scene {
       this.getGame(),
       this.getCameraControls()
     ]
+
+    this.onLoadedEvent = new Event( this.controls.renderer.eventOnLoaded )
   }
 
   createAxes ( controls ) {
@@ -113,10 +117,13 @@ class Scene extends THREE.Scene {
   setCameraAspect ( ratio ) {
     this.camera.setCameraAspect( ratio )
   }
-    
+  
   update () {
     this.renderer.render ( this, this.getCamera() )  
-    
+    if ( this.loaded === undefined ){
+      this.loaded = true 
+      document.dispatchEvent( this.onLoadedEvent )
+    }
     for ( const object of this.objectsToUpdate )
       object.update()
 
