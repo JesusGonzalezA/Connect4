@@ -2,6 +2,7 @@ export const camera = {
     fov: 45,
     near: 0.1,
     far: 300,
+    velocity: 2250,
     position: {
         x: 0, y: 40, z: 100
     },

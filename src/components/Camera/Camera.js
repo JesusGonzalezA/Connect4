@@ -12,9 +12,12 @@ class Camera extends THREE.PerspectiveCamera {
             position, 
             radius,
             look,
-            isHelperVisible
+            isHelperVisible,
+            velocity
         } = controls
         super( fov, aspect, near, far )
+
+        this.velocity = velocity
         
         this.initialPosition = position
         this.position.copy(position)
@@ -66,7 +69,7 @@ class Camera extends THREE.PerspectiveCamera {
             : this.spline21     // Player 2
 
         new TWEEN.Tween(start)
-                .to(end, 2250)
+                .to(end, this.velocity)
                 .onUpdate( () => {
                     const position = spline.getPointAt( start.t );
                     this.position.copy( position );
