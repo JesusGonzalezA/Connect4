@@ -40,7 +40,7 @@ $(function () {
           menu.toggleVisibility()
           break;
           
-        case keys.ESC:
+        case keys.CONTROL:
           gameController.cancelMove()
         break;
         case keys.ARROW_RIGHT:
