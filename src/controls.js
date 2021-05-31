@@ -42,7 +42,7 @@ export const scene = {
     canvasName: '#WebGL-output',
     axesHelper: {
         size: 1,
-        visible: true
+        visible: false
     }
 }
 

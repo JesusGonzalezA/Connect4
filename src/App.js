@@ -24,7 +24,14 @@ $(function () {
 
     if ( isNaN( key ) ) 
     {
+      console.log(key );
+      
       switch( key ) {
+        case 'I':
+        case 'i':
+          menu.toggleVisibility()
+          break;
+          
         case keys.ESC:
           gameController.cancelMove()
         break;
