@@ -4,6 +4,7 @@ import * as TWEEN from '../vendor/tween.esm.js'
 import { AxesHelper } from './components/AxesHelper.js'
 import { Camera } from './components/Camera/Camera.js'  
 import { CameraControls } from './components/Camera/CameraControls.js'
+import { ConfettiController } from './components/Confetti/ConfettiController.js'
 import { Table } from './components/Environment/Table.js'
 import { Game } from './components/Game/Game.js'
 import { LightsController } from './components/Lights/LigthsController.js'
@@ -15,9 +16,10 @@ class Scene extends THREE.Scene {
     
     super()  
 
-    this.controls = controls
+    this.controls = controls    
 
     this.createBackground( controls.scene )
+    this.createConfettiController( controls.confetti )
     this.createRenderer( controls.scene.canvasName, controls.renderer )  
     this.createLights( controls.lights )  
     this.createCamera( controls.camera )  
@@ -72,6 +74,10 @@ class Scene extends THREE.Scene {
     )
 
     this.add( this.camera.getHelper() )
+  }
+
+  createConfettiController( controls ) {
+    this.confettiController = new ConfettiController( controls )
   }
 
   createGame ( controls, camera ) {
@@ -139,6 +145,10 @@ class Scene extends THREE.Scene {
 
   setCameraAspect ( ratio ) {
     this.camera.setCameraAspect( ratio )
+  }
+
+  startConfetti ( winner ) {
+    this.confettiController.start( winner )
   }
   
   update () {

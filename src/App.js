@@ -8,7 +8,6 @@ import { Scene } from './Scene.js'
 import { keys } from './helpers/keys.js'
 import { Spinner } from './components/Spinner/Spinner.js'
 
-
 $(function () {
   const spinner  = new Spinner ( controls.spinner )
   const scene    = new Scene( controls ) 
@@ -17,12 +16,22 @@ $(function () {
   const gameController = new GameController( scene.getGame(), scene.getCamera() )
   const sceneDOM = document.getElementById( controls.scene.id )
   const menu     = new Menu( sceneDOM, controls.menu, gameController )
+  
+  scene.update()
 
   // Listeners
+    // End
+  document.addEventListener( "endGame", (event) => {
+    
+    scene.startConfetti( )
+    menu.showWinner( gameController.getWinner() )
+    
+  }, false )
+
     // Loaded
   document.addEventListener( "rendered", ( event ) => {
     spinner.stop()
-    menu.show()
+    menu.showMenu()
     sceneDOM.classList.remove("hidden")    
   }, false )
 
@@ -37,7 +46,7 @@ $(function () {
       switch( key ) {
         case 'I':
         case 'i':
-          menu.toggleVisibility()
+          menu.toggleVisibilityMenu()
           break;
           
         case keys.CONTROL:
@@ -74,8 +83,6 @@ $(function () {
   })
     // Detect unselect or add
   canvasDOM.addEventListener("pointerup", () => gameController.endMove() );
-  
-  scene.update()  
   
   // Full screen
   window.addEventListener('dblclick', () =>

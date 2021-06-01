@@ -106,8 +106,12 @@ export const game = {
 
 export const menu = {
     menuId: "menu",
+    winnerMenuId: "winnerMenu",
+    winnerId: "winner",
+    winnerPId: "winnerP",
+    tiePId: "tieP",
     buttons: {
-        restartId: "btn-restart"
+        restartClass: "btn-restart"
     }
 }
 
@@ -127,4 +131,50 @@ export const table = {
         normal:       'assets/textures/table/WoodFloor043_1K_Normal.jpg',
         roughness:    'assets/textures/table/WoodFloor043_1K_Roughness.jpg',    
     }
+}
+
+export const confetti = {
+    count: 400,
+    defaults: {
+        origin: { y: 0.7 }
+    },
+    fires: [
+        {
+            particleRatio: 0.25,
+            opts: {
+                spread: 100,
+                startVelocity: 55,
+            }
+        },
+        {
+            particleRatio: 0.2,
+            opts: {
+                spread: 100,
+            }
+        },
+        {
+            particleRatio: 0.35,
+            opts: {
+                spread: 200,
+                decay: 0.91,
+                scalar: 0.8
+            }
+        },
+        {
+            particleRatio: 0.1,
+            opts: {
+                spread: 300,
+                startVelocity: 25,
+                decay: 0.92,
+                scalar: 1.2
+            }
+        },
+        {
+            particleRatio: 0.1,
+            opts: {
+                spread: 200,
+                startVelocity: 45,
+            }
+        },
+    ]
 }

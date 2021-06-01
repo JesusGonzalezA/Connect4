@@ -15,6 +15,7 @@ class GameController {
         this.createBoardState( piecesX, piecesY )
 
         this.update()
+        this.onEndGame = new Event( "endGame" )
     }
 
     addPiece ( column ) {
@@ -293,10 +294,10 @@ class GameController {
                 this.camera.nextPlayer()
                 break;
             case gameStates.END:
-                console.log("Fin")
+                document.dispatchEvent( this.onEndGame )
                 break;
             case gameStates.TIE:
-                console.log("Tie")
+                document.dispatchEvent( this.onEndGame )
                 break;
         }
 

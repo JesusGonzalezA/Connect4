@@ -20,9 +20,24 @@
 <div id="WebGL-output" class="hidden blurred">
 </div>
 
-<div id="menu" class="hidden">
+<div id="winnerMenu" class="menu hidden">
+    <div class="flex">
+        <h1>Connect 4</h1> <button class="btn-restart">Reiniciar</button>
+    </div>
+    <hr />
+
+    <p id="winnerP">
+        🏆 El ganador es <span id="winner"></span>
+    </p>
+
+    <p id="tieP">
+        🤝 Ha habido un empate
+    </p>
+</div>
+
+<div id="menu" class="menu hidden">
         <div class="flex">
-            <h1>Connect 4</h1> <button id="btn-restart">Reiniciar</button>
+            <h1>Connect 4</h1> <button class="btn-restart">Reiniciar</button>
         </div>
         <hr />
 
@@ -73,4 +88,7 @@
 </body>
 <script type="text/javascript" src="./vendor/jquery.js"></script>
 <script type="module" src="./src/App.js"></script>
+<script 
+    src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"
+></script>
 </html>

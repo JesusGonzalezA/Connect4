@@ -9,7 +9,7 @@ button {
     margin: 5px;
     background-color: inherit;
     color: white;
-    transition: all .3s ease-out;
+    transition: background-color 0.3s ease-out;
 }
 
 button:hover{
@@ -32,10 +32,10 @@ h1::after {
     content: "";
 }
 
-#btn-restart {
+.btn-restart {
 }
 
-#menu {
+.menu {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -57,11 +57,11 @@ h1::after {
     transition:  opacity 0.4s linear;
 }
 
-#menu h2 {
+.menu h2 {
     margin: 10px;
 }
 
-#menu  li {
+.menu  li {
     margin-bottom: 10px;
 }
 
