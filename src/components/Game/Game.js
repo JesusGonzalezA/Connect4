@@ -57,6 +57,7 @@ class Game extends THREE.Object3D {
         this.resetReferencePieces()
         this.board.resetActiveColumnMarker()
         this.state = playerStates.IDLE
+        $('html,body').css('cursor', 'grab');
     }
 
     createAnimationAddPiece( piece, initialPosition, finalPosition ) {
