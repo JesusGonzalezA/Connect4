@@ -32,9 +32,13 @@ class Menu {
     }
 
     initializeButtons ( buttons ) {
-        const restartButtons = Array.from( document.getElementsByClassName( buttons.restartId ) )
+        const restartButtons = Array.from( document.getElementsByClassName( buttons.restartClass ) )
+        
         restartButtons.forEach( button => {
-            button.addEventListener('click', () => this.onRestart() )
+            button.addEventListener('click', () => {
+                this.onRestart() 
+                this.hide()
+            })
         })
     } 
 
