@@ -35,6 +35,16 @@ h1::after {
 .btn-restart {
 }
 
+#winnerMenu {
+    height: 300px;
+}
+
+#winnerMenu > p {
+    margin: auto;
+    font-size: 25px;
+    text-align: center;
+}
+
 .menu {
     position: absolute;
     top: 0;
