@@ -109,6 +109,9 @@ export const menu = {
     winnerMenuId: "winnerMenu",
     winnerId: "winner",
     winnerPId: "winnerP",
+    prevButtonId: "prevBtn",
+    nextButtonId: "nextBtn",
+    content: "stepContent",
     tiePId: "tieP",
     buttons: {
         restartClass: "btn-restart"

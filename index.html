@@ -37,46 +37,78 @@
 
 <div id="menu" class="menu hidden">
         <div class="flex">
-            <h1>Connect 4</h1> <button class="btn-restart">Reiniciar</button>
+            <a id="close">❌</a> <h1>Connect 4</h1> <button class="btn-restart">Reiniciar</button>
         </div>
         <hr />
 
-        <p>
-            🏆 Gana a tu rival uniendo 4 fichas en una misma línea. <br>
-            💻 Optimizado para PC
-        </p>
-
-        <h2>🕹️ Controles</h2>
-        ¡Puedes usar los que más te gusten!
-        <ul>
-            <li>
-                👈Mantén pulsada la ficha y muévela por el tablero.<br>
-                Suelta para poner.
-            </li>
+        <div class="stepContent">
+            <p>
+                🏆 Gana a tu rival uniendo 4 fichas en una misma línea. <br>
+                💻 Optimizado para PC
+            </p>
+            <h2>🕹️ Controles</h2>
+            ¡Puedes usar los que más te gusten!
+            <ul>
+                <li>
+                    👈Mantén pulsada la ficha y muévela por el tablero.<br>
+                    Suelta para poner.
+                </li>
             
-            <li>
-                ⬅️➡️ Flechas de dirección para mover <br> 
-                ▶️  ENTER para poner
-            </li>
+                <li>
+                    ⬅️➡️ Flechas de dirección para mover <br><br>
+                    <kbd>ENTER</kbd> para poner 
+                </li>
             
-            <li>
-                🔢 Utiliza los números para poner
-            </li>
-        </ul>
+                <li>
+                    🔢 Utiliza los números para poner
+                </li>
+            </ul>
+        </div>
 
-        <div style="overflow:none;">
-            <div style="float:right;">
-              <button type="button" class="hidden" id="prevBtn" onclick="nextPrev(-1)">Anterior</button>
-              <button type="button" id="nextBtn" onclick="nextPrev(1)">Siguiente</button>
+        <div class="stepContent">
+            <h2>🕹️ Controles avanzados</h2>
+            <ul>
+                <li>
+                    Pulsa <kbd>CTRL</kbd> para cancelar el movimiento
+                </li>
+                <li>
+                    Pulsa <kbd>H</kbd> para ver/ocultar la GUI del modo debug 
+                </li>
+                <li>
+                    Pulsa <kbd>I</kbd> para ver/ocultar el menú
+                </li>
+                <li>
+                    🖥️ ¡¡Haz doble click para jugar a pantalla completa!!
+                </li>
+            </ul>
+        </div>
+        <div class="stepContent">
+            <h2>🧑‍🎨 Autores</h2>
+            <p>
+                Desarrollado por <a href="https://www.linkedin.com/in/jesusgonzalezalvarez/" target="_blank">Jesús González Álvarez</a> y 
+                <a href="https://github.com/Soriano00" target="_blank">Alejandro Soriano Morante</a>
+            </p>
+
+            <h2>📖 Repositorio</h2>
+            <p>
+                Puede acceder al repositorio públicamente <a href="https://github.com/JesusGonzalezA/Connect4" target="_blank">aquí</a>
+            </p>
+        </div>
+
+        <div class="bottom">
+            <div style="overflow:none;display: block;">
+                <div style="text-align:right;">
+                    <button type="button" id="prevBtn">Anterior</button>
+                    <button type="button" id="nextBtn">Siguiente</button>
+                </div>
             </div>
-          </div>
-          
-        <!-- Circles which indicates the steps of the form: -->
-        <div id="steps">
-            <span class="step"></span>
-            <span class="step"></span>
-            <span class="step"></span>
-            <span class="step"></span>
+            
+            <!-- Circles which indicates the steps of the form: -->
+            <div id="steps">
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+            </div>
         </div>
     </div>
 </div>

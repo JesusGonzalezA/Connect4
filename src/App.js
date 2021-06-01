@@ -69,6 +69,9 @@ $(function () {
 
     // Detect piece selection
   canvasDOM.addEventListener ( "pointerdown", (event) => {
+
+    menu.hide()
+
     const normalizedCoordinates = normalizeCoordinates( event.clientX, event.clientY )
     gameController.selectPiece( normalizedCoordinates.x, normalizedCoordinates.y )
   })
