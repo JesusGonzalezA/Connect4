@@ -1,7 +1,9 @@
 # Connect4
 
 Proyecto realizado para la asignatura "Sistemas Gráficos" en la Universidad de Granada. Se trata de un juego 3D: el famoso cuatro en raya.
+
 [Ver versión live](https://jesusgonzaleza.github.io/Connect4/)
+
 ![Demo](doc/demo/demo.gif)
 
 ## Instrucciones
