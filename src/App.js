@@ -92,7 +92,7 @@ $(function () {
   // Full screen
   const fullScreenButton = document.getElementById('full-screen')
   fullScreenButton.addEventListener('click', (e) => {
-    e.preventDefault()
+    document.activeElement.blur()
     const fullscreen = toggleFullScreen()
 
     if ( fullscreen )

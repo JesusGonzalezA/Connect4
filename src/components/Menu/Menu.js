@@ -49,7 +49,8 @@ class Menu {
         const restartButtons = Array.from( document.getElementsByClassName( buttons.restartClass ) )
         
         restartButtons.forEach( button => {
-            button.addEventListener('click', () => {
+            button.addEventListener('click', (e) => {
+                document.activeElement.blur()
                 this.onRestart() 
                 this.hide()
             })
@@ -71,7 +72,7 @@ class Menu {
         this.nextBtn.addEventListener("click", () => this.nextStep() )
 
         document.getElementById('show-menu').onclick = (e) => {
-            e.preventDefault()
+            document.activeElement.blur()
             this.toggleVisibilityMenu()
         }
     }
