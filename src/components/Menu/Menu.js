@@ -1,3 +1,4 @@
+import { gameStates } from "../Game/states/gameStates.js"
 
 class Menu {
 
@@ -46,6 +47,7 @@ class Menu {
         document.getElementById("close").onclick = () => {
             this.hide()
         }
+        
         const restartButtons = Array.from( document.getElementsByClassName( buttons.restartClass ) )
         
         restartButtons.forEach( button => {
@@ -112,6 +114,7 @@ class Menu {
     }
 
     show () {
+        document.getElementById("div-buttons").classList.remove("hidden")
         this.hidden = false
         this.sceneDOM.classList.add("blurred")
         $('html,body').css('cursor', 'auto');
@@ -128,7 +131,9 @@ class Menu {
 
         if ( winner !== null ) {
             
-            this.winnerDOM.innerText = winner
+            this.winnerDOM.innerText = ( winner === gameStates.PLAYER_1 )
+                ? "el jugador 1: 'Amarillas'"
+                : "el jugador 2: 'Moradas'"
             this.winnerPDOM.style.display = "inline-block"
             this.tiePDOM.style.display = "none"
         } else {
