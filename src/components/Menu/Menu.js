@@ -43,7 +43,9 @@ class Menu {
     }
 
     initializeButtons ( buttons ) {
-        document.getElementById("close").onclick = () => this.hide()
+        document.getElementById("close").onclick = () => {
+            this.hide()
+        }
         const restartButtons = Array.from( document.getElementsByClassName( buttons.restartClass ) )
         
         restartButtons.forEach( button => {
@@ -68,7 +70,10 @@ class Menu {
         this.prevBtn.addEventListener("click", () => this.prevStep() )
         this.nextBtn.addEventListener("click", () => this.nextStep() )
 
-        document.getElementById('show-menu').onclick = () => this.toggleVisibilityMenu()
+        document.getElementById('show-menu').onclick = (e) => {
+            e.preventDefault()
+            this.toggleVisibilityMenu()
+        }
     }
 
     onRestart () {        

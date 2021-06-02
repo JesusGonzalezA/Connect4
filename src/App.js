@@ -7,6 +7,7 @@ import * as controls from './controls.js'
 import { Scene } from './Scene.js'
 import { keys } from './helpers/keys.js'
 import { Spinner } from './components/Spinner/Spinner.js'
+import { toggleFullScreen } from './helpers/fullscreen.js'
 
 $(function () {
   const spinner  = new Spinner ( controls.spinner )
@@ -59,7 +60,8 @@ $(function () {
           gameController.moveLeft()
           break;
         case keys.ENTER:
-          gameController.addPieceAfterMove()
+          if ( document.activeElement === document.body )
+            gameController.addPieceAfterMove()
           break;
       }
     }
@@ -88,27 +90,21 @@ $(function () {
   canvasDOM.addEventListener("pointerup", () => gameController.endMove() );
   
   // Full screen
-  window.addEventListener('dblclick', () =>
-  {
-    const fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement
+  const fullScreenButton = document.getElementById('full-screen')
+  fullScreenButton.addEventListener('click', (e) => {
+    e.preventDefault()
+    const fullscreen = toggleFullScreen()
 
-    if(!fullscreenElement)
-    {
-      if(document.body.requestFullscreen)
-        document.body.requestFullscreen()
-      else if(document.webkitRequestFullscreen)
-        document.body.webkitRequestFullscreen()
-    } 
-    else
-    {
-        if(document.exitFullscreen)
-        document.exitFullscreen()
-        else if(document.webkitExitFullscreen)
-        document.webkitExitFullscreen()
-      }
-    })
+    if ( fullscreen )
+      fullScreenButton.innerText = "🖥️ Volver a pantalla"
+    else 
+      fullScreenButton.innerText = "🖥️ Pantalla completa"
     
   })
+
+
+
+}) // jquery
     
     
     

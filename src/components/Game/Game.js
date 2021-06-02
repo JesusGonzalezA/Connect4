@@ -290,6 +290,7 @@ class Game extends THREE.Object3D {
 
     restart () {        
         this.deleteAllPieces()
+        this.resetReferencePieces()
 
         // Restart column marker
         this.board.restart()        
