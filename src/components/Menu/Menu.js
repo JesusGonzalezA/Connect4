@@ -37,6 +37,9 @@ class Menu {
         this.menuDOM.classList.add("hidden")
         this.sceneDOM.classList.remove("blurred")
         $('html,body').css('cursor', 'grab');
+
+        
+        document.getElementById('show-menu').innerText = "ℹ️ Mostrar menú"
     }
 
     initializeButtons ( buttons ) {
@@ -64,6 +67,8 @@ class Menu {
 
         this.prevBtn.addEventListener("click", () => this.prevStep() )
         this.nextBtn.addEventListener("click", () => this.nextStep() )
+
+        document.getElementById('show-menu').onclick = () => this.toggleVisibilityMenu()
     }
 
     onRestart () {        
@@ -109,6 +114,7 @@ class Menu {
     showMenu () {
         this.show()
         this.menuDOM.classList.remove("hidden")
+        document.getElementById('show-menu').innerText = "ℹ️ Cerrar menú"
     }
 
     showWinner ( winner ) {
