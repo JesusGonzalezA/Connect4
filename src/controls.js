@@ -4,9 +4,9 @@ export const camera = {
     far: 300,
     velocity: 2250,
     position: {
-        x: 0, y: 40, z: 100
+        x: 0, y: 40, z: 85
     },
-    radius: 60,
+    radius: 45,
     look: {
         x: 0, y: 20, z: 0
     },
@@ -72,6 +72,7 @@ export const game = {
         holeRadius: 1.5,
         holeHeight: 0.5,
         segments: 32,
+        velocity: 750,
         sound: 'assets/sounds/202546__deraj__drops-and-bounces.wav'
     },
     board: {

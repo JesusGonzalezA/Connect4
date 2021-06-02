@@ -73,7 +73,7 @@ class Game extends THREE.Object3D {
         const length = Math.abs(initialPosition.y - finalPosition.y)
 
         const animation = new TWEEN.Tween(start)
-            .to(end, 750)
+            .to(end, this.controls.piece.velocity)
             .onUpdate( () => {
                 const y = initialPosition.y - start.t * length
                 piece.position.y = y
